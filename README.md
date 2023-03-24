@@ -1,9 +1,12 @@
 # Draylite V0
 
-Version 0 of Draylite platform. 
-An internal tool to manage shipment intelligence for Gateway Logistics.
+Version 0 of Draylite platform: an internal tool to manage shipment intelligence for Gateway Logistics.
 
-## Available Scripts
+## Current Hosting
+
+This app is configured to run in Serverless Cloud. One of the first post-Github-migration orders of business is to solidify the hosting pattern and allow for both local and cloud development.
+
+## Dev Scripts
 
 In the project directory, you can run:
 
