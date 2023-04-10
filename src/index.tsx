@@ -4,6 +4,9 @@ import "./styles/index.css";
 import App from "./components/App";
 import reportWebVitals from "./utils/reportWebVitals";
 
+// require("dotenv").config();  ====> Suuuuper broken. Some issue with serverless and webpack disagreeing about dependencies.
+// This thread has the best info, but none of the workarounds worked. https://github.com/webpack-contrib/css-loader/issues/447
+
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 /* Strict mode causes useEffect hook to fire twice 
 root.render(
