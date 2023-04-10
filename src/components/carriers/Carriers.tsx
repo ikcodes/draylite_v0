@@ -20,6 +20,7 @@ import { Carrier } from "../../utils/types";
 import { CarrierDetailsModal } from "./CarrierDetailsModal";
 import { useParams } from "react-router-dom";
 import { CarrierForm } from "./CarrierForm";
+import { pageStyles } from "../../utils/styles";
 
 export const Carriers = () => {
   let { portId } = useParams();
@@ -98,7 +99,7 @@ export const Carriers = () => {
   //======================
   return (
     <>
-      <Page background='light-1' style={{ minHeight: "calc(100vh - 48px)" }}>
+      <Page background='light-1' style={pageStyles}>
         <PageContent>
           <PageHeader title={`${portName ? `${portName} Carriers` : "Carriers"}`} />
           <Text>

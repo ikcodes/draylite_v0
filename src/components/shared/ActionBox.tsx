@@ -1,19 +1,13 @@
 import { Box, Text } from "grommet";
 import { View, Edit, Trash } from "grommet-icons";
 import { Tooltip } from "./Tooltip";
+import { buttonStyles } from "../../utils/styles";
 
 interface ActionBoxProps {
   actionButtonClick: () => void;
   mode: "view" | "edit" | "delete";
   toolTipText: string;
 }
-
-const buttonStyles = {
-  background: "#efefef",
-  borderRadius: "20%",
-  cursor: "pointer",
-  padding: 10,
-};
 
 export const ActionBox = (props: ActionBoxProps) => (
   <Box align='center' pad={"none"} width='xxsmall'>

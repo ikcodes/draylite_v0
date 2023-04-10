@@ -3,6 +3,7 @@ import { Page, PageContent, Text, PageHeader } from "grommet";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../utils/utils";
 import { PortsTable } from "./PortsTable";
+import { pageStyles } from "../../utils/styles";
 
 export const Ports = () => {
   // Local state
@@ -30,7 +31,7 @@ export const Ports = () => {
   //======================
   return (
     <>
-      <Page background='light-1' style={{ minHeight: "calc(100vh - 48px)" }}>
+      <Page background='light-1' style={pageStyles}>
         <PageContent>
           <PageHeader title='Ports' />
           <Text style={{ marginBottom: 20 }}>

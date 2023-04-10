@@ -1,5 +1,6 @@
 import { Box, Header, Nav, Text, Avatar } from "grommet";
 import { Link } from "react-router-dom";
+import { navDrayliteStyles } from "../../utils/styles";
 
 // Keep for now; you may want later.
 /*
@@ -17,21 +18,16 @@ export const AppNavigation = () => (
       <Link to='/'>
         <Box direction='row'>
           <Box>
-            <Avatar size='medium' src='/favicon.ico' round='large' align='right' />
+            <Avatar
+              size='medium'
+              src='/favicon.ico'
+              round='large'
+              align='right'
+              style={{ marginLeft: 7 }}
+            />
           </Box>
           <Box>
-            <Text
-              style={{
-                color: "white",
-                paddingLeft: 20,
-                paddingTop: 10,
-                fontSize: 20,
-                fontWeight: "bold",
-                letterSpacing: 1,
-              }}
-            >
-              Draylite
-            </Text>
+            <Text style={navDrayliteStyles}>Draylite</Text>
           </Box>
         </Box>
       </Link>

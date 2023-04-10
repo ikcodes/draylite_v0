@@ -28,7 +28,7 @@ export const CarriersTable = (props: CarriersTableProps) => {
         {
           property: "",
           header: "Attributes",
-          render: (datum: Carrier) => (
+          render: (carrier: Carrier) => (
             <Grid
               columns={{
                 count: 3,
@@ -37,13 +37,13 @@ export const CarriersTable = (props: CarriersTableProps) => {
               gap='xxsmall'
               width='xxsmall'
             >
-              {datum.carrier_is_preferred && (
+              {carrier.carrier_is_preferred && (
                 <AttributeButton icon='preferred' text='Carrier Is Preferred' />
               )}
-              {datum.carrier_overweight && (
+              {carrier.carrier_overweight && (
                 <AttributeButton icon='overweight' text='Accepts Overweight Freight' />
               )}
-              {datum.carrier_hazmat && (
+              {carrier.carrier_hazmat && (
                 <AttributeButton icon='hazmat' text='Accepts Hazmat Freight' />
               )}
             </Grid>
@@ -52,7 +52,7 @@ export const CarriersTable = (props: CarriersTableProps) => {
         {
           header: "Actions",
           property: "",
-          render: (datum: Carrier) => (
+          render: (carrier: Carrier) => (
             <Grid
               columns={{
                 count: 3,
@@ -60,14 +60,15 @@ export const CarriersTable = (props: CarriersTableProps) => {
               }}
               gap='xxsmall'
               width='xxsmall'
+              key={carrier.carrier_id}
             >
               <ActionBox
-                actionButtonClick={() => props.viewCarrierContacts(datum.carrier_id)}
+                actionButtonClick={() => props.viewCarrierContacts(carrier.carrier_id)}
                 toolTipText='View Carrier Contats'
                 mode='view'
               />
               <ActionBox
-                actionButtonClick={() => props.editCarrier(datum.carrier_id)}
+                actionButtonClick={() => props.editCarrier(carrier.carrier_id)}
                 toolTipText='Edit This Carrier'
                 mode='edit'
               />
@@ -77,12 +78,12 @@ export const CarriersTable = (props: CarriersTableProps) => {
                 mode='delete'
               />
               <DeleteModal
-                heading={`Delete ${datum.carrier_name}?`}
-                message={`Are you sure you want to delete ${datum.carrier_name}? This action cannot be undone.`}
+                heading={`Delete ${carrier.carrier_name}?`}
+                message={`Are you sure you want to delete ${carrier.carrier_name}? This action cannot be undone.`}
                 visible={isDeleting}
                 closeFunction={() => setIsDeleting(false)}
                 proceedFunction={() => {
-                  props.deleteCarrier(datum.carrier_id);
+                  props.deleteCarrier(carrier.carrier_id);
                   setIsDeleting(false);
                 }}
               />
