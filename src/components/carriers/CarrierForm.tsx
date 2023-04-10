@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TextInput, CheckBox, Button, FormField, Box, Grid } from "grommet";
+import { TextInput, Text, CheckBox, Button, FormField, Box, Heading, Grid } from "grommet";
 import toast from "react-hot-toast";
 import { API_URL } from "../../utils/utils";
 import { Formik, FormikValues } from "formik";
@@ -14,7 +14,7 @@ const blankCarrier = {
 };
 
 export const CarrierForm = (props: CarrierFormProps) => {
-  const { carrier, mode, resetForm } = props;
+  const { carrier, mode, portId, resetForm } = props;
 
   const handleSubmission = (data: FormikValues) => {
     let postData = { ...data };
@@ -22,6 +22,9 @@ export const CarrierForm = (props: CarrierFormProps) => {
     postData["carrier_hazmat"] = postData["carrier_hazmat"] ? 1 : 0;
     postData["carrier_overweight"] = postData["carrier_overweight"] ? 1 : 0;
     postData["carrier_is_preferred"] = postData["carrier_is_preferred"] ? 1 : 0;
+
+    postData["port_id"] = portId; // Hard set this bish
+
     //
     // ADD NEW CARRIER
     // ==================

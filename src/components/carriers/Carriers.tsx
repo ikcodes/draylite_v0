@@ -1,19 +1,37 @@
 import axios from "axios";
-import { Page, PageContent, Button, Text, Box, Heading, Card, PageHeader } from "grommet";
+import {
+  Page,
+  PageContent,
+  Button,
+  Text,
+  Box,
+  Heading,
+  Card,
+  PageHeader,
+  Spinner,
+  Grid,
+} from "grommet";
 import { Add, FormClose } from "grommet-icons";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../utils/utils";
 import toast from "react-hot-toast";
-import { CarrierForm } from "./CarrierForm";
 import { CarriersTable } from "./CarriersTable";
 import { Carrier } from "../../utils/types";
 import { CarrierDetailsModal } from "./CarrierDetailsModal";
+import { useParams } from "react-router-dom";
+import { CarrierForm } from "./CarrierForm";
 
 export const Carriers = () => {
+  let { portId } = useParams();
+  if (!portId) {
+    alert("No port id you fuck. this is broken.");
+  }
   //====================
   // LOCAL STATE
   //====================
   const [mode, setMode] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [portName, setPortName] = useState("");
   const [carriers, setCarriers] = useState([] as Carrier[]);
   const [carrierId, setCarrierId] = useState(0);
 
@@ -38,7 +56,6 @@ export const Carriers = () => {
   };
 
   useEffect(() => {
-    console.log("get");
     getCarriers();
   }, []);
 
@@ -46,14 +63,18 @@ export const Carriers = () => {
   // PAGE MGMT
   //======================
   const getCarriers = () => {
-    axios.get(`${API_URL}/carriers`).then((res) => {
-      res.data.data.map((carrier: any) => {
+    setLoading(true);
+    axios.get(`${API_URL}/carriers/port/${portId}`).then((res) => {
+      res.data.data.carriers.map((carrier: any) => {
         carrier["carrier_is_preferred"] = carrier["carrier_is_preferred"] === 1;
         carrier["carrier_overweight"] = carrier["carrier_overweight"] === 1;
         carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
       });
-      console.log("GOT CARRIERS", res.data.data);
-      setCarriers(res.data.data);
+      if (res.data.data.port.port_name) {
+        setPortName(res.data.data.port.port_name);
+      }
+      setCarriers(res.data.data.carriers);
+      setLoading(false);
     });
   };
 
@@ -77,12 +98,12 @@ export const Carriers = () => {
   //======================
   return (
     <>
-      <Page background='light-1'>
+      <Page background='light-1' style={{ minHeight: "calc(100vh - 48px)" }}>
         <PageContent>
-          <PageHeader title='Carriers' />
+          <PageHeader title={`${portName ? `${portName} Carriers` : "Carriers"}`} />
           <Text>
-            Carriers move containers from Ports to Destinations. They manage any given number of
-            Draymen and are the crux of this platform.
+            Use the table below to view and edit carriers that run freight out of this port. You may
+            also add carriers using the "Add" button below, or remove any carriers as necessary.
           </Text>
 
           {/* ADD CARRIER BUTTON */}
@@ -99,7 +120,6 @@ export const Carriers = () => {
           </Box>
 
           {/* VIEW CONTACTS MODAL */}
-
           {mode === "view-contacts" && (
             <CarrierDetailsModal
               carrier={carriers.find((c) => c.carrier_id == carrierId)}
@@ -122,6 +142,7 @@ export const Carriers = () => {
                 />
                 <CarrierForm
                   carrier={carriers.find((c) => c.carrier_id == carrierId)}
+                  portId={Number(portId)}
                   mode={mode}
                   resetForm={resetForm}
                 />
@@ -130,12 +151,22 @@ export const Carriers = () => {
           )}
 
           <h3>Current List of Carriers</h3>
-          <CarriersTable
-            carriers={carriers}
-            deleteCarrier={deleteCarrier}
-            editCarrier={editCarrier}
-            viewCarrierContacts={viewCarrierContacts}
-          />
+          {loading && (
+            <Grid>
+              <Box align='center' direction='row' gap='small' pad='small'>
+                <Spinner size='medium' />
+                <Text size='medium'>Loading Carriers...</Text>
+              </Box>
+            </Grid>
+          )}
+          {!loading && (
+            <CarriersTable
+              carriers={carriers}
+              deleteCarrier={deleteCarrier}
+              editCarrier={editCarrier}
+              viewCarrierContacts={viewCarrierContacts}
+            />
+          )}
         </PageContent>
       </Page>
     </>

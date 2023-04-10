@@ -1,3 +1,4 @@
+//
 // CARRIER TYPES
 //===============
 
@@ -12,18 +13,11 @@ export interface Carrier {
 
 export interface CarrierFormProps {
   carrier?: Carrier;
-  mode: string;
-  resetForm: any;
-}
-
-export interface CarrierFormPortProps {
-  carrier?: Carrier;
   portId: number;
   mode: string;
   resetForm: any;
 }
 
-//
 //
 // CONTACT TYPES
 //===============
