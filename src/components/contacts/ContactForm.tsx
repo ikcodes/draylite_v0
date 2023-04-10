@@ -14,6 +14,8 @@ export const ContactForm = (props: ContactFormProps) => {
     contact_email: "",
     contact_notes: "",
     carrier_id: carrierId,
+    // Add warehouse here!
+    // warehouse_id
   };
 
   const handleSubmission = (data: FormikValues) => {

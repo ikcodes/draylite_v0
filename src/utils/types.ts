@@ -44,6 +44,32 @@ export interface CarrierDetailsModalProps {
   setParentMode: (mode: string) => void;
 }
 
+//
+// WAREHOUSE TYPES
+//=================
+
+export interface Warehouse {
+  warehouse_id: number;
+  warehouse_name: string;
+  warehouse_hazmat: boolean;
+  warehouse_overweight: boolean;
+  warehouse_is_preferred: boolean;
+  contacts?: Contact[];
+}
+
+export interface WarehouseDetailsModalProps {
+  warehouse?: Warehouse; // can still add without full data
+  getWarehouses: () => void;
+  setParentMode: (mode: string) => void;
+}
+
+export interface WarehouseFormProps {
+  warehouse?: Warehouse;
+  portId: number;
+  mode: string;
+  resetForm: any;
+}
+
 export interface ContactListItemProps {
   contact: Contact;
 }

@@ -17,11 +17,20 @@ export const PortsTable = (props: PortsTableProps) => {
           primary: true,
         },
         {
-          header: "Actions",
+          header: "Carriers",
           property: "",
           render: (datum: any) => (
-            <Link to={`/port/${datum?.port_id}/carriers`} key={datum.carrier_id}>
+            <Link to={`/port/${datum?.port_id}/carriers`} key={"i-think-this-was-wrong"}>
               <Button label={"View Carriers"} primary />
+            </Link>
+          ),
+        },
+        {
+          header: "Warehouses",
+          property: "",
+          render: (datum: any) => (
+            <Link to={`/port/${datum?.port_id}/warehouses`} key={"warehauses"}>
+              <Button label={"View Warehouses"} primary />
             </Link>
           ),
         },

@@ -6,6 +6,7 @@ import { Grommet } from "grommet";
 import { hpe } from "grommet-theme-hpe";
 import { Toaster } from "react-hot-toast";
 import { Ports } from "./ports/Ports";
+import { Warehouses } from "./warehouses/Warehouses";
 
 const App = () => (
   <>
@@ -14,6 +15,7 @@ const App = () => (
         <AppNavigation />
         <Routes>
           <Route path='/port/:portId/carriers' element={<Carriers />} />
+          <Route path='/port/:portId/warehouses' element={<Warehouses />} />
           <Route path='/' element={<Ports />} />
         </Routes>
       </Grommet>
