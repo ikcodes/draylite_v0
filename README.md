@@ -4,7 +4,8 @@ Version 0 of Draylite platform: an internal tool to manage shipment intelligence
 
 ## Current Hosting
 
-This app is configured to run in Serverless Cloud. One of the first post-Github-migration orders of business is to solidify the hosting pattern and allow for both local and cloud development.
+This app is configured to run in Serverless Cloud. Development requires an internet connection. 
+Documentation for Serverless Cloud (soon to become Ampt as of 05.2023) available here: https://www.serverless.com/cloud/docs
 
 ## Dev Scripts
 
