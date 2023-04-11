@@ -4,28 +4,24 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../utils/utils";
 import { PortsTable } from "../components/ports/PortsTable";
 import { pageContentStyles, pageStyles } from "../utils/styles";
+import { useParams } from "react-router-dom";
 
 export const Port = () => {
   // Local state
-  const [ports, setPorts] = useState([] as any[]);
-
-  useEffect(() => {
-    getPorts();
-  }, []);
-
+  const [portData, setPortData] = useState() as any;
   const [portName, setPortName] = useState("Example Port Name");
 
-  const getPorts = () => {
-    const apiUrl = `${API_URL}/ports`;
+  const { portId } = useParams();
+
+  useEffect(() => {
+    getPortData();
+  }, []);
+
+  const getPortData = () => {
+    const apiUrl = `${API_URL}/port/${portId}`;
     axios.get(apiUrl).then((res) => {
-      // Transform if needed...
-      res.data.data.map((port: any) => {
-        // port["carrier_preferred"] = carrier["carrier_preferred"] === 1;
-        // carrier["carrier_overweight"] = carrier["carrier_overweight"] === 1;
-        // carrier["carrier_transload"] = carrier["carrier_transload"] === 1;
-        // carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
-      });
-      setPorts(res.data.data);
+      setPortData(res.data.data);
+      console.log("WE GOT THAT SHIT", res.data);
     });
   };
 
@@ -37,7 +33,6 @@ export const Port = () => {
       <Page background='light-1' style={pageStyles}>
         <PageContent style={pageContentStyles}>
           <PageHeader title={`Port of ${portName}`} />
-          <PortsTable ports={ports} />
         </PageContent>
       </Page>
     </>

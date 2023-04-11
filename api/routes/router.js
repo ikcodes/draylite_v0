@@ -21,11 +21,10 @@ router.get(`${BASE_URL}/health`, (req, res) => {
   });
 });
 
-router.get(`${BASE_URL}/are/you/updating`, (req, res) => {
-  res.json({
-    health: "Yes, I'm updating!",
-  });
-});
+// PORT ROUTING
+//=================
+router.get(`${BASE_URL}/ports`, port.getAllPorts);
+router.get(`${BASE_URL}/port/:id`, port.getPortById);
 
 // CARRIER ROUTING
 //=================
@@ -57,9 +56,5 @@ router.get(`${BASE_URL}/warehouses/:id/contacts`, (req, res) => {
 router.delete(`${BASE_URL}/contacts/:id`, contact.deleteContact);
 router.post(`${BASE_URL}/contacts/create`, contact.addNewContact);
 router.put(`${BASE_URL}/contacts/update/:id`, contact.updateContact);
-
-// PORT ROUTING
-//=================
-router.get(`${BASE_URL}/ports`, port.getAllPorts);
 
 module.exports = router;
