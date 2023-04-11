@@ -1,17 +1,19 @@
 import axios from "axios";
 import { Page, PageContent, Text, PageHeader } from "grommet";
 import { useEffect, useState } from "react";
-import { API_URL } from "../../utils/utils";
-import { PortsTable } from "./PortsTable";
-import { pageStyles } from "../../utils/styles";
+import { API_URL } from "../utils/utils";
+import { PortsTable } from "../components/ports/PortsTable";
+import { pageContentStyles, pageStyles } from "../utils/styles";
 
-export const Ports = () => {
+export const Port = () => {
   // Local state
   const [ports, setPorts] = useState([] as any[]);
 
   useEffect(() => {
     getPorts();
   }, []);
+
+  const [portName, setPortName] = useState("Example Port Name");
 
   const getPorts = () => {
     const apiUrl = `${API_URL}/ports`;
@@ -33,13 +35,8 @@ export const Ports = () => {
   return (
     <>
       <Page background='light-1' style={pageStyles}>
-        <PageContent>
-          <PageHeader title='Ports' />
-          <Text style={{ marginBottom: 20 }}>
-            Select a port to view carriers that service that port. Edit, add, or delete Carriers as
-            necessary.
-          </Text>
-
+        <PageContent style={pageContentStyles}>
+          <PageHeader title={`Port of ${portName}`} />
           <PortsTable ports={ports} />
         </PageContent>
       </Page>

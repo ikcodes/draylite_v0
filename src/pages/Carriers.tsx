@@ -13,16 +13,16 @@ import {
 } from "grommet";
 import { Add, FormClose } from "grommet-icons";
 import { useEffect, useState } from "react";
-import { API_URL } from "../../utils/utils";
+import { API_URL } from "../utils/utils";
 import toast from "react-hot-toast";
-import { WarehousesTable } from "./WarehousesTable";
-import { Warehouse } from "../../utils/types";
-import { WarehouseDetailsModal } from "./WarehouseDetailsModal";
+import { CarriersTable } from "../components/carriers/CarriersTable";
+import { Carrier } from "../utils/types";
+import { CarrierDetailsModal } from "../components/carriers/CarrierDetailsModal";
 import { useParams } from "react-router-dom";
-import { WarehouseForm } from "./Warehouse";
-import { pageStyles } from "../../utils/styles";
+import { CarrierForm } from "../components/carriers/CarrierForm";
+import { pageStyles } from "../utils/styles";
 
-export const Warehouses = () => {
+export const Carriers = () => {
   let { portId } = useParams();
   if (!portId) {
     alert("No port id you fuck. this is broken.");
@@ -33,21 +33,21 @@ export const Warehouses = () => {
   const [mode, setMode] = useState("");
   const [loading, setLoading] = useState(true);
   const [portName, setPortName] = useState("");
-  const [warehouses, setWarehouses] = useState([] as Warehouse[]);
-  const [warehouseId, setWarehouseId] = useState(0);
+  const [carriers, setCarriers] = useState([] as Carrier[]);
+  const [carrierId, setCarrierId] = useState(0);
 
   //====================
   // API FUNCTIONS
   //====================
-  const deleteWarehouse = (warehouseId: number) => {
+  const deleteCarrier = (carrierId: number) => {
     axios
-      .delete(`${API_URL}/warehouses/${warehouseId}`)
+      .delete(`${API_URL}/carriers/${carrierId}`)
       .then((response) => {
         if (response.status !== 200) {
-          toast.error("Problem deleting warehouse - please refresh and try again");
+          toast.error("Problem deleting carrier - please refresh and try again");
           console.log(response.data);
         } else {
-          toast.success("Successfully deleted warehouse!");
+          toast.success("Successfully deleted carrier!");
         }
       })
       .catch(function (error) {
@@ -57,42 +57,42 @@ export const Warehouses = () => {
   };
 
   useEffect(() => {
-    getWarehouses();
+    getCarriers();
   }, []);
 
   //======================
   // PAGE MGMT
   //======================
-  const getWarehouses = () => {
+  const getCarriers = () => {
     setLoading(true);
-    axios.get(`${API_URL}/warehouses/port/${portId}`).then((res) => {
-      res.data.data.warehouses.map((warehouse: any) => {
-        warehouse["warehouse_overweight"] = warehouse["warehouse_overweight"] === 1;
-        warehouse["warehouse_preferred"] = warehouse["warehouse_preferred"] === 1;
-        warehouse["warehouse_transload"] = warehouse["warehouse_transload"] === 1;
-        warehouse["warehouse_hazmat"] = warehouse["warehouse_hazmat"] === 1;
+    axios.get(`${API_URL}/carriers/port/${portId}`).then((res) => {
+      res.data.data.carriers.map((carrier: any) => {
+        carrier["carrier_preferred"] = carrier["carrier_preferred"] === 1;
+        carrier["carrier_overweight"] = carrier["carrier_overweight"] === 1;
+        carrier["carrier_transload"] = carrier["carrier_transload"] === 1;
+        carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
       });
       if (res.data.data.port.port_name) {
         setPortName(res.data.data.port.port_name);
       }
-      setWarehouses(res.data.data.warehouses);
+      setCarriers(res.data.data.carriers);
       setLoading(false);
     });
   };
 
-  const viewWarehouseContacts = (warehouseId: number) => {
-    setWarehouseId(warehouseId);
+  const viewCarrierContacts = (carrierId: number) => {
+    setCarrierId(carrierId);
     setMode("view-contacts");
   };
 
-  const editWarehouse = (warehouseId: number) => {
+  const editCarrier = (carrierId: number) => {
     setMode("edit");
-    setWarehouseId(warehouseId);
+    setCarrierId(carrierId);
   };
 
   const resetForm = () => {
     setMode("");
-    getWarehouses();
+    getCarriers();
   };
 
   //======================
@@ -102,22 +102,22 @@ export const Warehouses = () => {
     <>
       <Page background='light-1' style={pageStyles}>
         <PageContent>
-          <PageHeader title={`${portName ? `${portName} Warehouses` : "Warehouses"}`} />
+          <PageHeader title={`${portName ? `${portName} Carriers` : "Carriers"}`} />
           <Text>
-            Use the table below to view and edit warehouses that run freight out of this port.
+            Use the table below to view and edit carriers that run freight out of this port.
             <br />
-            You may also add warehouses using the "Add" button below, or remove any warehouses as
+            You may also add carriers using the "Add" button below, or remove any carriers as
             necessary.
           </Text>
 
-          {/* ADD WAREHOUSE BUTTON */}
+          {/* ADD CARRIER BUTTON */}
           <Box pad={{ vertical: "medium" }} width='small'>
             <Button
               primary
               icon={<Add />}
-              label='Add Warehouse'
+              label='Add Carrier'
               onClick={() => {
-                setWarehouseId(0);
+                setCarrierId(0);
                 setMode("add");
               }}
             />
@@ -125,9 +125,9 @@ export const Warehouses = () => {
 
           {/* VIEW CONTACTS MODAL */}
           {mode === "view-contacts" && (
-            <WarehouseDetailsModal
-              warehouse={warehouses.find((c) => c.warehouse_id == warehouseId)}
-              getWarehouses={getWarehouses}
+            <CarrierDetailsModal
+              carrier={carriers.find((c) => c.carrier_id == carrierId)}
+              getCarriers={getCarriers}
               setParentMode={setMode}
             />
           )}
@@ -137,15 +137,15 @@ export const Warehouses = () => {
             <Box animation='fadeIn'>
               <Card pad='medium' gap='medium' background='white' style={{ position: "relative" }}>
                 <Heading size='small' margin='none'>
-                  {mode === "edit" ? "Edit" : "Add"} Warehouse
+                  {mode === "edit" ? "Edit" : "Add"} Carrier
                 </Heading>
                 <FormClose
                   onClick={() => resetForm()}
                   cursor='pointer'
                   style={{ position: "absolute", right: 10, top: 10 }}
                 />
-                <WarehouseForm
-                  warehouse={warehouses.find((c) => c.warehouse_id == warehouseId)}
+                <CarrierForm
+                  carrier={carriers.find((c) => c.carrier_id == carrierId)}
                   portId={Number(portId)}
                   mode={mode}
                   resetForm={resetForm}
@@ -154,21 +154,21 @@ export const Warehouses = () => {
             </Box>
           )}
 
-          <h3>Current List of Warehouses</h3>
+          <h3>Current List of Carriers</h3>
           {loading && (
             <Grid>
               <Box align='center' direction='row' gap='small' pad='small'>
                 <Spinner size='medium' />
-                <Text size='medium'>Loading Warehouses...</Text>
+                <Text size='medium'>Loading Carriers...</Text>
               </Box>
             </Grid>
           )}
           {!loading && (
-            <WarehousesTable
-              warehouses={warehouses}
-              deleteWarehouse={deleteWarehouse}
-              editWarehouse={editWarehouse}
-              viewWarehouseContacts={viewWarehouseContacts}
+            <CarriersTable
+              carriers={carriers}
+              deleteCarrier={deleteCarrier}
+              editCarrier={editCarrier}
+              viewCarrierContacts={viewCarrierContacts}
             />
           )}
         </PageContent>
