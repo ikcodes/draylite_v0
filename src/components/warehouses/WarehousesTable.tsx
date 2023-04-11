@@ -31,13 +31,13 @@ export const WarehousesTable = (props: WarehousesTableProps) => {
           render: (warehouse: Warehouse) => (
             <Grid
               columns={{
-                count: 3,
+                count: 4,
                 size: "small",
               }}
               gap='xxsmall'
               width='xxsmall'
             >
-              {warehouse.warehouse_is_preferred && (
+              {warehouse.warehouse_preferred && (
                 <AttributeButton icon='preferred' text='Warehouse Is Preferred' />
               )}
               {warehouse.warehouse_overweight && (
@@ -45,6 +45,9 @@ export const WarehousesTable = (props: WarehousesTableProps) => {
               )}
               {warehouse.warehouse_hazmat && (
                 <AttributeButton icon='hazmat' text='Accepts Hazmat Freight' />
+              )}
+              {warehouse.warehouse_transload && (
+                <AttributeButton icon='transload' text='Accepts Transload Freight' />
               )}
             </Grid>
           ),

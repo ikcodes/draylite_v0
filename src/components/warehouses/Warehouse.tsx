@@ -8,8 +8,9 @@ import { WarehouseFormProps } from "../../utils/types";
 // Initial form values for 'add' mode
 const blankWarehouse = {
   warehouse_name: "",
-  warehouse_is_preferred: true,
-  warehouse_hazmat: true, // these aren't working like the others...
+  warehouse_hazmat: true,
+  warehouse_preferred: true,
+  warehouse_transload: true,
   warehouse_overweight: true,
 };
 
@@ -20,8 +21,9 @@ export const WarehouseForm = (props: WarehouseFormProps) => {
     let postData = { ...data };
     // api / db wants 1/0. all FE stuff is bool.
     postData["warehouse_hazmat"] = postData["warehouse_hazmat"] ? 1 : 0;
+    postData["warehouse_transload"] = postData["warehouse_transload"] ? 1 : 0;
     postData["warehouse_overweight"] = postData["warehouse_overweight"] ? 1 : 0;
-    postData["warehouse_is_preferred"] = postData["warehouse_is_preferred"] ? 1 : 0;
+    postData["warehouse_preferred"] = postData["warehouse_preferred"] ? 1 : 0;
 
     postData["port_id"] = portId; // Hard set this bish
 
@@ -96,8 +98,8 @@ export const WarehouseForm = (props: WarehouseFormProps) => {
           <Grid columns='small'>
             <Box align='start'>
               <CheckBox
-                checked={values.warehouse_is_preferred}
-                name='warehouse_is_preferred'
+                checked={values.warehouse_preferred}
+                name='warehouse_preferred'
                 label='Preferred'
                 onChange={handleChange}
               />
@@ -115,6 +117,14 @@ export const WarehouseForm = (props: WarehouseFormProps) => {
                 checked={values.warehouse_hazmat}
                 name='warehouse_hazmat'
                 label='Hazmat'
+                onChange={handleChange}
+              />
+            </Box>
+            <Box align='start'>
+              <CheckBox
+                checked={values.warehouse_transload}
+                name='warehouse_transload'
+                label='Transload'
                 onChange={handleChange}
               />
             </Box>

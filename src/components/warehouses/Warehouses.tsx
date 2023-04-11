@@ -67,8 +67,9 @@ export const Warehouses = () => {
     setLoading(true);
     axios.get(`${API_URL}/warehouses/port/${portId}`).then((res) => {
       res.data.data.warehouses.map((warehouse: any) => {
-        warehouse["warehouse_is_preferred"] = warehouse["warehouse_is_preferred"] === 1;
         warehouse["warehouse_overweight"] = warehouse["warehouse_overweight"] === 1;
+        warehouse["warehouse_preferred"] = warehouse["warehouse_preferred"] === 1;
+        warehouse["warehouse_transload"] = warehouse["warehouse_transload"] === 1;
         warehouse["warehouse_hazmat"] = warehouse["warehouse_hazmat"] === 1;
       });
       if (res.data.data.port.port_name) {
@@ -103,8 +104,9 @@ export const Warehouses = () => {
         <PageContent>
           <PageHeader title={`${portName ? `${portName} Warehouses` : "Warehouses"}`} />
           <Text>
-            Use the table below to view and edit warehouses that run freight out of this port. You
-            may also add warehouses using the "Add" button below, or remove any warehouses as
+            Use the table below to view and edit warehouses that run freight out of this port.
+            <br />
+            You may also add warehouses using the "Add" button below, or remove any warehouses as
             necessary.
           </Text>
 

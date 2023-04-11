@@ -31,13 +31,13 @@ export const CarriersTable = (props: CarriersTableProps) => {
           render: (carrier: Carrier) => (
             <Grid
               columns={{
-                count: 3,
+                count: 4,
                 size: "small",
               }}
               gap='xxsmall'
               width='xxsmall'
             >
-              {carrier.carrier_is_preferred && (
+              {carrier.carrier_preferred && (
                 <AttributeButton icon='preferred' text='Carrier Is Preferred' />
               )}
               {carrier.carrier_overweight && (
@@ -45,6 +45,9 @@ export const CarriersTable = (props: CarriersTableProps) => {
               )}
               {carrier.carrier_hazmat && (
                 <AttributeButton icon='hazmat' text='Accepts Hazmat Freight' />
+              )}
+              {carrier.carrier_transload && (
+                <AttributeButton icon='transload' text='Accepts Transload Freight' />
               )}
             </Grid>
           ),

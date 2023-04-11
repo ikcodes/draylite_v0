@@ -84,24 +84,25 @@ const getWarehousesByPortId = async (req, res) => {
 
 const addNewWarehouse = async (req, res) => {
   try {
-    if (!req.body.warehouse_name || req.body.warehouse_is_preferred < 0) {
-      errorOut("Must provide a warehouse name AND is_preferred", res);
+    if (!req.body.warehouse_name || req.body.warehouse_preferred < 0) {
+      errorOut("Must provide a warehouse name AND preferred", res);
       return;
     }
 
     // Execute insert w/ params
     const params = [
       req.body.warehouse_name,
-      req.body.warehouse_is_preferred,
+      req.body.warehouse_preferred,
       req.body.warehouse_overweight,
+      req.body.warehouse_transload,
       req.body.warehouse_hazmat,
     ];
 
     // Create the new warehouse and capture its ID
     const newWarehouse = await executeWithParams(
       ` INSERT INTO warehouses
-        (warehouse_name, warehouse_is_preferred, warehouse_overweight, warehouse_hazmat)
-      VALUES (?, ?, ?, ?)`,
+        (warehouse_name, warehouse_preferred, warehouse_overweight, warehouse_transload, warehouse_hazmat)
+      VALUES (?, ?, ?, ?, ?)`,
       params,
       res
     );
@@ -126,25 +127,27 @@ const updateWarehouse = async (req, res) => {
       !warehouse_id ||
       !req.body.warehouse_name ||
       // Is there a better way to do this...?
-      !(req.body.warehouse_is_preferred === 0 || req.body.warehouse_is_preferred === 1)
+      !(req.body.warehouse_preferred === 0 || req.body.warehouse_preferred === 1)
     ) {
-      errorOut("FAIL. Need warehouse_name, warehouse_is_preferred", res);
+      errorOut("FAIL. Need warehouse_name, warehouse_preferred", res);
       return;
     }
 
     // Execute insert w/ params
     const params = [
       req.body.warehouse_name,
-      req.body.warehouse_is_preferred,
+      req.body.warehouse_preferred,
       req.body.warehouse_overweight,
+      req.body.warehouse_transload,
       req.body.warehouse_hazmat,
       warehouse_id,
     ];
     await executeAndRespondWithParams(
       ` UPDATE warehouses 
         SET warehouse_name=?, 
-          warehouse_is_preferred=?,
+          warehouse_preferred=?,
           warehouse_overweight=?,
+          warehouse_transload=?,
           warehouse_hazmat=?
         WHERE warehouse_id=?`,
       params,

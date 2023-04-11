@@ -79,24 +79,25 @@ const getCarriersByPortId = async (req, res) => {
 
 const addNewCarrier = async (req, res) => {
   try {
-    if (!req.body.carrier_name || req.body.carrier_is_preferred < 0) {
-      errorOut("Must provide a carrier name AND is_preferred", res);
+    if (!req.body.carrier_name || req.body.carrier_preferred < 0) {
+      errorOut("Must provide a carrier name AND preferred", res);
       return;
     }
 
     // Execute insert w/ params
     const params = [
       req.body.carrier_name,
-      req.body.carrier_is_preferred,
+      req.body.carrier_preferred,
       req.body.carrier_overweight,
+      req.body.carrier_transload,
       req.body.carrier_hazmat,
     ];
 
     // Create the new carrier and capture its ID
     const newCarrier = await executeWithParams(
       ` INSERT INTO carriers
-        (carrier_name, carrier_is_preferred, carrier_overweight, carrier_hazmat)
-      VALUES (?, ?, ?, ?)`,
+        (carrier_name, carrier_preferred, carrier_overweight, carrier_transload, carrier_hazmat)
+      VALUES (?, ?, ?, ?, ?)`,
       params,
       res
     );
@@ -121,25 +122,27 @@ const updateCarrier = async (req, res) => {
       !carrier_id ||
       !req.body.carrier_name ||
       // Is there a better way to do this...?
-      !(req.body.carrier_is_preferred === 0 || req.body.carrier_is_preferred === 1)
+      !(req.body.carrier_preferred === 0 || req.body.carrier_preferred === 1)
     ) {
-      errorOut("FAIL. Need carrier_name, carrier_is_preferred", res);
+      errorOut("FAIL. Need carrier_name, carrier_preferred", res);
       return;
     }
 
     // Execute insert w/ params
     const params = [
       req.body.carrier_name,
-      req.body.carrier_is_preferred,
+      req.body.carrier_preferred,
       req.body.carrier_overweight,
+      req.body.carrier_transload,
       req.body.carrier_hazmat,
       carrier_id,
     ];
     await executeAndRespondWithParams(
       ` UPDATE carriers 
         SET carrier_name=?, 
-          carrier_is_preferred=?,
+          carrier_preferred=?,
           carrier_overweight=?,
+          carrier_transload=?,
           carrier_hazmat=?
         WHERE carrier_id=?`,
       params,

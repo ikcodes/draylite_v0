@@ -67,8 +67,9 @@ export const Carriers = () => {
     setLoading(true);
     axios.get(`${API_URL}/carriers/port/${portId}`).then((res) => {
       res.data.data.carriers.map((carrier: any) => {
-        carrier["carrier_is_preferred"] = carrier["carrier_is_preferred"] === 1;
+        carrier["carrier_preferred"] = carrier["carrier_preferred"] === 1;
         carrier["carrier_overweight"] = carrier["carrier_overweight"] === 1;
+        carrier["carrier_transload"] = carrier["carrier_transload"] === 1;
         carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
       });
       if (res.data.data.port.port_name) {
@@ -103,8 +104,10 @@ export const Carriers = () => {
         <PageContent>
           <PageHeader title={`${portName ? `${portName} Carriers` : "Carriers"}`} />
           <Text>
-            Use the table below to view and edit carriers that run freight out of this port. You may
-            also add carriers using the "Add" button below, or remove any carriers as necessary.
+            Use the table below to view and edit carriers that run freight out of this port.
+            <br />
+            You may also add carriers using the "Add" button below, or remove any carriers as
+            necessary.
           </Text>
 
           {/* ADD CARRIER BUTTON */}

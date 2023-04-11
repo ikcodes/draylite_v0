@@ -8,8 +8,9 @@ import { CarrierFormProps } from "../../utils/types";
 // Initial form values for 'add' mode
 const blankCarrier = {
   carrier_name: "",
-  carrier_is_preferred: true,
-  carrier_hazmat: true, // these aren't working like the others...
+  carrier_preferred: true,
+  carrier_transload: true,
+  carrier_hazmat: true,
   carrier_overweight: true,
 };
 
@@ -20,8 +21,9 @@ export const CarrierForm = (props: CarrierFormProps) => {
     let postData = { ...data };
     // api / db wants 1/0. all FE stuff is bool.
     postData["carrier_hazmat"] = postData["carrier_hazmat"] ? 1 : 0;
+    postData["carrier_transload"] = postData["carrier_transload"] ? 1 : 0;
     postData["carrier_overweight"] = postData["carrier_overweight"] ? 1 : 0;
-    postData["carrier_is_preferred"] = postData["carrier_is_preferred"] ? 1 : 0;
+    postData["carrier_preferred"] = postData["carrier_preferred"] ? 1 : 0;
 
     postData["port_id"] = portId; // Hard set this bish
 
@@ -92,8 +94,8 @@ export const CarrierForm = (props: CarrierFormProps) => {
           <Grid columns='small'>
             <Box align='start'>
               <CheckBox
-                checked={values.carrier_is_preferred}
-                name='carrier_is_preferred'
+                checked={values.carrier_preferred}
+                name='carrier_preferred'
                 label='Preferred'
                 onChange={handleChange}
               />
@@ -111,6 +113,14 @@ export const CarrierForm = (props: CarrierFormProps) => {
                 checked={values.carrier_hazmat}
                 name='carrier_hazmat'
                 label='Hazmat'
+                onChange={handleChange}
+              />
+            </Box>
+            <Box align='start'>
+              <CheckBox
+                checked={values.carrier_transload}
+                name='carrier_transload'
+                label='Transload'
                 onChange={handleChange}
               />
             </Box>

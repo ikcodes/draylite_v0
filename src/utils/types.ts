@@ -6,8 +6,9 @@ export interface Carrier {
   carrier_id: number;
   carrier_name: string;
   carrier_hazmat: boolean;
+  carrier_transload: boolean;
   carrier_overweight: boolean;
-  carrier_is_preferred: boolean;
+  carrier_preferred: boolean;
   contacts?: Contact[];
 }
 
@@ -52,8 +53,9 @@ export interface Warehouse {
   warehouse_id: number;
   warehouse_name: string;
   warehouse_hazmat: boolean;
+  warehouse_transload: boolean;
   warehouse_overweight: boolean;
-  warehouse_is_preferred: boolean;
+  warehouse_preferred: boolean;
   contacts?: Contact[];
 }
 

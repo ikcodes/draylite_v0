@@ -18,8 +18,9 @@ export const Ports = () => {
     axios.get(apiUrl).then((res) => {
       // Transform if needed...
       res.data.data.map((port: any) => {
-        // port["carrier_is_preferred"] = carrier["carrier_is_preferred"] === 1;
+        // port["carrier_preferred"] = carrier["carrier_preferred"] === 1;
         // carrier["carrier_overweight"] = carrier["carrier_overweight"] === 1;
+        // carrier["carrier_transload"] = carrier["carrier_transload"] === 1;
         // carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
       });
       setPorts(res.data.data);
