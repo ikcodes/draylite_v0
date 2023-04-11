@@ -24,10 +24,12 @@ export const WarehousesTable = (props: WarehousesTableProps) => {
           property: "warehouse_name",
           header: "Name",
           primary: true,
+          size: "1/3",
         },
         {
           property: "",
           header: "Attributes",
+          size: "1/3",
           render: (warehouse: Warehouse) => (
             <Grid
               columns={{
@@ -55,6 +57,7 @@ export const WarehousesTable = (props: WarehousesTableProps) => {
         {
           header: "Actions",
           property: "",
+          size: "1/3",
           render: (warehouse: Warehouse) => (
             <Grid
               columns={{
