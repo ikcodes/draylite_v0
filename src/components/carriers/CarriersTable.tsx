@@ -39,16 +39,16 @@ export const CarriersTable = (props: CarriersTableProps) => {
               gap='xxsmall'
               width='xxsmall'
             >
-              {carrier.carrier_preferred && (
+              {!!carrier.carrier_preferred && (
                 <AttributeButton icon='preferred' text='Carrier Is Preferred' />
               )}
-              {carrier.carrier_overweight && (
+              {!!carrier.carrier_overweight && (
                 <AttributeButton icon='overweight' text='Accepts Overweight Freight' />
               )}
-              {carrier.carrier_hazmat && (
+              {!!carrier.carrier_hazmat && (
                 <AttributeButton icon='hazmat' text='Accepts Hazmat Freight' />
               )}
-              {carrier.carrier_transload && (
+              {!!carrier.carrier_transload && (
                 <AttributeButton icon='transload' text='Accepts Transload Freight' />
               )}
             </Grid>
