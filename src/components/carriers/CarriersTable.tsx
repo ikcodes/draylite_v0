@@ -1,9 +1,11 @@
-import { DataTable, Grid } from "grommet";
+import { Box, Button, DataTable, Grid } from "grommet";
 import { useState } from "react";
 import { Carrier } from "../../utils/types";
 import { ActionBox } from "../shared/ActionBox";
 import { AttributeButton } from "../shared/AttributeButton";
 import { DeleteModal } from "../shared/DeleteModal";
+import { Deliver } from "grommet-icons";
+import { useNavigate } from "react-router-dom";
 
 interface CarriersTableProps {
   carriers: Carrier[];
@@ -13,6 +15,7 @@ interface CarriersTableProps {
 }
 
 export const CarriersTable = (props: CarriersTableProps) => {
+  const navigate = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
 
   return (
@@ -59,6 +62,19 @@ export const CarriersTable = (props: CarriersTableProps) => {
           property: "",
           size: "1/3",
           render: (carrier: Carrier) => (
+            <>
+              <Box direction='row-responsive' justify='between' align='left' gap='medium'>
+                <Box align='middle'>
+                  <Button
+                    // FOR WAREHAUS: Use <MapLocation /> or <Organization />
+                    icon={<Deliver />}
+                    label='View Carrier Page'
+                    onClick={() => navigate(`/carrier/${carrier.carrier_id}`)}
+                    primary
+                  />
+                </Box>
+              </Box>
+              {/*  
             <Grid
               columns={{
                 count: 3,
@@ -68,6 +84,8 @@ export const CarriersTable = (props: CarriersTableProps) => {
               width='xxsmall'
               key={carrier.carrier_id}
             >
+
+
               <ActionBox
                 actionButtonClick={() => props.viewCarrierContacts(carrier.carrier_id)}
                 toolTipText='View Carrier Contats'
@@ -93,7 +111,10 @@ export const CarriersTable = (props: CarriersTableProps) => {
                   setIsDeleting(false);
                 }}
               />
-            </Grid>
+              
+              </Grid>
+            */}
+            </>
           ),
         },
       ]}
