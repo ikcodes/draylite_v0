@@ -29,7 +29,7 @@ export const Port = () => {
         return;
       }
       const data = res.data.data;
-      setPortData(data);
+      setPortData(data.port);
       setPortName(data.port.port_name);
       if (data.carriers) {
         setCarriers(data.carriers);
@@ -72,7 +72,7 @@ export const Port = () => {
           {/* WAREHAUSES CARD */}
           {/*=================*/}
           <h1 style={{ marginLeft: 10, marginTop: 10, marginBottom: 30 }}>Warehouses</h1>
-          <Card pad='medium' gap='small' background='white'>
+          <Card pad='medium' gap='small' background='white' style={{ marginBottom: 60 }}>
             <WarehousesTable
               warehouses={warehouses}
               editWarehouse={(warehouseId: number) => alert("Function not implemented.")}
@@ -80,6 +80,22 @@ export const Port = () => {
               viewWarehouseContacts={(warehouseId: number) => alert("Function not implemented.")}
             />
           </Card>
+
+          {/*==============*/}
+          {/*  PORT INFO   */}
+          {/*==============*/}
+          <div style={{ marginLeft: 10 }}>
+            <h1 style={{ marginTop: 10, marginBottom: 20 }}>Port Info</h1>
+            <ul>
+              <li>
+                <strong>Address:</strong> {portData?.port_address}
+              </li>
+              <li>
+                <strong>Coordinates:</strong> {portData?.port_lat}&deg; N, {portData?.port_lng}&deg;
+                W
+              </li>
+            </ul>
+          </div>
         </PageContent>
       </Page>
     </>
