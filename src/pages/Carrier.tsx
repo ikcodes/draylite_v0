@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Box, Grid, Page, PageContent, PageHeader, Spinner, Text } from "grommet";
 import toast from "react-hot-toast";
 import { API_URL } from "../utils/utils";
@@ -57,6 +57,9 @@ export const Carrier = () => {
   return (
     <Page background='light-1' style={pageStyles}>
       <PageContent>
+        <Link to={`/port/${carrier?.port_id}`} style={{ marginTop: 15 }}>
+          &larr; Back to {carrier?.port_name ? `Port of ${carrier.port_name}` : "Port"}
+        </Link>
         <PageHeader title={carrierName || ``} />
 
         {loading && (
