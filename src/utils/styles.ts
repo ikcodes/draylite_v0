@@ -4,6 +4,7 @@
 
 export const pageStyles = {
   minHeight: "calc(100vh - 72px)",
+  paddingBottom: 60,
 };
 
 // Fix this using this page: https://medium.com/@ttennant/react-inline-styles-and-media-queries-using-a-custom-react-hook-e76fa9ec89f6
@@ -30,6 +31,6 @@ export const navDrayliteStyles = {
   paddingLeft: 15,
   paddingTop: 13,
   fontSize: 20,
-  fontWeight: "bold",
+  fontWeight: 600,
   letterSpacing: 1,
 };

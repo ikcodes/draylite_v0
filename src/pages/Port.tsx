@@ -85,12 +85,12 @@ export const Port = () => {
           {/*  PORT INFO   */}
           {/*==============*/}
           <div style={{ marginLeft: 10 }}>
-            <h1 style={{ marginTop: 10, marginBottom: 20 }}>Port Info</h1>
+            <h1 style={{ marginTop: 10, marginBottom: 30 }}>Port Info</h1>
             <ul>
-              <li>
+              <li style={{ marginBottom: 10 }}>
                 <strong>Address:</strong> {portData?.port_address}
               </li>
-              <li>
+              <li style={{ marginBottom: 10 }}>
                 <strong>Coordinates:</strong> {portData?.port_lat}&deg; N, {portData?.port_lng}&deg;
                 W
               </li>

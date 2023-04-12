@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Box, Button } from "grommet";
+import { Box, Button, Card } from "grommet";
 import { Add, FormClose } from "grommet-icons";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -49,13 +49,13 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
   // CONTACT LIST MARKUP
   //=====================
   return (
-    <Box pad='medium' gap='small' width='xlarge'>
+    <Box pad='small' gap='small' width='xlarge'>
       {/* ==================== */}
       {/*   CONTACTS FOR (x)   */}
       {/* ==================== */}
       <Box direction='row-responsive' justify='between' align='left' gap='medium'>
         <Box>
-          <h2 style={{ marginBottom: 15 }}>Contacts</h2>
+          <h2>Contacts</h2>
         </Box>
         <Box align='middle'>
           <Button
@@ -67,32 +67,34 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
           />
         </Box>
       </Box>
-      {/* ==================== */}
-      {/*   ADD CONTACT FORM   */}
-      {/* ==================== */}
-      {mode === "add" && (
-        <ContactForm mode={"add"} resetForm={resetForm} carrierId={carrier?.carrier_id} />
-      )}
-      <ul style={{ marginTop: 0, paddingLeft: 0, listStyle: "none" }}>
-        {contacts && (
-          <>
-            {contacts.map((con: Contact) => {
-              if (con.contact_id === editingContactId && mode === "edit") {
-                return <ContactForm mode={"edit"} contact={con} resetForm={resetForm} />;
-              } else {
-                return (
-                  <ContactListItem
-                    contact={con}
-                    editContact={editContact}
-                    deleteContact={deleteContact}
-                  />
-                );
-              }
-            })}
-          </>
+      <Card>
+        {/* ==================== */}
+        {/*   ADD CONTACT FORM   */}
+        {/* ==================== */}
+        {mode === "add" && (
+          <ContactForm mode={"add"} resetForm={resetForm} carrierId={carrier?.carrier_id} />
         )}
-        {!contacts?.length && <li>No contacts currently exist for this carrier.</li>}
-      </ul>
+        <ul style={{ marginTop: 0, paddingLeft: 0, listStyle: "none" }}>
+          {contacts && (
+            <>
+              {contacts.map((con: Contact) => {
+                if (con.contact_id === editingContactId && mode === "edit") {
+                  return <ContactForm mode={"edit"} contact={con} resetForm={resetForm} />;
+                } else {
+                  return (
+                    <ContactListItem
+                      contact={con}
+                      editContact={editContact}
+                      deleteContact={deleteContact}
+                    />
+                  );
+                }
+              })}
+            </>
+          )}
+          {!contacts?.length && <li>No contacts currently exist for this carrier.</li>}
+        </ul>
+      </Card>
     </Box>
   );
 };

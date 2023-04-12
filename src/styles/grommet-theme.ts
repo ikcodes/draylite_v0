@@ -4,7 +4,7 @@ const drayliteBlue = "#228BE6";
 export const customTheme = {
   global: {
     font: {
-      family: "Arial",
+      family: "Work Sans, serif",
       size: "16px",
       height: "16px",
     },

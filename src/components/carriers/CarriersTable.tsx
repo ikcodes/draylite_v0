@@ -1,4 +1,4 @@
-import { Box, Button, DataTable, Grid } from "grommet";
+import { Box, Button, DataTable, Grid, Text } from "grommet";
 import { useState } from "react";
 import { Carrier } from "../../utils/types";
 import { ActionBox } from "../shared/ActionBox";
@@ -24,10 +24,11 @@ export const CarriersTable = (props: CarriersTableProps) => {
       data={props.carriers}
       columns={[
         {
-          property: "carrier_name",
+          property: "",
           header: "Name",
           primary: true,
           size: "1/3",
+          render: (carrier: Carrier) => <Text weight={500}>{carrier.carrier_name}</Text>,
         },
         {
           property: "",
