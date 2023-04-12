@@ -1,6 +1,5 @@
 import { Box, Button, DataTable, Grid, Heading, Layer, Text } from "grommet";
 import { Link } from "react-router-dom";
-import { ActionBox } from "../shared/ActionBox";
 
 interface PortsTableProps {
   ports: any[];
@@ -15,6 +14,15 @@ export const PortsTable = (props: PortsTableProps) => {
           property: "port_name",
           header: "Port",
           primary: true,
+        },
+        {
+          header: "",
+          property: "",
+          render: (datum: any) => (
+            <Link to={`/port/${datum?.port_id}`} key={"port-page"}>
+              <Button label={"View Port Page"} primary />
+            </Link>
+          ),
         },
         {
           header: "Carriers",

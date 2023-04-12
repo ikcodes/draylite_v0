@@ -5,7 +5,7 @@ import { AppNavigation } from "./shared/AppNavigation";
 import { Grommet } from "grommet";
 import { hpe } from "grommet-theme-hpe";
 import { Toaster } from "react-hot-toast";
-import { PortsList } from "../pages/PortsList";
+import { Ports } from "../pages/Ports";
 import { Warehouses } from "../pages/Warehouses";
 import { Port } from "../pages/Port";
 import { Carrier } from "../pages/Carrier";
@@ -22,7 +22,7 @@ const App = () => (
           <Route path='/port/:portId/warehouses' element={<Warehouses />} />
           <Route path='/port/:portId' element={<Port />} />
           {/* View all things organized by port */}
-          <Route path='/' element={<PortsList />} />
+          <Route path='/' element={<Ports />} />
         </Routes>
       </Grommet>
       {/* 
