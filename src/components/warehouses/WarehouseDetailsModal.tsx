@@ -110,7 +110,8 @@ export const WarehouseDetailsModal = (props: WarehouseDetailsModalProps) => {
                 if (con.contact_id === editingContactId && mode === "edit") {
                   return <ContactForm mode={"edit"} contact={con} resetForm={resetForm} />;
                 } else {
-                  return <ContactListItem contact={con} />;
+                  // return <ContactListItem contact={con} />;
+                  return <h1>Contacts List Item goes here!</h1>;
                 }
               })}
             </>

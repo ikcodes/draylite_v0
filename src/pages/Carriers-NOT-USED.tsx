@@ -17,10 +17,10 @@ import { API_URL } from "../utils/utils";
 import toast from "react-hot-toast";
 import { CarriersTable } from "../components/carriers/CarriersTable";
 import { Carrier } from "../utils/types";
-import { CarrierDetailsModal } from "../components/carriers/CarrierDetailsModal";
 import { useParams } from "react-router-dom";
 import { CarrierForm } from "../components/carriers/CarrierForm";
 import { pageStyles } from "../utils/styles";
+import { CarrierContactsList } from "../components/carriers/CarrierContactsList";
 
 export const Carriers = () => {
   let { portId } = useParams();
@@ -125,10 +125,10 @@ export const Carriers = () => {
 
           {/* VIEW CONTACTS MODAL */}
           {mode === "view-contacts" && (
-            <CarrierDetailsModal
+            <CarrierContactsList
               carrier={carriers.find((c) => c.carrier_id == carrierId)}
-              getCarriers={getCarriers}
-              setParentMode={setMode}
+              refresh={getCarriers}
+              // setParentMode={setMode}
             />
           )}
 

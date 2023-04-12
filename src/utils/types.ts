@@ -39,10 +39,11 @@ export interface ContactFormProps {
   resetForm: any;
 }
 
-export interface CarrierDetailsModalProps {
-  carrier?: Carrier; // can still add without full data
-  getCarriers: () => void;
-  setParentMode: (mode: string) => void;
+export interface CarrierDetailsProps {
+  // carrier?: Carrier; // can still add without full data
+  carrier: any;
+  contacts?: any;
+  refresh?: () => void;
 }
 
 //
@@ -74,4 +75,6 @@ export interface WarehouseFormProps {
 
 export interface ContactListItemProps {
   contact: Contact;
+  editContact: (contactId: number) => void;
+  deleteContact: (contactId: number) => void;
 }

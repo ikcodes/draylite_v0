@@ -22,7 +22,7 @@ export const ContactForm = (props: ContactFormProps) => {
     let postData = { ...data };
     //
     // ADD CONTACT TO CARRIER
-    // ==================
+    // ========================
     if (mode === "add") {
       axios
         .post(`${API_URL}/contacts/create`, postData)
@@ -109,10 +109,13 @@ export const ContactForm = (props: ContactFormProps) => {
                 value={values.contact_notes}
               />
             </FormField>
-            {/* </Box> */}
-            {/* <Box margin={{ vertical: "medium" }}> */}
-            <Box width='small' pad={{ vertical: "medium" }}>
-              <Button label={"Save Contact"} primary type='submit' />
+            <Box direction='row'>
+              <Box width='small' pad={{ vertical: "medium", right: "medium" }}>
+                <Button label={"Save Contact"} primary type='submit' />
+              </Box>
+              <Box width='small' pad={{ vertical: "medium" }}>
+                <Button label={"Cancel"} secondary onClick={() => resetForm(false)} />
+              </Box>
             </Box>
           </Box>
         </form>

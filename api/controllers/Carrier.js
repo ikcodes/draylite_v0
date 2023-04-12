@@ -31,14 +31,18 @@ const getCarrierById = async (req, res) => {
     // Get base carrier
     const sql = `SELECT * FROM carriers WHERE carrier_id=?`;
     const params = [req.params.id];
-    const carrier = await executeWithParams(sql, params);
+    const carrierData = await executeWithParams(sql, params);
 
     // Get contacts
     const con_sql = `SELECT * FROM contacts WHERE carrier_id=?`;
-    const con_params = [c.carrier_id];
-    carrier["contacts"] = await executeWithParams(con_sql, con_params);
+    const con_params = [req.params.id];
+    const contactsData = await executeWithParams(con_sql, con_params);
 
-    respond(carrier, res);
+    const resData = {
+      carrier: carrierData[0],
+      contacts: contactsData,
+    };
+    respond(resData, res);
   } catch (e) {
     errorOut(e, res);
   }
