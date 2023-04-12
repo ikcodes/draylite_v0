@@ -29,7 +29,11 @@ const getAllCarriers = async (req, res) => {
 const getCarrierById = async (req, res) => {
   try {
     // Get base carrier
-    const sql = `SELECT * FROM carriers WHERE carrier_id=?`;
+    const sql = `SELECT c.*, p.port_id, p.port_name 
+                FROM carriers c 
+                  LEFT JOIN carriers_x_port cxp ON cxp.carrier_id=c.carrier_id
+                  LEFT JOIN ports p ON p.port_id=cxp.port_id
+                WHERE c.carrier_id=?`;
     const params = [req.params.id];
     const carrierData = await executeWithParams(sql, params);
 
