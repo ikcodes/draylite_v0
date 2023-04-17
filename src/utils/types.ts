@@ -14,10 +14,19 @@ export interface Carrier {
 
 export interface CarrierFormProps {
   carrier?: Carrier;
-  portId: number;
+  portId: number | string; // comes in as useParams
   mode: string;
   resetForm: any;
 }
+
+// Initial form values for 'add' mode
+export const blankCarrier = {
+  carrier_name: "",
+  carrier_preferred: true,
+  carrier_transload: true,
+  carrier_hazmat: true,
+  carrier_overweight: true,
+};
 
 //
 // CONTACT TYPES

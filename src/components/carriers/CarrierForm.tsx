@@ -3,16 +3,7 @@ import { TextInput, Text, CheckBox, Button, FormField, Box, Heading, Grid } from
 import toast from "react-hot-toast";
 import { API_URL } from "../../utils/utils";
 import { Formik, FormikValues } from "formik";
-import { CarrierFormProps } from "../../utils/types";
-
-// Initial form values for 'add' mode
-const blankCarrier = {
-  carrier_name: "",
-  carrier_preferred: true,
-  carrier_transload: true,
-  carrier_hazmat: true,
-  carrier_overweight: true,
-};
+import { CarrierFormProps, blankCarrier } from "../../utils/types";
 
 export const CarrierForm = (props: CarrierFormProps) => {
   const { carrier, mode, portId, resetForm } = props;
@@ -25,7 +16,7 @@ export const CarrierForm = (props: CarrierFormProps) => {
     postData["carrier_overweight"] = postData["carrier_overweight"] ? 1 : 0;
     postData["carrier_preferred"] = postData["carrier_preferred"] ? 1 : 0;
 
-    postData["port_id"] = portId; // Hard set this bish
+    postData["port_id"] = portId; // Can be number or string - both work.
 
     //
     // ADD NEW CARRIER

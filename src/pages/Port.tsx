@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Page, PageContent, PageHeader, Card } from "grommet";
+import { Page, PageContent, PageHeader, Card, Box, Heading, Grid, Button } from "grommet";
 import { useEffect, useState } from "react";
 import { API_URL } from "../utils/utils";
 import { pageContentStyles, pageStyles } from "../utils/styles";
@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { CarriersTable } from "../components/carriers/CarriersTable";
 import { WarehousesTable } from "../components/warehouses/WarehousesTable";
+import { CarrierForm } from "../components/carriers/CarrierForm";
+import { Add } from "grommet-icons";
 
 export const Port = () => {
   // Local state
@@ -14,8 +16,9 @@ export const Port = () => {
   const [portData, setPortData] = useState() as any;
   const [carriers, setCarriers] = useState() as any;
   const [warehouses, setWarehouses] = useState() as any;
-
   const { portId } = useParams();
+
+  const [adding, setAdding] = useState(false);
 
   useEffect(() => {
     getPortData();
@@ -40,6 +43,11 @@ export const Port = () => {
     });
   };
 
+  const resetForm = () => {
+    setAdding(false);
+    getPortData();
+  };
+
   //======================
   // MARKUP
   //======================
@@ -50,10 +58,27 @@ export const Port = () => {
           {/*===============*/}
           {/*  PORT OF (x)  */}
           {/*===============*/}
-          <PageHeader title={portName ? `Port of ${portName}` : " "} />
+          <Box align='bottom' direction='row' justify='between'>
+            <Box>
+              <PageHeader title={portName ? `Port of ${portName}` : " "} />
+            </Box>
+            <Box>
+              <Button
+                primary
+                icon={<Add />}
+                label='Add Carrier'
+                onClick={() => {
+                  setAdding(true);
+                }}
+              />
+            </Box>
+          </Box>
           {/* <p style={{ marginTop: 0, marginBottom: 30 }}> */}
           {/* Now viewing all Carriers and Warehouses for {portName}. */}
           {/* </p> */}
+
+          {/* ADD / EDIT CARRIER  */}
+          {adding && portId && <CarrierForm portId={portId} mode='add' resetForm={resetForm} />}
 
           {/*===============*/}
           {/* CARRIERS CARD */}
