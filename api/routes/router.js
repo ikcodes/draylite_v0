@@ -3,6 +3,7 @@
 //====================================
 const warehouse = require("../controllers/Warehouse");
 const document = require("../controllers/Document");
+const comment = require("../controllers/Comment");
 const carrier = require("../controllers/Carrier");
 const contact = require("../controllers/Contact");
 const port = require("../controllers/Port");
@@ -63,5 +64,11 @@ router.put(`${BASE_URL}/contacts/update/:id`, contact.updateContact);
 router.post(`${BASE_URL}/documents`, document.uploadDocument);
 router.get(`${BASE_URL}/documents/:id`, document.getDocument);
 router.get(`${BASE_URL}/carrier/:id/documents`, document.getDocumentsByCarrier);
+
+// COMMENT ROUTING
+//=================
+router.post(`${BASE_URL}/comments`, comment.addComment);
+router.get(`${BASE_URL}/comments/:id`, comment.getComment);
+router.get(`${BASE_URL}/carrier/:id/comments`, comment.getCommentsByCarrier);
 
 module.exports = router;
