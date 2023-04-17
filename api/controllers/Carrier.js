@@ -42,9 +42,16 @@ const getCarrierById = async (req, res) => {
     const con_params = [req.params.id];
     const contactsData = await executeWithParams(con_sql, con_params);
 
+    // Get comments
+    const com_sql = `SELECT * FROM comments WHERE carrier_id=? ORDER BY created_at DESC`;
+    const com_params = [req.params.id];
+    const commentsData = await executeWithParams(com_sql, com_params);
+
+    // Run the jewels
     const resData = {
       carrier: carrierData[0],
       contacts: contactsData,
+      comments: commentsData,
     };
     respond(resData, res);
   } catch (e) {

@@ -7,7 +7,8 @@ import { API_URL } from "../utils/utils";
 import { pageStyles } from "../utils/styles";
 import { CarrierContactsList } from "../components/carriers/CarrierContactsList";
 import { Documents } from "../components/shared/Documents";
-import { Comments } from "../components/shared/Comments";
+import { CommentsForm } from "../components/shared/CommentsForm";
+import { CommentsList } from "../components/shared/CommentsList";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
@@ -21,6 +22,7 @@ export const Carrier = () => {
   const [loading, setLoading] = useState(true);
   const [carrier, setCarrier] = useState() as any;
   const [contacts, setContacts] = useState() as any;
+  const [comments, setComments] = useState() as any;
   const [carrierName, setCarrierName] = useState("");
 
   //===================================================
@@ -38,17 +40,37 @@ export const Carrier = () => {
         return;
       }
       const data = res.data.data;
+
+      // Set base carrier info (shouldn't change unless edited)
       let carrier = data.carrier;
       carrier["carrier_preferred"] = carrier["carrier_preferred"] === 1;
       carrier["carrier_overweight"] = carrier["carrier_overweight"] === 1;
       carrier["carrier_transload"] = carrier["carrier_transload"] === 1;
       carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
       setCarrier(carrier);
+      setCarrierName(data.carrier.carrier_name);
+
+      // Set additional data (separated so we can refresh it without refreshing the whole page)
       if (data.contacts) {
         setContacts(data.contacts);
       }
-      setCarrierName(data.carrier.carrier_name);
+      if (data.comments) {
+        setComments(data.comments);
+      }
       setLoading(false);
+    });
+  };
+
+  const getCarrierComments = () => {
+    axios.get(`${API_URL}/carrier/${carrierId}/comments`).then((res) => {
+      if (!res.data) {
+        toast.error("Unable to load comments...");
+        console.log(res.data);
+        return;
+      }
+      if (res.data.data) {
+        setComments(res.data.data);
+      }
     });
   };
 
@@ -81,7 +103,10 @@ export const Carrier = () => {
             {/* DOCUMENTS LIST / UPLOAD */}
             <Documents carrierId={carrier.carrier_id} />
             <hr />
-            <Comments carrierId={carrier.carrier_id} />
+
+            {/* COMMENTS LIST / ADD */}
+            <CommentsForm carrierId={carrier.carrier_id} fireOnRefresh={getCarrierComments} />
+            <CommentsList comments={comments} />
           </>
         )}
       </PageContent>
