@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import { API_URL } from "../utils/utils";
 import { pageStyles } from "../utils/styles";
 import { CarrierContactsList } from "../components/carriers/CarrierContactsList";
+import { Documents } from "../components/shared/Documents";
+import { Comments } from "../components/shared/Comments";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
@@ -76,9 +78,10 @@ export const Carrier = () => {
             {/* CARRIER CONTACTS LIST  */}
             <CarrierContactsList carrier={carrier} contacts={contacts} refresh={getCarrierData} />
 
-            <h2>Documents go here</h2>
+            {/* DOCUMENTS LIST / UPLOAD */}
+            <Documents carrierId={carrier.carrier_id} />
             <hr />
-            <h2>Comments go here</h2>
+            <Comments carrierId={carrier.carrier_id} />
           </>
         )}
       </PageContent>
