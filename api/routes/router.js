@@ -2,6 +2,7 @@
 // Import models
 //====================================
 const warehouse = require("../controllers/Warehouse");
+const document = require("../controllers/Document");
 const carrier = require("../controllers/Carrier");
 const contact = require("../controllers/Contact");
 const port = require("../controllers/Port");
@@ -56,5 +57,11 @@ router.get(`${BASE_URL}/warehouses/:id/contacts`, (req, res) => {
 router.delete(`${BASE_URL}/contacts/:id`, contact.deleteContact);
 router.post(`${BASE_URL}/contacts/create`, contact.addNewContact);
 router.put(`${BASE_URL}/contacts/update/:id`, contact.updateContact);
+
+// DOCUMENT ROUTING
+//=================
+router.post(`${BASE_URL}/documents`, document.uploadDocument);
+router.get(`${BASE_URL}/documents/:id`, document.getDocument);
+router.get(`${BASE_URL}/carrier/:id/documents`, document.getDocumentsByCarrier);
 
 module.exports = router;
