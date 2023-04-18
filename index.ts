@@ -41,28 +41,24 @@ serverlessApi.use(cors(corsSettings));
 //======================================================
 
 // creates a POST and PUT route at `/upload`
-serverlessApi.upload("/api/v0/upload", async (req, res) => {
-  // This is the type it wants :[ -> e.Request<ParamsDictionary, any, any, QueryString.ParsedQs, Record<string, any>>
+serverlessApi.post("/api/v0/upload", async (req, res) => {
   const { files } = req as any;
-
-  // Always hits this check
   if (!files || !files.length) {
     return res.status(400).send("No files uploaded");
   }
-
-  const path = req.query.path as any;
-  if (!path) {
-    return res.status(400).send("No path provided");
+  if (!req.body.carrier_id) {
+    return res.status(400).send("No carrier_id provided");
   }
+  const carrier_id = req.body.carrier_id;
 
+  // Using the filename and path, upload
   const file = files[0];
-  const writeRes = await storage.write("/", file.buffer, {
-    // const writeRes = await storage.write(path, file.buffer, {  // use interactive path instead of hardcoded
+  const fileName = files[0].originalname;
+  const filePath = `/carrierData/carrier${carrier_id}/${fileName}`;
+  const writeRes = await storage.write(filePath, file.buffer, {
     type: file.mimetype,
   });
-
   return res.send({
-    path,
     writeRes,
     message: "File uploaded successfully",
   });
