@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { API_URL } from "../../utils/utils";
 import { DocumentUpload } from "grommet-icons";
 import { useState } from "react";
-import { ExampleFileUpload } from "../forms/ExampleFileUpload";
 import FormData from "form-data";
 import { createReadStream } from "fs";
 
@@ -32,7 +31,7 @@ export const Documents = (props: DocumentsProps) => {
       formData.append("files", formValues.file[0]);
 
       const form = new FormData();
-      // This is where the error is right now
+      // This is where the error is right now: it needs fs to run createReadStream
       form.append("file[0]", createReadStream(formValues.file[0]));
       form.append("path[0]", "uploads/jpeg1.jpeg");
       console.log("form to post", form);
@@ -73,7 +72,6 @@ export const Documents = (props: DocumentsProps) => {
   return (
     <>
       <h1>Documents</h1>
-      <ExampleFileUpload />
       <Box>
         <Form
           onChange={(value) => console.log("Change", value)}
