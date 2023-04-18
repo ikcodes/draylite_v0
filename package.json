@@ -17,6 +17,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "formik": "^2.2.9",
+    "fs": "^0.0.1-security",
     "grommet": "^2.30.0",
     "grommet-icons": "^4.9.0",
     "grommet-theme-hpe": "^4.2.0",

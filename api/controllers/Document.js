@@ -8,6 +8,9 @@ const {
 } = require("../services/db");
 const { errorOut } = require("../utils/utils");
 
+// Serverless Cloud storage: https://www.serverless.com/cloud/docs/apps/blob-storage
+// import { storage } from "@serverless/cloud";
+
 const getDocument = async (req, res) => {
   try {
     res.json({
@@ -40,14 +43,40 @@ const getDocumentsByCarrier = async (req, res) => {
 
 const uploadDocument = async (req, res) => {
   try {
-    if (!req.body.carrier_id) {
-      errorOut("Must provide carrier_id", res);
-      return;
-    }
-    res.json({
-      message: `Uploading document for ${req.body.carrier_id}. Post body is attached.`,
-      postBody: req.body,
-    });
+    // if (!req.body.carrier_id) {
+    //   errorOut("Must provide carrier_id", res);
+    //   return;
+    // }
+
+    // if (!req.body.files) {
+    //   errorOut("Must provide a files", res);
+    //   return;
+    // }
+
+    // const data = req.body.files;
+
+    // const result = await storage.write("/testafterbtoa", data);
+
+    // storage.on("*", async (event) => {
+    // reacts to all write/remove events
+    // });
+
+    // await storage.write("/your/path/binaryData.ext", req.body);
+    return;
+    // var form = new multiparty.Form();
+    // form.parse(req, function (err, fields, files) {
+    // res.json({
+    // message: `Uploading document for Carrier ${req.body.carrier_id}. Post body is attached.`,
+    // err: err,
+    // fields: fields,
+    // files: files,
+    // postBody: JSON.stringify(req),
+    // data: data,
+    // result: result,
+    // });
+    // fields fields fields
+    // });
+
     return;
 
     // We don't always need every field...
@@ -66,8 +95,11 @@ const uploadDocument = async (req, res) => {
       res
     );
   } catch (e) {
-    errorOut(e, res);
-    return;
+    // errorOut(e, res);
+    // return;
+    res.status(500).send({
+      message: e,
+    });
   }
 };
 
