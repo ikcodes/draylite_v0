@@ -1,28 +1,32 @@
 import axios from "axios";
-import { Box, Button, Form, FormField, TextInput } from "grommet";
-import { ChatOption } from "grommet-icons";
 import toast from "react-hot-toast";
+import { ChatOption } from "grommet-icons";
 import { API_URL } from "../../utils/utils";
-import { Formik, Field, FormikValues } from "formik";
+import { Box, Button, FormField, TextInput } from "grommet";
+import { Formik, FormikValues, FormikHelpers } from "formik";
+import { useState } from "react";
 
-interface CommentsProps {
+interface CommentsFormProps {
   carrierId?: number;
   fireOnRefresh: () => void;
 }
 
-interface CommentValues {
+interface CommentsFormValues {
   comment: string;
 }
 
-export const CommentsForm = (props: CommentsProps) => {
+export const CommentsForm = (props: CommentsFormProps) => {
   const { carrierId, fireOnRefresh } = props;
-
-  const initialValues: CommentValues = { comment: "" };
+  const initialValues: CommentsFormValues = { comment: "" };
+  const [commentSubmitting, setCommentSubmitting] = useState(false);
 
   //
   // SUBMIT COMMENT POST
   //======================
-  const submitComment = (values: FormikValues) => {
+  const submitComment = (
+    values: FormikValues,
+    { resetForm }: FormikHelpers<CommentsFormValues>
+  ) => {
     try {
       if (!values.comment) {
         toast.error("Invalid comment! Please leave something.");
@@ -32,45 +36,67 @@ export const CommentsForm = (props: CommentsProps) => {
         carrier_id: carrierId,
         comment: values.comment,
       };
+      setCommentSubmitting(true);
       axios
         .post(`${API_URL}/comments`, postData)
         .then((response) => {
           if (response.status !== 200) {
             toast.error(`Problem adding comment - please refresh and try again`);
-          } else {
-            toast.success(`Successfully added comment!`);
+            setCommentSubmitting(false);
           }
         })
         .catch(function (error) {
           toast.error(`Problem adding comment - please refresh and try again`);
           console.log(error);
         })
-        .finally(() => fireOnRefresh());
+        .finally(() => {
+          resetForm();
+          fireOnRefresh();
+          setCommentSubmitting(false);
+          toast.success(`Successfully added comment!`);
+        });
     } catch (e) {
-      alert(JSON.stringify(e));
+      toast.error("An unspecified error occurred - please refresh the page and try again");
+      console.log(JSON.stringify(e));
     }
   };
 
   return (
     <>
-      <h1>Comments Go Here!</h1>
+      <h1>Comments</h1>
       <Formik initialValues={initialValues} onSubmit={submitComment}>
-        {/* TODO: Clear aht this form when you're done. */}
-        {({ values, handleChange, handleSubmit }) => (
+        {({ values, handleChange, handleSubmit, resetForm }) => (
           <form onSubmit={handleSubmit} style={{ paddingTop: 25 }}>
             {carrierId && <input type='hidden' name='carrier_id' value={carrierId} />}
             <Box pad='none'>
-              <FormField label='Contact'>
-                <TextInput name='comment' onChange={handleChange} value={values.comment} />
+              <FormField label='Comment'>
+                <TextInput
+                  disabled={commentSubmitting}
+                  name='comment'
+                  onChange={handleChange}
+                  value={values.comment}
+                />
               </FormField>
             </Box>
             <Box direction='row'>
-              <Box width='small' pad={{ vertical: "medium", right: "medium" }}>
-                <Button icon={<ChatOption />} label='Add Comment' primary type='submit' />
+              <Box width='medium' pad={{ vertical: "medium", right: "medium" }}>
+                <Button
+                  disabled={commentSubmitting}
+                  icon={<ChatOption />}
+                  label='Add Comment'
+                  primary
+                  type='submit'
+                />
               </Box>
-              <Box width='small' pad={{ vertical: "medium" }}>
-                <Button label={"Cancel"} secondary onClick={() => fireOnRefresh()} />
-              </Box>
+              {/* Care for a Cancel? */}
+              {/* <Box width='medium' pad={{ vertical: "medium" }}>
+                <Button
+                  disabled={commentSubmitting}
+                  label={"Cancel"}
+                  secondary
+                  onClick={() => resetForm()}
+                />
+              </Box> */}
             </Box>
           </form>
         )}
