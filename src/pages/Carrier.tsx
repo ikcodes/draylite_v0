@@ -7,8 +7,8 @@ import { API_URL } from "../utils/utils";
 import { pageStyles } from "../utils/styles";
 import { CarrierContactsList } from "../components/carriers/CarrierContactsList";
 import { Documents } from "../components/shared/Documents";
-import { CommentsForm } from "../components/shared/CommentsForm";
-import { CommentsList } from "../components/shared/CommentsList";
+import { CommentsForm } from "../components/comments/CommentsForm";
+import { CommentsList } from "../components/comments/CommentsList";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
@@ -110,8 +110,10 @@ export const Carrier = () => {
             <hr />
 
             {/* COMMENTS LIST / ADD */}
-            <CommentsForm carrierId={carrier.carrier_id} fireOnRefresh={getCarrierComments} />
-            <CommentsList comments={comments} />
+            <Box width='large'>
+              <CommentsForm carrierId={carrier.carrier_id} fireOnRefresh={getCarrierComments} />
+              <CommentsList comments={comments} />
+            </Box>
           </>
         )}
       </PageContent>

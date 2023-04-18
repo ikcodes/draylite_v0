@@ -43,7 +43,14 @@ const getCarrierById = async (req, res) => {
     const contactsData = await executeWithParams(con_sql, con_params);
 
     // Get comments
-    const com_sql = `SELECT * FROM comments WHERE carrier_id=? ORDER BY created_at DESC`;
+    const com_sql = `SELECT 
+                      comment_id, 
+                      comment, 
+                      DATE_FORMAT(created_at, '%a %b, %y  %l:%i:%s %p') 
+                        as comment_time 
+                    FROM comments 
+                    WHERE carrier_id=? 
+                    ORDER BY created_at DESC`;
     const com_params = [req.params.id];
     const commentsData = await executeWithParams(com_sql, com_params);
 

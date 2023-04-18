@@ -25,8 +25,16 @@ const getComment = async (req, res) => {
 
 const getCommentsByCarrier = async (req, res) => {
   try {
+    // mysql DATE_FORMAT params: https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
     await executeAndRespondWithParams(
-      `SELECT * FROM comments WHERE carrier_id=? ORDER BY created_at DESC`,
+      `SELECT 
+        comment_id, 
+        comment, 
+        DATE_FORMAT(created_at, '%a %b, %y  %l:%i:%s %p') 
+          as comment_time 
+      FROM comments 
+      WHERE carrier_id=? 
+      ORDER BY created_at DESC`,
       [req.params.id],
       res
     );
