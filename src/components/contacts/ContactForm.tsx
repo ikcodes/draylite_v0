@@ -79,8 +79,9 @@ export const ContactForm = (props: ContactFormProps) => {
       onSubmit={(values) => handleSubmission(values)}
     >
       {({ values, handleChange, handleSubmit }) => (
-        <form onSubmit={handleSubmit} style={{ paddingTop: 25 }}>
+        <form onSubmit={handleSubmit} style={{ paddingTop: 0, paddingBottom: 30 }}>
           {carrierId && <input type='hidden' name='carrier_id' value={carrierId} />}
+          <h4>Add New Contact</h4>
           <Box pad='none'>
             <FormField label='Contact Name'>
               <TextInput name='contact_name' onChange={handleChange} value={values.contact_name} />

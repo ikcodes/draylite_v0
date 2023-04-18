@@ -54,8 +54,8 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
       {/*   CONTACTS FOR (x)   */}
       {/* ==================== */}
       <Box direction='row-responsive' justify='between' align='left' gap='medium'>
-        <Box>
-          <h2>Contacts</h2>
+        <Box style={{ marginTop: 15 }}>
+          <h1>Contacts</h1>
         </Box>
         <Box align='middle'>
           <Button
@@ -64,37 +64,40 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
             icon={<Add />}
             label='Add Contact'
             onClick={() => setMode("add")}
+            style={{ marginTop: 5 }}
           />
         </Box>
       </Box>
-      <Card>
-        {/* ==================== */}
-        {/*   ADD CONTACT FORM   */}
-        {/* ==================== */}
-        {mode === "add" && (
-          <ContactForm mode={"add"} resetForm={resetForm} carrierId={carrier?.carrier_id} />
-        )}
-        <ul style={{ marginTop: 0, paddingLeft: 0, listStyle: "none" }}>
-          {contacts && (
-            <>
-              {contacts.map((con: Contact) => {
-                if (con.contact_id === editingContactId && mode === "edit") {
-                  return <ContactForm mode={"edit"} contact={con} resetForm={resetForm} />;
-                } else {
-                  return (
-                    <ContactListItem
-                      contact={con}
-                      editContact={editContact}
-                      deleteContact={deleteContact}
-                    />
-                  );
-                }
-              })}
-            </>
+      <Box>
+        <Box>
+          {/* ==================== */}
+          {/*   ADD CONTACT FORM   */}
+          {/* ==================== */}
+          {mode === "add" && (
+            <ContactForm mode={"add"} resetForm={resetForm} carrierId={carrier?.carrier_id} />
           )}
-          {!contacts?.length && <li>No contacts currently exist for this carrier.</li>}
-        </ul>
-      </Card>
+          <ul style={{ marginTop: 0, paddingLeft: 0, listStyle: "none" }}>
+            {contacts && (
+              <>
+                {contacts.map((con: Contact) => {
+                  if (con.contact_id === editingContactId && mode === "edit") {
+                    return <ContactForm mode={"edit"} contact={con} resetForm={resetForm} />;
+                  } else {
+                    return (
+                      <ContactListItem
+                        contact={con}
+                        editContact={editContact}
+                        deleteContact={deleteContact}
+                      />
+                    );
+                  }
+                })}
+              </>
+            )}
+            {!contacts?.length && <li>No contacts currently exist for this carrier.</li>}
+          </ul>
+        </Box>
+      </Box>
     </Box>
   );
 };

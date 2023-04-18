@@ -1,4 +1,3 @@
-import "../styles/App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Carriers } from "../pages/Carriers-NOT-USED";
 import { AppNavigation } from "./shared/AppNavigation";

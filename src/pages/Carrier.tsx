@@ -81,22 +81,27 @@ export const Carrier = () => {
   return (
     <Page background='light-1' style={pageStyles}>
       <PageContent>
+        {/* Back to Carrier */}
         <Link to={`/port/${carrier?.port_id}`} style={{ marginTop: 15 }}>
           &larr; Back to {carrier?.port_name ? `Port of ${carrier.port_name}` : "Port"}
         </Link>
-        <PageHeader title={carrierName || ``} />
 
+        {/* Loading Spinner */}
         {loading && (
-          <Grid>
+          <Box align='center' style={{ minHeight: "80vh", marginTop: "40vh" }}>
             <Box align='center' direction='row' gap='small' pad='small'>
               <Spinner size='medium' />
               <Text size='medium'>Loading Carrier...</Text>
             </Box>
-          </Grid>
+          </Box>
         )}
 
+        {/* Main page content */}
         {!loading && (
           <>
+            <PageHeader title={carrierName || ``} style={{ paddingTop: 30, paddingBottom: 0 }} />
+            {/* PUT HAZMAT / OVERWEIGHT ICONS HERE */}
+
             {/* CARRIER CONTACTS LIST  */}
             <CarrierContactsList carrier={carrier} contacts={contacts} refresh={getCarrierData} />
 
