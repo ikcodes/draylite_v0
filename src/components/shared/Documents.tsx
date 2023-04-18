@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Button } from "grommet";
+import { Button, FileInput } from "grommet";
 import toast from "react-hot-toast";
 import { API_URL } from "../../utils/utils";
 import { DocumentUpload } from "grommet-icons";
@@ -47,8 +47,17 @@ export const Documents = (props: DocumentsProps) => {
   //======================
   return (
     <>
-      <h1>Documents Go Here, Bugaboo</h1>
-      <Button primary icon={<DocumentUpload />} onClick={uploadDocument} label='Upload Document' />
+      <h1>Documents</h1>
+      <FileInput
+        name='file'
+        onChange={(event: any) => {
+          const fileList = event.target.files;
+          for (let i = 0; i < fileList.length; i += 1) {
+            const file = fileList[i];
+            console.log(file);
+          }
+        }}
+      />
     </>
   );
 };
