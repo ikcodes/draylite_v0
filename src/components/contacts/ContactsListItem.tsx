@@ -43,9 +43,10 @@ export const ContactListItem = (props: ContactListItemProps) => (
       <Box pad={{ right: "small" }}>
         <Button
           size='small'
-          primary
           label='Edit Contact'
           onClick={() => props.editContact(props.contact.contact_id)}
+          primary
+          style={{ fontWeight: 600 }}
         />
       </Box>
       <Box>
@@ -54,6 +55,7 @@ export const ContactListItem = (props: ContactListItemProps) => (
           label='Delete Contact'
           onClick={() => props.deleteContact(props.contact.contact_id)}
           secondary
+          style={{ fontWeight: 600 }}
         />
       </Box>
     </Box>

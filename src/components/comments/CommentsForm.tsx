@@ -63,7 +63,6 @@ export const CommentsForm = (props: CommentsFormProps) => {
 
   return (
     <>
-      <h1>Comments</h1>
       <Formik initialValues={initialValues} onSubmit={submitComment}>
         {({ values, handleChange, handleSubmit, resetForm }) => (
           <form onSubmit={handleSubmit}>
@@ -80,7 +79,7 @@ export const CommentsForm = (props: CommentsFormProps) => {
               </FormField>
             </Box>
             <Box direction='row'>
-              <Box width='medium' pad={{ vertical: "medium", right: "medium" }}>
+              <Box width='medium' pad={{ vertical: "small", right: "medium" }}>
                 <Button
                   disabled={commentSubmitting}
                   icon={<ChatOption />}

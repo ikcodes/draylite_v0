@@ -9,9 +9,8 @@ export const pageStyles = {
 };
 
 // Fix this using this page: https://medium.com/@ttennant/react-inline-styles-and-media-queries-using-a-custom-react-hook-e76fa9ec89f6
-export const pageContentStyles = {
-  // paddingLeft: window.matchMedia("(min-width: 768px)") ? 39 : "inherit",
-};
+export const pageContentStyles = {};
+// paddingLeft: window.matchMedia("(min-width: 768px)") ? 39 : "inherit",
 
 export const buttonStyles = {
   background: "#efefef",

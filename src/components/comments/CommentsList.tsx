@@ -28,8 +28,8 @@ export const CommentsList = (props: CommentsListProps) => (
             key={`comment-${JSON.stringify(comment)}`}
             style={commentRowStyle}
           >
-            <Box basis='3/4'>{comment.comment}</Box>
-            <Box basis='1/4' style={timeStyle}>
+            <Box basis='3/5'>{comment.comment}</Box>
+            <Box basis='2/5' style={timeStyle}>
               {comment.comment_time}
             </Box>
             {/* <span style={timeStyle}>{comment.created_at}</span> */}

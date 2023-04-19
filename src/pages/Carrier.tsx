@@ -101,19 +101,17 @@ export const Carrier = () => {
           <Page background='light-1'>
             <PageContent style={pageContentStyles}>
               {/* CARRIER NAME */}
-              <Box pad='medium'>
+              <Box pad={{ vertical: "medium" }}>
                 <Link to={`/port/${carrier?.port_id}`} style={{ marginTop: 10 }}>
                   &larr; Back to {carrier?.port_name ? `Port of ${carrier.port_name}` : "Port"}
                 </Link>
 
                 {/* CARRIER ATTRIBUTES */}
                 <Box align='center' direction='row' pad={{ top: "small", bottom: "medium" }}>
-                  <Box pad={{ left: "medium" }}>
-                    <PageHeader
-                      title={carrierName || ``}
-                      style={{ paddingTop: 45, paddingBottom: 0 }}
-                    />
-                  </Box>
+                  <PageHeader
+                    title={carrierName || ``}
+                    style={{ paddingTop: 45, paddingBottom: 0 }}
+                  />
                   {carrier.carrier_hazmat && (
                     <Box pad={{ right: "small" }}>
                       <Test />
@@ -143,7 +141,7 @@ export const Carrier = () => {
           {/* CARRIER CONTACTS LIST  */}
           <Page background='light-2'>
             <PageContent style={pageContentStyles}>
-              <Box pad={{ left: "large", top: "medium", bottom: "medium" }}>
+              <Box pad={{ vertical: "medium" }} width='xlarge'>
                 <CarrierContactsList
                   carrier={carrier}
                   contacts={contacts}
@@ -156,7 +154,7 @@ export const Carrier = () => {
           {/* DOCUMENTS LIST / UPLOAD */}
           <Page background='light-1'>
             <PageContent style={pageContentStyles}>
-              <Box pad={"large"}>
+              <Box pad={{ vertical: "medium" }}>
                 <Box width='large'>
                   <Documents carrierId={carrier.carrier_id} />
                 </Box>
@@ -167,9 +165,17 @@ export const Carrier = () => {
           {/* COMMENTS LIST / ADD */}
           <Page background='light-2'>
             <PageContent style={pageContentStyles}>
-              <Box width='large' pad={{ left: "large", top: "large", bottom: "xlarge" }}>
-                <CommentsForm carrierId={carrier.carrier_id} fireOnRefresh={getCarrierComments} />
-                <CommentsList comments={comments} />
+              <Box width='large' pad={{ vertical: "medium" }}>
+                <Box>
+                  <h1>Comments</h1>
+                </Box>
+                <Box>
+                  {/* <Box pad={{ vertical: "small" }}> */}
+                  <CommentsForm carrierId={carrier.carrier_id} fireOnRefresh={getCarrierComments} />
+                </Box>
+                <Box pad={{ vertical: "medium", left: "medium" }}>
+                  <CommentsList comments={comments} />
+                </Box>
               </Box>
             </PageContent>
           </Page>
