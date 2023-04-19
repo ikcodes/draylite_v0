@@ -27,10 +27,12 @@ export const attributeButtonStyles = {
 };
 
 export const navDrayliteStyles = {
-  color: "white",
+  color: "#aaa",
   paddingLeft: 15,
   paddingTop: 13,
   fontSize: 20,
-  fontWeight: 600,
-  letterSpacing: 1,
+  fontWeight: 300,
+  letterSpacing: -1,
+  textTransform: "uppercase" as any,
+  textDecoration: "none !important",
 };

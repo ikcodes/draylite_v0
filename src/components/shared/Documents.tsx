@@ -54,7 +54,10 @@ export const Documents = (props: DocumentsProps) => {
   //======================
   return (
     <>
-      <h1>Documents</h1>
+      <h1>
+        Documents
+        {/* <DocumentUpload /> */}
+      </h1>
       <p>
         <strong>Note:</strong> Uploading two documents with the same name will overwrite the
         previous document.

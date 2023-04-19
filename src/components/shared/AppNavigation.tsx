@@ -27,7 +27,9 @@ export const AppNavigation = () => (
             />
           </Box>
           <Box>
-            <Text style={navDrayliteStyles}>Draylite</Text>
+            <Text style={navDrayliteStyles}>
+              Dray<span style={{ color: "#fff" }}>lite</span>
+            </Text>
           </Box>
         </Box>
       </Link>
