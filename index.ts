@@ -11,7 +11,6 @@ import { api as serverlessApi, storage } from "@serverless/cloud";
 
 // NETWORKING
 //=============
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const corsSettings = {
   origin: "*",
@@ -27,17 +26,7 @@ serverlessApi.use(morgan("tiny"));
 import routes from "./api/routes/router";
 serverlessApi.use(cors(corsSettings));
 
-// Took out this middleware
-// Parse request of content-type - application/json
-// serverlessApi.use(bodyParser.json());
-
-// parse requests of content-type -application/x-www-form-urlencoded
-// serverlessApi.use(bodyParser.urlencoded({ extended: true }));
-
-//======================================================
-//
-//  UPLOAD STUFF FROM BEN (hi ben thanks <3)
-//
+// UPLOAD STUFF (MODULARIZE!)
 //======================================================
 
 // creates a POST and PUT route at `/upload`
