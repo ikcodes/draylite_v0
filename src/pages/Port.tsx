@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { CarriersTable } from "../components/carriers/CarriersTable";
 import { WarehousesTable } from "../components/warehouses/WarehousesTable";
 import { CarrierForm } from "../components/carriers/CarrierForm";
-import { Add } from "grommet-icons";
+import { Add, DocumentUpload } from "grommet-icons";
 
 export const Port = () => {
   // Local state
@@ -19,7 +19,8 @@ export const Port = () => {
   const [warehouses, setWarehouses] = useState() as any;
   const { portId } = useParams();
 
-  const [adding, setAdding] = useState(false);
+  const [addingCarrier, setAddingCarrier] = useState(false);
+  const [addingWarehaus, setAddingWarehaus] = useState(false);
 
   useEffect(() => {
     getPortData();
@@ -49,7 +50,7 @@ export const Port = () => {
   };
 
   const resetForm = () => {
-    setAdding(false);
+    setAddingCarrier(false);
     getPortData();
   };
 
@@ -57,89 +58,144 @@ export const Port = () => {
   // MARKUP
   //======================
   return (
-    <>
-      <Page background='light-2' style={pageStyles}>
-        <PageContent style={pageContentStyles}>
-          {loading && (
+    <div style={pageStyles}>
+      {/*===================*/}
+      {/*  LOADING SPINNER  */}
+      {/*===================*/}
+      {loading && (
+        <Page background='light-2'>
+          <PageContent style={pageContentStyles}>
             <Box align='center' style={{ minHeight: "80vh", marginTop: "40vh" }}>
               <Box align='center' direction='row' gap='small' pad='small'>
                 <Spinner size='medium' />
                 <Text size='medium'>Loading Port Data...</Text>
               </Box>
             </Box>
-          )}
+          </PageContent>
+        </Page>
+      )}
 
-          {!loading && (
-            <>
-              {/*===============*/}
-              {/*  PORT OF (x)  */}
-              {/*===============*/}
-              <Box align='bottom' direction='row' justify='between'>
-                <Box>
-                  <PageHeader title={portName ? `Port of ${portName}` : " "} />
+      {!loading && (
+        <>
+          {/*===============*/}
+          {/*  PORT OF (x)  */}
+          {/*===============*/}
+          <Page background='light-1' pad={{ bottom: "medium" }}>
+            <PageContent style={pageContentStyles}>
+              <PageHeader
+                title={portName ? `Port of ${portName}` : " "}
+                style={{ fontWeight: "700 !important" }}
+              />
+              <Text>
+                Now viewing all Carriers, Warehouses, and Info associated with the Port of{" "}
+                {portName}.
+              </Text>
+            </PageContent>
+          </Page>
+          <Page background='light-2'>
+            <PageContent style={pageContentStyles}>
+              <Box pad={{ top: "medium", bottom: "large" }}>
+                {/*===============*/}
+                {/* CARRIERS CARD */}
+                {/*===============*/}
+                <Box align='center' direction='row' justify='between' pad={{ bottom: "small" }}>
+                  <Box>
+                    <h1>Carriers</h1>
+                  </Box>
+                  <Box>
+                    <Button
+                      primary
+                      icon={<Add />}
+                      label='Add Carrier'
+                      onClick={() => {
+                        setAddingCarrier(true);
+                      }}
+                    />
+                  </Box>
                 </Box>
                 <Box>
-                  <Button
-                    primary
-                    icon={<Add />}
-                    label='Add Carrier'
-                    onClick={() => {
-                      setAdding(true);
-                    }}
-                    style={{ marginTop: 60 }}
+                  {/* ADD / EDIT CARRIER  */}
+                  {addingCarrier && portId && (
+                    <CarrierForm portId={portId} mode='add' resetForm={resetForm} />
+                  )}
+                </Box>
+                <Card pad='medium' gap='small' background='white'>
+                  <CarriersTable
+                    carriers={carriers}
+                    editCarrier={(carrierId: number) => alert("Function not implemented.")}
+                    deleteCarrier={(carrierId: number) => alert("Function not implemented.")}
+                    viewCarrierContacts={(carrierId: number) => alert("Function not implemented.")}
                   />
-                </Box>
+                </Card>
               </Box>
-              {/* <p style={{ marginTop: 0, marginBottom: 30 }}> */}
-              {/* Now viewing all Carriers and Warehouses for {portName}. */}
-              {/* </p> */}
-              {/* ADD / EDIT CARRIER  */}
-              {adding && portId && <CarrierForm portId={portId} mode='add' resetForm={resetForm} />}
-              {/*===============*/}
-              {/* CARRIERS CARD */}
-              {/*===============*/}
-              <h1 style={{ marginLeft: 10, marginTop: 30, marginBottom: 30 }}>Carriers</h1>
-              <Card pad='medium' gap='small' background='white' style={{ marginBottom: 60 }}>
-                <CarriersTable
-                  carriers={carriers}
-                  editCarrier={(carrierId: number) => alert("Function not implemented.")}
-                  deleteCarrier={(carrierId: number) => alert("Function not implemented.")}
-                  viewCarrierContacts={(carrierId: number) => alert("Function not implemented.")}
-                />
-              </Card>
-              {/*=================*/}
-              {/* WAREHAUSES CARD */}
-              {/*=================*/}
-              <h1 style={{ marginLeft: 10, marginTop: 10, marginBottom: 30 }}>Warehouses</h1>
-              <Card pad='medium' gap='small' background='white' style={{ marginBottom: 60 }}>
-                <WarehousesTable
-                  warehouses={warehouses}
-                  editWarehouse={(warehouseId: number) => alert("Function not implemented.")}
-                  deleteWarehouse={(warehouseId: number) => alert("Function not implemented.")}
-                  viewWarehouseContacts={(warehouseId: number) =>
-                    alert("Function not implemented.")
-                  }
-                />
-              </Card>
-              {/*==============*/}
-              {/*  PORT INFO   */}
-              {/*==============*/}
-              <div style={{ marginLeft: 10 }}>
-                <h1 style={{ marginTop: 10, marginBottom: 30 }}>Port Info</h1>
+            </PageContent>
+          </Page>
+          {/*=================*/}
+          {/*    WAREHAUSES   */}
+          {/*=================*/}
+          <Page background='light-1'>
+            <PageContent style={pageContentStyles}>
+              <Box pad={{ top: "medium", bottom: "large" }}>
+                {/* ADD / EDIT WAREHAUS  */}
+                {addingCarrier && portId && (
+                  <CarrierForm portId={portId} mode='add' resetForm={resetForm} />
+                )}
+                {/*===============*/}
+                {/* WAREHAUSES CARD */}
+                {/*===============*/}
+                <Box align='center' direction='row' justify='between' pad={{ bottom: "small" }}>
+                  <Box>
+                    <h1>Warehouses</h1>
+                  </Box>
+                  <Box>
+                    <Button
+                      primary
+                      icon={<Add />}
+                      label='Add Warehouse'
+                      onClick={() => {
+                        setAddingCarrier(true);
+                      }}
+                    />
+                  </Box>
+                </Box>
+                <Card pad='medium' gap='small' background='white'>
+                  <CarriersTable
+                    carriers={carriers}
+                    editCarrier={(carrierId: number) => alert("Function not implemented.")}
+                    deleteCarrier={(carrierId: number) => alert("Function not implemented.")}
+                    viewCarrierContacts={(carrierId: number) => alert("Function not implemented.")}
+                  />
+                </Card>
+              </Box>
+            </PageContent>
+          </Page>
+          {/*==============*/}
+          {/*  PORT INFO   */}
+          {/*==============*/}
+          <Page background='light-2'>
+            <PageContent style={pageContentStyles}>
+              <Box pad={{ top: "medium", bottom: "large" }}>
+                <h1 style={{ marginBottom: 30 }}>Port Info</h1>
                 <ul>
                   <li style={{ marginBottom: 10 }}>
-                    <strong>Address:</strong> {portData?.port_address}
+                    <Text>
+                      <strong>Address:</strong> {portData?.port_address}
+                    </Text>
                   </li>
                   <li style={{ marginBottom: 10 }}>
-                    <strong>Coordinates:</strong> {portData?.port_lat}&deg; N, {portData?.port_lng}
+                    <Text>
+                      {" "}
+                      <strong>Coordinates:</strong> {portData?.port_lat}&deg; N,{" "}
+                      {portData?.port_lng}
+                    </Text>
                     &deg; W
                   </li>
                 </ul>
-              </div>
-            </>
-          )}
-        </PageContent>
-      </Page>
-    </>
+              </Box>
+            </PageContent>
+          </Page>
+        </>
+      )}
+    </div>
   );
 };

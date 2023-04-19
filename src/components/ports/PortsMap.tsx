@@ -60,8 +60,6 @@ export const PortsMap = (props: PortsMapProps) => {
     };
   });
 
-  console.log("USE THIS ===> ", portsMapped);
-
   // PORTS (Mapped statically)
   //===========================
   const portsMappedStatic = [

@@ -3,13 +3,14 @@
 //  plays nicely with JS styles, so...
 
 export const pageStyles = {
-  minHeight: "calc(100vh - 72px)",
-  paddingBottom: 60,
+  // Height of header is 72
+  // Height of footer is 44
+  minHeight: "calc(100vh - 114px)",
 };
 
 // Fix this using this page: https://medium.com/@ttennant/react-inline-styles-and-media-queries-using-a-custom-react-hook-e76fa9ec89f6
 export const pageContentStyles = {
-  paddingLeft: window.matchMedia("(min-width: 768px)") ? 39 : "inherit",
+  // paddingLeft: window.matchMedia("(min-width: 768px)") ? 39 : "inherit",
 };
 
 export const buttonStyles = {

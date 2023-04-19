@@ -98,10 +98,7 @@ export const Documents = (props: DocumentsProps) => {
   //======================
   return (
     <>
-      <h1>
-        Documents
-        {/* <DocumentUpload /> */}
-      </h1>
+      <h1>Documents</h1>
       <Box>
         <Form onChange={formOnChange} onSubmit={uploadDocuments}>
           <div style={{ marginTop: 15, marginBottom: 0 }}>
@@ -139,7 +136,7 @@ export const Documents = (props: DocumentsProps) => {
         {!documents.length && !documentsLoading && (
           <p>No existing documents &mdash; please upload to view.</p>
         )}
-        {documents.length && !documentsLoading && (
+        {!!documents.length && !documentsLoading && (
           <>
             <Box direction='row'>
               <Box style={{ marginLeft: 17 }}>

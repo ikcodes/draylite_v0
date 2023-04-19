@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Box, Button, Card } from "grommet";
+import { Box, Button, Card, Text } from "grommet";
 import { Add, FormClose } from "grommet-icons";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -53,7 +53,7 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
       {/* ==================== */}
       {/*   CONTACTS FOR (x)   */}
       {/* ==================== */}
-      <Box direction='row-responsive' justify='between' pad={{ top: "small", right: "large" }}>
+      <Box direction='row-responsive' justify='between' pad={{ top: "small", right: "xsmall" }}>
         <Box>
           <h1>Contacts</h1>
         </Box>
@@ -76,7 +76,7 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
           {mode === "add" && (
             <ContactForm mode={"add"} resetForm={resetForm} carrierId={carrier?.carrier_id} />
           )}
-          <ul style={{ marginTop: 0, paddingLeft: 0, listStyle: "none" }}>
+          <Box>
             {contacts && (
               <>
                 {contacts.map((con: Contact) => {
@@ -94,8 +94,8 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
                 })}
               </>
             )}
-            {!contacts?.length && <li>No contacts currently exist for this carrier.</li>}
-          </ul>
+            {!contacts?.length && <Text>No contacts currently exist for this carrier.</Text>}
+          </Box>
         </Box>
       </Box>
     </>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TextInput, Text, CheckBox, Button, FormField, Box, Heading, Grid } from "grommet";
+import { TextInput, Text, CheckBox, Button, Box, Grid, Card, Spinner } from "grommet";
 import toast from "react-hot-toast";
 import { API_URL } from "../../utils/utils";
 import { Formik, FormikValues } from "formik";
@@ -75,72 +75,71 @@ export const CarrierForm = (props: CarrierFormProps) => {
     }
   };
   return (
-    <Formik
-      initialValues={carrier || blankCarrier}
-      // This isn't working!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      // Set errors
-      // validate={(values: FormikValues) => {
-      //   const errors = {};
-      //   // if (!values.email) {
-      //   // errors.email = "Required";
-      //   // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      //   // errors.email = "Invalid email address";
-      //   // }
-      //   return errors;
-      // }}
-      onSubmit={(values) => handleSubmission(values)}
-    >
+    <Formik initialValues={carrier || blankCarrier} onSubmit={(values) => handleSubmission(values)}>
       {({ values, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <Box pad='none'>
-            <Box pad='small'>
-              <TextInput
-                name='carrier_name'
-                onChange={handleChange}
-                value={values.carrier_name}
-                placeholder='Carrier Name...'
-              />
-            </Box>
-          </Box>
-          <Box pad='small'>
-            <Grid columns='small'>
-              <Box align='start'>
-                <CheckBox
-                  checked={values.carrier_preferred}
-                  name='carrier_preferred'
-                  label='Preferred'
-                  onChange={handleChange}
-                />
+          <Card background='white' margin={{ bottom: "medium" }}>
+            {formLoading && (
+              <Box align='center' direction='row' gap='small' pad='small'>
+                <Spinner size='medium' />
+                <Text size='medium'>Saving Carrier...</Text>
               </Box>
-              <Box align='start'>
-                <CheckBox
-                  checked={values.carrier_overweight}
-                  name='carrier_overweight'
-                  label='Overweight'
-                  onChange={handleChange}
-                />
-              </Box>
-              <Box align='start'>
-                <CheckBox
-                  checked={values.carrier_hazmat}
-                  name='carrier_hazmat'
-                  label='Hazmat'
-                  onChange={handleChange}
-                />
-              </Box>
-              <Box align='start'>
-                <CheckBox
-                  checked={values.carrier_transload}
-                  name='carrier_transload'
-                  label='Transload'
-                  onChange={handleChange}
-                />
-              </Box>
-            </Grid>
-          </Box>
-          <Box margin={{ vertical: "medium", horizontal: "small" }} width='medium'>
-            <Button disabled={formLoading} label={"Save Carrier"} primary type='submit' />
-          </Box>
+            )}
+            {!formLoading && (
+              <>
+                <Box pad='small'>
+                  <h2 style={{ marginBottom: 0 }}>Adding New Carrier</h2>
+                </Box>
+                <Box pad='small'>
+                  <TextInput
+                    name='carrier_name'
+                    onChange={handleChange}
+                    value={values.carrier_name}
+                    placeholder='Carrier Name...'
+                  />
+                </Box>
+                <Box pad='small'>
+                  <Grid columns='small'>
+                    <Box align='start'>
+                      <CheckBox
+                        checked={values.carrier_preferred}
+                        name='carrier_preferred'
+                        label='Preferred'
+                        onChange={handleChange}
+                      />
+                    </Box>
+                    <Box align='start'>
+                      <CheckBox
+                        checked={values.carrier_overweight}
+                        name='carrier_overweight'
+                        label='Overweight'
+                        onChange={handleChange}
+                      />
+                    </Box>
+                    <Box align='start'>
+                      <CheckBox
+                        checked={values.carrier_hazmat}
+                        name='carrier_hazmat'
+                        label='Hazmat'
+                        onChange={handleChange}
+                      />
+                    </Box>
+                    <Box align='start'>
+                      <CheckBox
+                        checked={values.carrier_transload}
+                        name='carrier_transload'
+                        label='Transload'
+                        onChange={handleChange}
+                      />
+                    </Box>
+                  </Grid>
+                </Box>
+                <Box margin={{ vertical: "medium", horizontal: "small" }} width='medium'>
+                  <Button disabled={formLoading} label={"Save Carrier"} primary type='submit' />
+                </Box>
+              </>
+            )}
+          </Card>
         </form>
       )}
     </Formik>

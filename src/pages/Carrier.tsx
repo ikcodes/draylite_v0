@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { Box, Grid, Page, PageContent, PageHeader, Spinner, Text } from "grommet";
 import toast from "react-hot-toast";
 import { API_URL } from "../utils/utils";
-import { pageStyles } from "../utils/styles";
+import { pageContentStyles, pageStyles } from "../utils/styles";
 import { CarrierContactsList } from "../components/carriers/CarrierContactsList";
 import { Documents } from "../components/shared/Documents";
 import { CommentsForm } from "../components/comments/CommentsForm";
@@ -49,7 +49,6 @@ export const Carrier = () => {
       carrier["carrier_transload"] = carrier["carrier_transload"] === 1;
       carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
       setCarrier(carrier);
-      console.log("carrier ? ", carrier);
       setCarrierName(data.carrier.carrier_name);
 
       // Set additional data (separated so we can refresh it without refreshing the whole page)
@@ -81,75 +80,101 @@ export const Carrier = () => {
   }, []);
 
   return (
-    <Page background='light-1' style={pageStyles}>
-      <PageContent style={{ padding: 0 }}>
-        {/* Loading Spinner */}
-        {loading && (
-          <Box align='center' style={{ minHeight: "80vh", marginTop: "40vh" }}>
-            <Box align='center' direction='row' gap='small' pad='small'>
-              <Spinner size='medium' />
-              <Text size='medium'>Loading Carrier...</Text>
-            </Box>
-          </Box>
-        )}
-
-        {/* Main page content */}
-        {!loading && (
-          <>
-            <Box background='light-2' pad='medium'>
-              <Link to={`/port/${carrier?.port_id}`} style={{ marginTop: 10 }}>
-                &larr; Back to {carrier?.port_name ? `Port of ${carrier.port_name}` : "Port"}
-              </Link>
-              <PageHeader title={carrierName || ``} style={{ paddingTop: 45, paddingBottom: 0 }} />
-              <Box direction='row' pad={{ top: "small", bottom: "medium" }}>
-                {carrier.carrier_hazmat && (
-                  <Box pad={{ right: "small" }}>
-                    <Test />
-                  </Box>
-                )}
-                {carrier.carrier_preferred && (
-                  <Box pad={{ right: "small" }}>
-                    <Trophy />
-                  </Box>
-                )}
-                {carrier.carrier_overweight && (
-                  <Box pad={{ right: "small" }}>
-                    <Optimize />
-                  </Box>
-                )}
-                {carrier.carrier_transload && (
-                  <Box pad={{ right: "small" }}>
-                    {" "}
-                    <Transaction />
-                  </Box>
-                )}
+    <div style={pageStyles}>
+      {/* Loading Spinner */}
+      {loading && (
+        <Page background='light-1'>
+          <PageContent style={pageContentStyles}>
+            <Box align='center' style={{ minHeight: "80vh", marginTop: "40vh" }}>
+              <Box align='center' direction='row' gap='small' pad='small'>
+                <Spinner size='medium' />
+                <Text size='medium'>Loading Carrier...</Text>
               </Box>
             </Box>
+          </PageContent>
+        </Page>
+      )}
 
-            {/* CARRIER CONTACTS LIST  */}
-            <Box background='light-1' pad={{ left: "large", top: "medium", bottom: "medium" }}>
-              <CarrierContactsList carrier={carrier} contacts={contacts} refresh={getCarrierData} />
-            </Box>
+      {/* Main page content */}
+      {!loading && (
+        <>
+          <Page background='light-1'>
+            <PageContent style={pageContentStyles}>
+              {/* CARRIER NAME */}
+              <Box pad='medium'>
+                <Link to={`/port/${carrier?.port_id}`} style={{ marginTop: 10 }}>
+                  &larr; Back to {carrier?.port_name ? `Port of ${carrier.port_name}` : "Port"}
+                </Link>
 
-            {/* DOCUMENTS LIST / UPLOAD */}
-            <Box pad={"large"} background='light-2'>
-              <Box width='large'>
-                <Documents carrierId={carrier.carrier_id} />
+                {/* CARRIER ATTRIBUTES */}
+                <Box align='center' direction='row' pad={{ top: "small", bottom: "medium" }}>
+                  <Box pad={{ left: "medium" }}>
+                    <PageHeader
+                      title={carrierName || ``}
+                      style={{ paddingTop: 45, paddingBottom: 0 }}
+                    />
+                  </Box>
+                  {carrier.carrier_hazmat && (
+                    <Box pad={{ right: "small" }}>
+                      <Test />
+                    </Box>
+                  )}
+                  {carrier.carrier_preferred && (
+                    <Box pad={{ right: "small" }}>
+                      <Trophy />
+                    </Box>
+                  )}
+                  {carrier.carrier_overweight && (
+                    <Box pad={{ right: "small" }}>
+                      <Optimize />
+                    </Box>
+                  )}
+                  {carrier.carrier_transload && (
+                    <Box pad={{ right: "small" }}>
+                      {" "}
+                      <Transaction />
+                    </Box>
+                  )}
+                </Box>
               </Box>
-            </Box>
+            </PageContent>
+          </Page>
 
-            {/* COMMENTS LIST / ADD */}
-            <Box
-              width='large'
-              pad={{ left: "large", top: "large", bottom: "medium" }}
-              background='light-1'
-            >
-              <CommentsForm carrierId={carrier.carrier_id} fireOnRefresh={getCarrierComments} />
-              <CommentsList comments={comments} />
-            </Box>
-          </>
-        )}
-      </PageContent>
-    </Page>
+          {/* CARRIER CONTACTS LIST  */}
+          <Page background='light-2'>
+            <PageContent style={pageContentStyles}>
+              <Box pad={{ left: "large", top: "medium", bottom: "medium" }}>
+                <CarrierContactsList
+                  carrier={carrier}
+                  contacts={contacts}
+                  refresh={getCarrierData}
+                />
+              </Box>
+            </PageContent>
+          </Page>
+
+          {/* DOCUMENTS LIST / UPLOAD */}
+          <Page background='light-1'>
+            <PageContent style={pageContentStyles}>
+              <Box pad={"large"}>
+                <Box width='large'>
+                  <Documents carrierId={carrier.carrier_id} />
+                </Box>
+              </Box>
+            </PageContent>
+          </Page>
+
+          {/* COMMENTS LIST / ADD */}
+          <Page background='light-2'>
+            <PageContent style={pageContentStyles}>
+              <Box width='large' pad={{ left: "large", top: "large", bottom: "xlarge" }}>
+                <CommentsForm carrierId={carrier.carrier_id} fireOnRefresh={getCarrierComments} />
+                <CommentsList comments={comments} />
+              </Box>
+            </PageContent>
+          </Page>
+        </>
+      )}
+    </div>
   );
 };

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Carriers } from "../pages/Carriers-NOT-USED";
 import { AppNavigation } from "./shared/AppNavigation";
-import { Grommet } from "grommet";
+import { Box, Footer, Grommet, Main, Text } from "grommet";
 import { Toaster } from "react-hot-toast";
 import { Ports } from "../pages/Ports";
 import { Warehouses } from "../pages/Warehouses";
@@ -23,7 +23,15 @@ const App = () => (
           {/* View all things organized by port */}
           <Route path='/' element={<Ports />} />
         </Routes>
+        <Box>
+          <Footer background='dark-2' justify='center' pad='small'>
+            <Text textAlign='center' size='small'>
+              © 2023 Gateway Logistics. All rights reserved.
+            </Text>
+          </Footer>
+        </Box>
       </Grommet>
+
       {/* 
           GLOBAL TOASTER
         ======================

@@ -1,46 +1,61 @@
 import { ContactListItemProps } from "../../utils/types";
-import { Button, Text } from "grommet";
+import { Box, Button, Card, Text } from "grommet";
 
 export const ContactListItem = (props: ContactListItemProps) => (
-  <li
+  <Card
     key={`contact-list-item-${props.contact.contact_id}`}
     style={{
       marginTop: 10,
       marginBottom: 20,
       padding: 10,
     }}
+    background='light-1'
   >
-    <Text size='large'>
-      <strong>{props.contact.contact_name}</strong>
-    </Text>
-    <ul style={{ marginTop: 5, marginBottom: 0 }}>
+    <Box pad='small'>
+      <Text size='large'>
+        <strong>{props.contact.contact_name}</strong>
+      </Text>
+    </Box>
+    <Box pad='small'>
       {props.contact.contact_email !== " " && (
-        <li>
+        <Text margin={{ bottom: "xsmall" }}>
+          <strong style={{ fontWeight: 600 }}>Email: </strong>
           <a href={`mailto:${props.contact.contact_email}`}>{props.contact.contact_email}</a>
-        </li>
+        </Text>
       )}
       {props.contact.contact_phone !== " " && (
-        <a href={`tel:${props.contact.contact_phone}`}>
-          <li>{props.contact.contact_phone}</li>
-        </a>
+        <Text margin={{ bottom: "xsmall" }}>
+          <strong style={{ fontWeight: 600 }}>Phone: </strong>
+          <a href={`tel:${props.contact.contact_phone}`}>{props.contact.contact_phone}</a>
+        </Text>
       )}
-      {props.contact.contact_notes !== " " && <li>{props.contact.contact_notes}</li>}
+      {props.contact.contact_notes !== " " && (
+        <Text margin={{ bottom: "xsmall" }}>
+          <strong style={{ fontWeight: 600 }}>Notes: </strong>
+          {props.contact.contact_notes}
+        </Text>
+      )}
       {props.contact.contact_notes === " " &&
         props.contact.contact_phone === " " &&
-        props.contact.contact_email === " " && <li>No info yet. Edit contact to add some!</li>}
-    </ul>
-    <Button
-      style={{ marginTop: 10, marginRight: 5 }}
-      size='small'
-      primary
-      label='Edit Contact'
-      onClick={() => props.editContact(props.contact.contact_id)}
-    />
-    <Button
-      size='small'
-      label='Delete Contact'
-      onClick={() => props.deleteContact(props.contact.contact_id)}
-      secondary
-    />
-  </li>
+        props.contact.contact_email === " " && <Text>No info yet. Edit contact to add some!</Text>}
+    </Box>
+    <Box direction='row' pad={{ top: "small" }}>
+      <Box pad={{ right: "small" }}>
+        <Button
+          size='small'
+          primary
+          label='Edit Contact'
+          onClick={() => props.editContact(props.contact.contact_id)}
+        />
+      </Box>
+      <Box>
+        <Button
+          size='small'
+          label='Delete Contact'
+          onClick={() => props.deleteContact(props.contact.contact_id)}
+          secondary
+        />
+      </Box>
+    </Box>
+  </Card>
 );
