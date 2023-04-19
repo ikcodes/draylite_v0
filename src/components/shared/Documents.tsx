@@ -55,15 +55,16 @@ export const Documents = (props: DocumentsProps) => {
   return (
     <>
       <h1>Documents</h1>
+      <p>
+        <strong>Note:</strong> Uploading two documents with the same name will overwrite the
+        previous document.
+      </p>
       <Box>
         <Form
           onChange={(value) => console.log("Change", value)}
           onSubmit={uploadDocuments}
           // onSubmit={(event) => console.log("Submit", event.value, event.touched)}
         >
-          <FormField label='Name' htmlFor='name' name='name'>
-            <TextInput id='name' name='name' />
-          </FormField>
           <FileInput
             name='file'
             onChange={(event: any) => {
@@ -80,11 +81,16 @@ export const Documents = (props: DocumentsProps) => {
               // }
             }}
           />
-          <p></p>
-          <Box direction='row' justify='between' margin={{ top: "medium" }}>
-            <Button label='Cancel' />
-            <Button type='reset' label='Reset' />
-            <Button icon={<DocumentUpload />} label='Upload Documents' type='submit' primary />
+          <Box direction='row' margin={{ top: "medium" }}>
+            <Box basis='1/2' margin={{ right: "xsmall" }}>
+              <Button icon={<DocumentUpload />} label='Upload Document' type='submit' primary />
+            </Box>
+            <Box basis='1/4' margin={{ right: "xsmall" }}>
+              <Button type='reset' label='Reset' />
+            </Box>
+            <Box basis='1/4' margin={{ right: "xsmall" }}>
+              <Button label='Cancel' />
+            </Box>
           </Box>
         </Form>
       </Box>

@@ -66,14 +66,15 @@ export const CommentsForm = (props: CommentsFormProps) => {
       <h1>Comments</h1>
       <Formik initialValues={initialValues} onSubmit={submitComment}>
         {({ values, handleChange, handleSubmit, resetForm }) => (
-          <form onSubmit={handleSubmit} style={{ paddingTop: 25 }}>
+          <form onSubmit={handleSubmit}>
             {carrierId && <input type='hidden' name='carrier_id' value={carrierId} />}
             <Box pad='none'>
-              <FormField label='Comment'>
+              <FormField>
                 <TextInput
                   disabled={commentSubmitting}
                   name='comment'
                   onChange={handleChange}
+                  placeholder='Leave a comment... '
                   value={values.comment}
                 />
               </FormField>

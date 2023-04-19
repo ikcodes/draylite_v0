@@ -9,6 +9,7 @@ import { CarrierContactsList } from "../components/carriers/CarrierContactsList"
 import { Documents } from "../components/shared/Documents";
 import { CommentsForm } from "../components/comments/CommentsForm";
 import { CommentsList } from "../components/comments/CommentsList";
+import { Test, Trophy, Optimize, Transaction } from "grommet-icons";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
@@ -48,6 +49,7 @@ export const Carrier = () => {
       carrier["carrier_transload"] = carrier["carrier_transload"] === 1;
       carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
       setCarrier(carrier);
+      console.log("carrier ? ", carrier);
       setCarrierName(data.carrier.carrier_name);
 
       // Set additional data (separated so we can refresh it without refreshing the whole page)
@@ -80,12 +82,7 @@ export const Carrier = () => {
 
   return (
     <Page background='light-1' style={pageStyles}>
-      <PageContent>
-        {/* Back to Carrier */}
-        <Link to={`/port/${carrier?.port_id}`} style={{ marginTop: 15 }}>
-          &larr; Back to {carrier?.port_name ? `Port of ${carrier.port_name}` : "Port"}
-        </Link>
-
+      <PageContent style={{ padding: 0 }}>
         {/* Loading Spinner */}
         {loading && (
           <Box align='center' style={{ minHeight: "80vh", marginTop: "40vh" }}>
@@ -99,18 +96,54 @@ export const Carrier = () => {
         {/* Main page content */}
         {!loading && (
           <>
-            <PageHeader title={carrierName || ``} style={{ paddingTop: 30, paddingBottom: 0 }} />
-            {/* PUT HAZMAT / OVERWEIGHT ICONS HERE */}
+            <Box background='light-2' pad='medium'>
+              <Link to={`/port/${carrier?.port_id}`} style={{ marginTop: 10 }}>
+                &larr; Back to {carrier?.port_name ? `Port of ${carrier.port_name}` : "Port"}
+              </Link>
+              <PageHeader title={carrierName || ``} style={{ paddingTop: 45, paddingBottom: 0 }} />
+              <Box direction='row' pad={{ top: "small", bottom: "medium" }}>
+                {carrier.carrier_hazmat && (
+                  <Box pad={{ right: "small" }}>
+                    <Test />
+                  </Box>
+                )}
+                {carrier.carrier_preferred && (
+                  <Box pad={{ right: "small" }}>
+                    <Trophy />
+                  </Box>
+                )}
+                {carrier.carrier_overweight && (
+                  <Box pad={{ right: "small" }}>
+                    <Optimize />
+                  </Box>
+                )}
+                {carrier.carrier_transload && (
+                  <Box pad={{ right: "small" }}>
+                    {" "}
+                    <Transaction />
+                  </Box>
+                )}
+              </Box>
+            </Box>
 
             {/* CARRIER CONTACTS LIST  */}
-            <CarrierContactsList carrier={carrier} contacts={contacts} refresh={getCarrierData} />
+            <Box background='light-1' pad={{ left: "large", top: "medium", bottom: "medium" }}>
+              <CarrierContactsList carrier={carrier} contacts={contacts} refresh={getCarrierData} />
+            </Box>
 
             {/* DOCUMENTS LIST / UPLOAD */}
-            <Documents carrierId={carrier.carrier_id} />
-            <hr />
+            <Box pad={"large"} background='light-2'>
+              <Box width='large'>
+                <Documents carrierId={carrier.carrier_id} />
+              </Box>
+            </Box>
 
             {/* COMMENTS LIST / ADD */}
-            <Box width='large'>
+            <Box
+              width='large'
+              pad={{ left: "large", top: "large", bottom: "medium" }}
+              background='light-1'
+            >
               <CommentsForm carrierId={carrier.carrier_id} fireOnRefresh={getCarrierComments} />
               <CommentsList comments={comments} />
             </Box>

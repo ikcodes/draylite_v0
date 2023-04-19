@@ -49,15 +49,15 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
   // CONTACT LIST MARKUP
   //=====================
   return (
-    <Box pad='small' gap='small' width='xlarge'>
+    <>
       {/* ==================== */}
       {/*   CONTACTS FOR (x)   */}
       {/* ==================== */}
-      <Box direction='row-responsive' justify='between' align='left' gap='medium'>
-        <Box style={{ marginTop: 15 }}>
+      <Box direction='row-responsive' justify='between' pad={{ top: "small", right: "large" }}>
+        <Box>
           <h1>Contacts</h1>
         </Box>
-        <Box align='middle'>
+        <Box pad={{ top: "5px" }}>
           <Button
             primary
             disabled={mode === "add" || mode === "edit"}
@@ -98,6 +98,6 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
           </ul>
         </Box>
       </Box>
-    </Box>
+    </>
   );
 };
