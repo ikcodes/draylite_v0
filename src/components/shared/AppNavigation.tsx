@@ -29,7 +29,7 @@ export const AppNavigation = () => {
   );
 
   const portLink = (port: Port) => (
-    <Link key={`nav-port-${port.port_id}`} to={`/port/${port.port_id}`}>
+    <Link key={`nav-port-${port.port_id}`} to={`/port/${port.port_id}/`}>
       <Box pad={{ vertical: "small" }}>
         <Text color={"light-1"}>{port.port_name}</Text>
       </Box>

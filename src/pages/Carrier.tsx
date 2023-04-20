@@ -10,6 +10,7 @@ import { Documents } from "../components/shared/Documents";
 import { CommentsForm } from "../components/comments/CommentsForm";
 import { CommentsList } from "../components/comments/CommentsList";
 import { Test, Trophy, Optimize, Transaction } from "grommet-icons";
+import { Carrier as CarrierType } from "../utils/types";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
@@ -79,6 +80,100 @@ export const Carrier = () => {
     getCarrierData();
   }, []);
 
+  // CARRIER ATTRIBUTES
+  // It's very tempting to make these dynamic,
+  // but the sizing of each word conflicts with
+  // the necessary positioning aspects.
+  //==============================================
+  const CarrierAttributes = () => (
+    <Box direction='row'>
+      <Box direction='column' pad='small'>
+        <Box
+          align='center'
+          pad={{ top: "13px" }}
+          style={{
+            borderRadius: "100%",
+            backgroundColor: carrier.carrier_preferred ? "#228BE6" : "#ddd",
+            marginLeft: 8,
+            marginBottom: 4,
+          }}
+          height='50px'
+          width='50px'
+        >
+          <Trophy color='white' />
+        </Box>
+        <Box align='center'>
+          <Text color={carrier.carrier_preferred ? "#228BE6" : "#ddd"} size='small' weight={700}>
+            Preferred
+          </Text>
+        </Box>
+      </Box>
+      <Box direction='column' pad='small'>
+        <Box
+          align='center'
+          pad={{ top: "13px" }}
+          style={{
+            borderRadius: "100%",
+            backgroundColor: carrier.carrier_overweight ? "#228BE6" : "#ddd",
+            marginLeft: 14,
+            marginBottom: 4,
+          }}
+          height='50px'
+          width='50px'
+        >
+          <Optimize color='white' />
+        </Box>
+        <Box align='center'>
+          <Text color={carrier.carrier_overweight ? "#228BE6" : "#ddd"} size='small' weight={700}>
+            Overweight
+          </Text>
+        </Box>
+      </Box>
+      <Box direction='column' pad='small'>
+        <Box
+          align='center'
+          pad={{ top: "13px" }}
+          style={{
+            borderRadius: "100%",
+            backgroundColor: carrier.carrier_hazmat ? "#228BE6" : "#ddd",
+            marginLeft: 1,
+            marginBottom: 4,
+          }}
+          height='50px'
+          width='50px'
+        >
+          <Test color='white' />
+        </Box>
+        <Box align='center'>
+          <Text color={carrier.carrier_hazmat ? "#228BE6" : "#ddd"} size='small' weight={700}>
+            Hazmat
+          </Text>
+        </Box>
+      </Box>
+      <Box direction='column' pad='small'>
+        <Box
+          align='center'
+          pad={{ top: "13px" }}
+          style={{
+            borderRadius: "100%",
+            backgroundColor: carrier.carrier_transload ? "#228BE6" : "#ddd",
+            marginLeft: 10,
+            marginBottom: 4,
+          }}
+          height='50px'
+          width='50px'
+        >
+          <Transaction color='white' />
+        </Box>
+        <Box align='center'>
+          <Text color={carrier.carrier_transload ? "#228BE6" : "#ddd"} size='small' weight={700}>
+            Transload
+          </Text>
+        </Box>
+      </Box>
+    </Box>
+  );
+
   return (
     <div style={pageStyles}>
       {/* Loading Spinner */}
@@ -107,32 +202,22 @@ export const Carrier = () => {
                 </Link>
 
                 {/* CARRIER ATTRIBUTES */}
-                <Box align='center' direction='row' pad={{ top: "small", bottom: "medium" }}>
-                  <PageHeader
-                    title={carrierName || ``}
-                    style={{ paddingTop: 45, paddingBottom: 0 }}
-                  />
-                  {carrier.carrier_hazmat && (
-                    <Box pad={{ right: "small" }}>
-                      <Test />
-                    </Box>
-                  )}
-                  {carrier.carrier_preferred && (
-                    <Box pad={{ right: "small" }}>
-                      <Trophy />
-                    </Box>
-                  )}
-                  {carrier.carrier_overweight && (
-                    <Box pad={{ right: "small" }}>
-                      <Optimize />
-                    </Box>
-                  )}
-                  {carrier.carrier_transload && (
-                    <Box pad={{ right: "small" }}>
-                      {" "}
-                      <Transaction />
-                    </Box>
-                  )}
+                <Box
+                  align='end'
+                  pad={{ top: "small", bottom: "medium" }}
+                  direction='row-responsive'
+                  justify='between'
+                  width='xlarge'
+                >
+                  <Box>
+                    <PageHeader
+                      title={carrier.carrier_name || ``}
+                      style={{ paddingTop: 45, paddingBottom: 15 }}
+                    />
+                  </Box>
+                  <Box>
+                    <CarrierAttributes />
+                  </Box>
                 </Box>
               </Box>
             </PageContent>
