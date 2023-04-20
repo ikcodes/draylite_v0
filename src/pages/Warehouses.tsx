@@ -17,9 +17,9 @@ import { API_URL } from "../utils/utils";
 import toast from "react-hot-toast";
 import { WarehousesTable } from "../components/warehouses/WarehousesTable";
 import { Warehouse } from "../utils/types";
-import { WarehouseDetailsModal } from "../components/warehouses/WarehouseDetailsModal";
+// import { WarehouseDetailsModal } from "../components/warehouses/WarehouseDetailsModal";
 import { useParams } from "react-router-dom";
-import { WarehouseForm } from "../components/warehouses/Warehouse";
+import { WarehouseForm } from "../components/warehouses/WarehouseForm";
 import { pageStyles } from "../utils/styles";
 
 export const Warehouses = () => {
@@ -125,11 +125,12 @@ export const Warehouses = () => {
 
           {/* VIEW CONTACTS MODAL */}
           {mode === "view-contacts" && (
-            <WarehouseDetailsModal
-              warehouse={warehouses.find((c) => c.warehouse_id == warehouseId)}
-              getWarehouses={getWarehouses}
-              setParentMode={setMode}
-            />
+            <h1>View Contacts is happen</h1>
+            // <WarehouseDetailsModal
+            //   warehouse={warehouses.find((c) => c.warehouse_id == warehouseId)}
+            //   getWarehouses={getWarehouses}
+            //   setParentMode={setMode}
+            // />
           )}
 
           {/* ADD / EDIT FORM */}
@@ -166,9 +167,9 @@ export const Warehouses = () => {
           {!loading && (
             <WarehousesTable
               warehouses={warehouses}
-              deleteWarehouse={deleteWarehouse}
-              editWarehouse={editWarehouse}
-              viewWarehouseContacts={viewWarehouseContacts}
+              // deleteWarehouse={deleteWarehouse}
+              // editWarehouse={editWarehouse}
+              // viewWarehouseContacts={viewWarehouseContacts}
             />
           )}
         </PageContent>

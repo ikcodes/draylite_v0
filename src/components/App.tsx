@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Carriers } from "../pages/Carriers-NOT-USED";
+import { Carriers } from "../pages/Carriers";
 import { AppNavigation } from "./shared/AppNavigation";
 import { Grommet } from "grommet";
 import { Toaster } from "react-hot-toast";

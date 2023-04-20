@@ -125,12 +125,7 @@ export const Port = () => {
                   )}
                 </Box>
                 <Card pad='medium' gap='small' background='white'>
-                  <CarriersTable
-                    carriers={carriers}
-                    editCarrier={(carrierId: number) => alert("Function not implemented.")}
-                    deleteCarrier={(carrierId: number) => alert("Function not implemented.")}
-                    viewCarrierContacts={(carrierId: number) => alert("Function not implemented.")}
-                  />
+                  <CarriersTable carriers={carriers} />
                 </Card>
               </Box>
             </PageContent>
@@ -169,12 +164,7 @@ export const Port = () => {
                   </Box>
                 </Box>
                 <Card pad='medium' gap='small' background='white'>
-                  <CarriersTable
-                    carriers={carriers}
-                    editCarrier={(carrierId: number) => alert("Function not implemented.")}
-                    deleteCarrier={(carrierId: number) => alert("Function not implemented.")}
-                    viewCarrierContacts={(carrierId: number) => alert("Function not implemented.")}
-                  />
+                  <WarehousesTable warehouses={warehouses} />
                 </Card>
               </Box>
             </PageContent>

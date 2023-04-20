@@ -1,4 +1,4 @@
-import { Box, Button, DataTable, Grid, Text } from "grommet";
+import { Button, DataTable, Grid, Text } from "grommet";
 import { Carrier } from "../../utils/types";
 import { AttributeButton } from "../shared/AttributeButton";
 import { Deliver } from "grommet-icons";
@@ -6,9 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 interface CarriersTableProps {
   carriers: Carrier[];
-  editCarrier: (carrierId: number) => void;
-  deleteCarrier: (carrierId: number) => void;
-  viewCarrierContacts: (carrierId: number) => void;
 }
 
 export const CarriersTable = (props: CarriersTableProps) => {
@@ -56,14 +53,12 @@ export const CarriersTable = (props: CarriersTableProps) => {
           align: "center",
           header: "Contacts",
           property: "",
-          // size: "1/10",
           render: (carrier: Carrier) => <Text textAlign='center'>{carrier.contacts?.length}</Text>,
         },
         {
           align: "center",
-          header: "Actions",
+          header: "",
           property: "",
-          // size: "2/10",
           render: (carrier: Carrier) => (
             <Button
               // FOR WAREHAUS: Use <MapLocation /> or <Organization />

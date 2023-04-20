@@ -163,14 +163,7 @@ export const Carriers = () => {
               </Box>
             </Grid>
           )}
-          {!loading && (
-            <CarriersTable
-              carriers={carriers}
-              deleteCarrier={deleteCarrier}
-              editCarrier={editCarrier}
-              viewCarrierContacts={viewCarrierContacts}
-            />
-          )}
+          {!loading && <CarriersTable carriers={carriers} />}
         </PageContent>
       </Page>
     </>

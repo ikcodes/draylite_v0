@@ -69,6 +69,14 @@ export interface Warehouse {
   contacts?: Contact[];
 }
 
+export const blankWarehouse = {
+  warehouse_name: "",
+  warehouse_preferred: true,
+  warehouse_transload: true,
+  warehouse_hazmat: true,
+  warehouse_overweight: true,
+};
+
 export interface WarehouseDetailsModalProps {
   warehouse?: Warehouse; // can still add without full data
   getWarehouses: () => void;

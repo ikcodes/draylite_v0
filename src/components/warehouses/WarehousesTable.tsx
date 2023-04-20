@@ -1,35 +1,30 @@
-import { Box, Button, DataTable, Grid, Heading, Layer, Text } from "grommet";
-import { useState } from "react";
+import { Button, DataTable, Grid, Text } from "grommet";
 import { Warehouse } from "../../utils/types";
-import { ActionBox } from "../shared/ActionBox";
 import { AttributeButton } from "../shared/AttributeButton";
-import { DeleteModal } from "../shared/DeleteModal";
+import { MapLocation } from "grommet-icons";
+import { useNavigate } from "react-router-dom";
 
 interface WarehousesTableProps {
   warehouses: Warehouse[];
-  editWarehouse: (warehouseId: number) => void;
-  deleteWarehouse: (warehouseId: number) => void;
-  viewWarehouseContacts: (warehouseId: number) => void;
 }
 
 export const WarehousesTable = (props: WarehousesTableProps) => {
-  const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
 
   return (
-    // <Data data={props.Warehouses} toolbar>  //  Filtering ?
     <DataTable
       data={props.warehouses}
       columns={[
         {
-          property: "warehouse_name",
+          property: "",
           header: "Name",
           primary: true,
-          size: "1/3",
+          render: (warehouse: Warehouse) => <Text weight={500}>{warehouse.warehouse_name}</Text>,
         },
         {
           property: "",
           header: "Attributes",
-          size: "1/3",
+          size: "1/4",
           render: (warehouse: Warehouse) => (
             <Grid
               columns={{
@@ -39,61 +34,41 @@ export const WarehousesTable = (props: WarehousesTableProps) => {
               gap='xxsmall'
               width='xxsmall'
             >
-              {warehouse.warehouse_preferred && (
+              {!!warehouse.warehouse_preferred && (
                 <AttributeButton icon='preferred' text='Warehouse Is Preferred' />
               )}
-              {warehouse.warehouse_overweight && (
+              {!!warehouse.warehouse_overweight && (
                 <AttributeButton icon='overweight' text='Accepts Overweight Freight' />
               )}
-              {warehouse.warehouse_hazmat && (
+              {!!warehouse.warehouse_hazmat && (
                 <AttributeButton icon='hazmat' text='Accepts Hazmat Freight' />
               )}
-              {warehouse.warehouse_transload && (
+              {!!warehouse.warehouse_transload && (
                 <AttributeButton icon='transload' text='Accepts Transload Freight' />
               )}
             </Grid>
           ),
         },
         {
-          header: "Actions",
+          align: "center",
+          header: "Contacts",
           property: "",
-          size: "1/3",
           render: (warehouse: Warehouse) => (
-            <Grid
-              columns={{
-                count: 3,
-                size: "small",
-              }}
-              gap='xxsmall'
-              width='xxsmall'
-              key={warehouse.warehouse_id}
-            >
-              <ActionBox
-                actionButtonClick={() => props.viewWarehouseContacts(warehouse.warehouse_id)}
-                toolTipText='View Carrier Contats'
-                mode='view'
-              />
-              <ActionBox
-                actionButtonClick={() => props.editWarehouse(warehouse.warehouse_id)}
-                toolTipText='Edit This Carrier'
-                mode='edit'
-              />
-              <ActionBox
-                actionButtonClick={() => setIsDeleting(true)}
-                toolTipText='Delete This Warehouse'
-                mode='delete'
-              />
-              <DeleteModal
-                heading={`Delete ${warehouse.warehouse_name}?`}
-                message={`Are you sure you want to delete ${warehouse.warehouse_name}? This action cannot be undone.`}
-                visible={isDeleting}
-                closeFunction={() => setIsDeleting(false)}
-                proceedFunction={() => {
-                  props.deleteWarehouse(warehouse.warehouse_id);
-                  setIsDeleting(false);
-                }}
-              />
-            </Grid>
+            <Text textAlign='center'>{warehouse.contacts?.length}</Text>
+          ),
+        },
+        {
+          align: "center",
+          header: "",
+          property: "",
+          render: (warehouse: Warehouse) => (
+            <Button
+              // FOR WAREHAUS: Use <MapLocation /> or <Organization />
+              icon={<MapLocation />}
+              label='View Warehouse Page'
+              onClick={() => navigate(`/warehouse/${warehouse.warehouse_id}`)}
+              primary
+            />
           ),
         },
       ]}

@@ -20,12 +20,10 @@ export const Carrier = () => {
   //====================
   // LOCAL STATE
   //====================
-  // const [mode, setMode] = useState(""); // Does this page have mored anymore?
   const [loading, setLoading] = useState(true);
   const [carrier, setCarrier] = useState() as any;
   const [contacts, setContacts] = useState() as any;
   const [comments, setComments] = useState() as any;
-  const [carrierName, setCarrierName] = useState("");
 
   const [editing, setEditing] = useState(false);
 
@@ -52,7 +50,6 @@ export const Carrier = () => {
       carrier["carrier_transload"] = carrier["carrier_transload"] === 1;
       carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
       setCarrier(carrier);
-      setCarrierName(data.carrier.carrier_name);
 
       // Set additional data (separated so we can refresh it without refreshing the whole page)
       if (data.contacts) {
