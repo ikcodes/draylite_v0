@@ -31,26 +31,30 @@ serverlessApi.use(cors(corsSettings));
 
 // creates a POST and PUT route at `/upload`
 serverlessApi.post("/api/v0/upload", async (req, res) => {
-  const { files } = req as any;
-  if (!files || !files.length) {
-    return res.status(400).send("No files uploaded");
-  }
-  if (!req.body.carrier_id) {
-    return res.status(400).send("No carrier_id provided");
-  }
-  const carrier_id = req.body.carrier_id;
+  try {
+    const { files } = req as any;
+    if (!files || !files.length) {
+      return res.status(400).send("No files uploaded");
+    }
+    if (!req.body.carrier_id) {
+      return res.status(400).send("No carrier_id provided");
+    }
+    const carrier_id = req.body.carrier_id;
 
-  // Using the filename and path, upload
-  const file = files[0];
-  const fileName = files[0].originalname;
-  const filePath = `/carrierData/carrier${carrier_id}/${fileName}`;
-  const writeRes = await storage.write(filePath, file.buffer, {
-    type: file.mimetype,
-  });
-  return res.send({
-    writeRes,
-    message: "File uploaded successfully",
-  });
+    // Using the filename and path, upload
+    const file = files[0];
+    const fileName = files[0].originalname;
+    const filePath = `/carrierData/carrier${carrier_id}/${fileName}`;
+    const writeRes = await storage.write(filePath, file.buffer, {
+      type: file.mimetype,
+    });
+    return res.send({
+      writeRes,
+      message: "File uploaded successfully",
+    });
+  } catch (e) {
+    res.status(403).send(e);
+  }
 });
 
 serverlessApi.get("/api/v0/big-upload", async (req, res) => {
