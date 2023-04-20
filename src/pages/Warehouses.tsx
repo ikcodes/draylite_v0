@@ -1,23 +1,11 @@
 import axios from "axios";
-import {
-  Page,
-  PageContent,
-  Button,
-  Text,
-  Box,
-  Heading,
-  Card,
-  PageHeader,
-  Spinner,
-  Grid,
-} from "grommet";
-import { Add, FormClose } from "grommet-icons";
+import { Page, PageContent, Button, Text, Box, PageHeader, Spinner, Grid } from "grommet";
+import { Add } from "grommet-icons";
 import { useEffect, useState } from "react";
 import { API_URL } from "../utils/utils";
 import toast from "react-hot-toast";
 import { WarehousesTable } from "../components/warehouses/WarehousesTable";
 import { Warehouse } from "../utils/types";
-// import { WarehouseDetailsModal } from "../components/warehouses/WarehouseDetailsModal";
 import { useParams } from "react-router-dom";
 import { WarehouseForm } from "../components/warehouses/WarehouseForm";
 import { pageStyles } from "../utils/styles";
@@ -58,6 +46,7 @@ export const Warehouses = () => {
 
   useEffect(() => {
     getWarehouses();
+    document.querySelector("body")?.scrollTo(0, 0);
   }, []);
 
   //======================
@@ -80,16 +69,6 @@ export const Warehouses = () => {
     });
   };
 
-  const viewWarehouseContacts = (warehouseId: number) => {
-    setWarehouseId(warehouseId);
-    setMode("view-contacts");
-  };
-
-  const editWarehouse = (warehouseId: number) => {
-    setMode("edit");
-    setWarehouseId(warehouseId);
-  };
-
   const resetForm = () => {
     setMode("");
     getWarehouses();
@@ -103,12 +82,7 @@ export const Warehouses = () => {
       <Page background='light-1' style={pageStyles}>
         <PageContent>
           <PageHeader title={`${portName ? `${portName} Warehouses` : "Warehouses"}`} />
-          <Text>
-            Use the table below to view and edit warehouses that run freight out of this port.
-            <br />
-            You may also add warehouses using the "Add" button below, or remove any warehouses as
-            necessary.
-          </Text>
+          <Text>Viewing all Warehouses assoiated with the Port of {portName}.</Text>
 
           {/* ADD WAREHOUSE BUTTON */}
           <Box pad={{ vertical: "medium" }} width='small'>
@@ -123,35 +97,15 @@ export const Warehouses = () => {
             />
           </Box>
 
-          {/* VIEW CONTACTS MODAL */}
-          {mode === "view-contacts" && (
-            <h1>View Contacts is happen</h1>
-            // <WarehouseDetailsModal
-            //   warehouse={warehouses.find((c) => c.warehouse_id == warehouseId)}
-            //   getWarehouses={getWarehouses}
-            //   setParentMode={setMode}
-            // />
-          )}
-
           {/* ADD / EDIT FORM */}
           {(mode === "edit" || mode === "add") && (
             <Box animation='fadeIn'>
-              <Card pad='medium' gap='medium' background='white' style={{ position: "relative" }}>
-                <Heading size='small' margin='none'>
-                  {mode === "edit" ? "Edit" : "Add"} Warehouse
-                </Heading>
-                <FormClose
-                  onClick={() => resetForm()}
-                  cursor='pointer'
-                  style={{ position: "absolute", right: 10, top: 10 }}
-                />
-                <WarehouseForm
-                  warehouse={warehouses.find((c) => c.warehouse_id == warehouseId)}
-                  portId={Number(portId)}
-                  mode={mode}
-                  resetForm={resetForm}
-                />
-              </Card>
+              <WarehouseForm
+                warehouse={warehouses.find((c) => c.warehouse_id == warehouseId)}
+                portId={Number(portId)}
+                mode={mode}
+                resetForm={resetForm}
+              />
             </Box>
           )}
 
@@ -164,14 +118,7 @@ export const Warehouses = () => {
               </Box>
             </Grid>
           )}
-          {!loading && (
-            <WarehousesTable
-              warehouses={warehouses}
-              // deleteWarehouse={deleteWarehouse}
-              // editWarehouse={editWarehouse}
-              // viewWarehouseContacts={viewWarehouseContacts}
-            />
-          )}
+          {!loading && <WarehousesTable warehouses={warehouses} />}
         </PageContent>
       </Page>
     </>

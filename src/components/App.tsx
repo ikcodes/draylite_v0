@@ -13,10 +13,6 @@ import { AppFooter } from "./shared/AppFooter";
 import { Warehouse } from "../pages/Warehouse";
 
 const App = () => {
-  useEffect(() => {
-    // Prevents loading half-scrolled pages.
-    window.scrollTo(0, 0);
-  }, []);
   return (
     <>
       <Router>

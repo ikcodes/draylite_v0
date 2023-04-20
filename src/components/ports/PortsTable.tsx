@@ -16,7 +16,8 @@ export const PortsTable = (props: PortsTableProps) => {
           primary: true,
         },
         {
-          header: "",
+          header: "Page",
+          align: "center",
           property: "",
           render: (datum: any) => (
             <Link to={`/port/${datum?.port_id}`} key={"port-page"}>
@@ -27,6 +28,7 @@ export const PortsTable = (props: PortsTableProps) => {
         {
           header: "Carriers",
           property: "",
+          align: "center",
           render: (datum: any) => (
             <Link to={`/port/${datum?.port_id}/carriers`} key={"i-think-this-was-wrong"}>
               <Button label={"View Carriers"} primary />
@@ -36,6 +38,7 @@ export const PortsTable = (props: PortsTableProps) => {
         {
           header: "Warehouses",
           property: "",
+          align: "center",
           render: (datum: any) => (
             <Link to={`/port/${datum?.port_id}/warehouses`} key={"warehauses"}>
               <Button label={"View Warehouses"} primary />

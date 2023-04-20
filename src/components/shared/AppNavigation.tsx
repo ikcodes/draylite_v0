@@ -24,20 +24,20 @@ export const AppNavigation = () => {
 
   const DropContent = () => (
     <Box pad='small' style={portsMenuStyles}>
-      <Box>{ports?.map((port: any) => portLink(port))}</Box>
-    </Box>
-  );
-
-  const portLink = (port: Port) => (
-    <Box
-      key={`nav-port-${port.port_id}`}
-      pad={{ vertical: "small" }}
-      onClick={(e) => {
-        e.preventDefault();
-        return redirect(`/port/${port.port_id}`);
-      }}
-    >
-      <Text color={"light-1"}>{port.port_name}</Text>
+      <Box>
+        {ports?.map((port: any) => (
+          <Box
+            key={`nav-port-${port.port_id}`}
+            pad={{ vertical: "small" }}
+            onClick={(e) => {
+              // e.preventDefault();
+              redirect(`/port/${port.port_id}`);
+            }}
+          >
+            <Text color={"light-1"}>{port.port_name}</Text>
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 
@@ -70,7 +70,6 @@ export const AppNavigation = () => {
           dropContent={<DropContent />}
           dropProps={{ align: { top: "bottom" } }}
           style={{ borderColor: "#1BC5E7" }}
-          // background='dark-3'
         />
       </Nav>
     </Header>

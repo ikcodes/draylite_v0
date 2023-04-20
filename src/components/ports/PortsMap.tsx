@@ -28,7 +28,7 @@ const mapContainerStyle = {
   // Todo: integrate this with the nav
   backgroundColor: "rgb(51, 51, 51)",
   overflow: "hidden",
-  position: "relative" as any, // FUCK YOUUUUU TS
+  position: "relative" as any,
   height: "80vh",
   width: "100%",
 };
