@@ -87,3 +87,11 @@ export interface ContactListItemProps {
   editContact: (contactId: number) => void;
   deleteContact: (contactId: number) => void;
 }
+
+//
+// PORT TYPES
+//================
+export interface Port {
+  port_id: number;
+  port_name: string;
+}

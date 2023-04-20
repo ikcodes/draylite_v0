@@ -8,6 +8,11 @@ export const customTheme = {
       size: "16px",
       height: "16px",
     },
+    // HOW THE FUCK DOES THIS WORK?
+    // https://v2.grommet.io/drop#global.drop.extend
+    drop: {
+      // extend: `box-shadow: 'none'`,
+    },
     colors: {
       brand: drayliteBlue,
       active: "rgba(221, 221, 221, 0.5)",
