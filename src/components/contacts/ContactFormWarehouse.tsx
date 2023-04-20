@@ -2,12 +2,12 @@ import axios from "axios";
 import { TextInput, Button, FormField, Box, MaskedInput, Card, Spinner, Text } from "grommet";
 import toast from "react-hot-toast";
 import { API_URL, emailMask, phoneMask } from "../../utils/utils";
-import { ContactFormProps } from "../../utils/types";
+import { ContactFormWarehouseProps } from "../../utils/types";
 import { Formik, FormikValues } from "formik";
 import { useState } from "react";
 
-export const ContactForm = (props: ContactFormProps) => {
-  const { contact, mode, resetForm, carrierId } = props;
+export const ContactFormWarehouse = (props: ContactFormWarehouseProps) => {
+  const { contact, mode, resetForm, warehouseId } = props;
 
   const [formLoading, setFormLoading] = useState(false);
 
@@ -16,7 +16,7 @@ export const ContactForm = (props: ContactFormProps) => {
     contact_phone: "",
     contact_email: "",
     contact_notes: "",
-    carrier_id: carrierId,
+    warehouse_id: warehouseId,
   };
 
   const handleSubmission = (data: FormikValues) => {
@@ -27,7 +27,7 @@ export const ContactForm = (props: ContactFormProps) => {
     // ========================
     if (mode === "add") {
       axios
-        .post(`${API_URL}/contacts/create`, postData)
+        .post(`${API_URL}/contacts/warehouse/create`, postData)
         .then((response) => {
           if (response.status !== 200) {
             toast.error(`Problem ${mode}ing contact - please refresh and try again`);
@@ -49,12 +49,12 @@ export const ContactForm = (props: ContactFormProps) => {
     // ========================
     else if (mode === "edit") {
       axios
-        .put(`${API_URL}/contacts/update/${contact?.contact_id}`, postData)
+        .put(`${API_URL}/contacts/warehouse/update/${contact?.contact_id}`, postData)
         .then((response) => {
           if (response.status !== 200) {
             toast.error(`Problem ${mode}ing contact - please refresh and try again`);
           } else {
-            toast.success(`Successfully ${mode}ed carrier!`);
+            toast.success(`Successfully ${mode}ed warehouse!`);
           }
         })
         .catch(function (error) {
@@ -84,7 +84,7 @@ export const ContactForm = (props: ContactFormProps) => {
 
             {!formLoading && (
               <>
-                {carrierId && <input type='hidden' name='carrier_id' value={carrierId} />}
+                {warehouseId && <input type='hidden' name='warehouse_id' value={warehouseId} />}
                 <h3>{mode === "add" ? "Adding New" : "Editing"} Contact</h3>
                 <Box pad='none'>
                   <FormField label='Contact Name'>

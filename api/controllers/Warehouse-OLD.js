@@ -10,16 +10,19 @@ const { errorOut } = require("../utils/utils");
 
 const getAllWarehouses = async (req, res) => {
   try {
+    res.json({ test: "YAY" });
     const sql = `SELECT * FROM warehouses LIMIT 100`;
     const warehouses = await execute(sql, res);
 
     // Get these to run in parallel.
     // https://lavrton.com/javascript-loops-how-to-handle-async-await-6252dd3c795/
+    /*
     for (const c of warehouses) {
-      const con_sql = `SELECT * FROM contacts_warehouse WHERE warehouse_id=?`;
+      const con_sql = `SELECT * FROM contacts WHERE warehouse_id=?`;
       const con_params = [c.warehouse_id];
       c["contacts"] = await executeWithParams(con_sql, con_params);
     }
+    */
     respond(warehouses, res);
   } catch (e) {
     errorOut(e, res);
@@ -29,39 +32,16 @@ const getAllWarehouses = async (req, res) => {
 const getWarehouseById = async (req, res) => {
   try {
     // Get base warehouse
-    const sql = `SELECT c.*, p.port_id, p.port_name 
-                FROM warehouses c 
-                  LEFT JOIN warehouses_x_port cxp ON cxp.warehouse_id=c.warehouse_id
-                  LEFT JOIN ports p ON p.port_id=cxp.port_id
-                WHERE c.warehouse_id=?`;
+    const sql = `SELECT * FROM warehouses WHERE warehouse_id=?`;
     const params = [req.params.id];
-    const warehouseData = await executeWithParams(sql, params);
+    const warehouse = await executeWithParams(sql, params);
 
     // Get contacts
-    const con_sql = `SELECT * FROM contacts_warehouse WHERE warehouse_id=?`;
-    const con_params = [req.params.id];
-    const contactsData = await executeWithParams(con_sql, con_params);
+    const con_sql = `SELECT * FROM contacts WHERE warehouse_id=?`;
+    const con_params = [c.warehouse_id];
+    warehouse["contacts"] = await executeWithParams(con_sql, con_params);
 
-    // Get comments
-    const com_sql = `SELECT 
-                      comment_id, 
-                      comment, 
-                      DATE_FORMAT(created_at, '%a %b, %y  %l:%i:%s %p') 
-                        as comment_time 
-                    FROM comments_warehouse 
-                    WHERE warehouse_id=? 
-                    ORDER BY created_at DESC`;
-    const com_params = [req.params.id];
-    const commentsData = await executeWithParams(com_sql, com_params);
-
-    // Run the jewels
-    const resData = {
-      warehouse: warehouseData[0],
-      contacts: contactsData,
-      comments: commentsData,
-      ian: "ian",
-    };
-    respond(resData, res);
+    respond(warehouse, res);
   } catch (e) {
     errorOut(e, res);
   }
@@ -83,11 +63,13 @@ const getWarehousesByPortId = async (req, res) => {
 
     // Get these to run in parallel.
     // https://lavrton.com/javascript-loops-how-to-handle-async-await-6252dd3c795/
+    /*
     for (const c of warehouses) {
-      const con_sql = `SELECT * FROM contacts_warehouse WHERE warehouse_id=?`;
+      const con_sql = `SELECT * FROM contacts WHERE warehouse_id=?`;
       const con_params = [c.warehouse_id];
       c["contacts"] = await executeWithParams(con_sql, con_params);
     }
+    */
 
     const resData = {
       warehouses: warehouses,

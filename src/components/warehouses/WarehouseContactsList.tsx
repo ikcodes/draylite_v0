@@ -3,14 +3,15 @@ import { Box, Button, Card, Text } from "grommet";
 import { Add, FormClose } from "grommet-icons";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { CarrierDetailsProps, Contact } from "../../utils/types";
+import { WarehouseDetailsProps, Contact } from "../../utils/types";
 import { API_URL } from "../../utils/utils";
 import { ContactForm } from "../contacts/ContactForm";
 import { ContactListItem } from "../contacts/ContactsListItem";
+import { ContactFormWarehouse } from "../contacts/ContactFormWarehouse";
 
-export const CarrierContactsList = (props: CarrierDetailsProps) => {
+export const WarehouseContactsList = (props: WarehouseDetailsProps) => {
   const [mode, setMode] = useState<string>("");
-  const { carrier, contacts, refresh } = props as any;
+  const { warehouse, contacts, refresh } = props as any;
   const [editingContactId, setEditingContactId] = useState<number>();
 
   //====================
@@ -74,14 +75,20 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
           {/*   ADD CONTACT FORM   */}
           {/* ==================== */}
           {mode === "add" && (
-            <ContactForm mode={"add"} resetForm={resetForm} carrierId={carrier?.carrier_id} />
+            <ContactFormWarehouse
+              mode={"add"}
+              resetForm={resetForm}
+              warehouseId={warehouse?.warehouse_id}
+            />
           )}
           <Box>
             {contacts && (
               <>
                 {contacts.map((con: Contact) => {
                   if (con.contact_id === editingContactId && mode === "edit") {
-                    return <ContactForm mode={"edit"} contact={con} resetForm={resetForm} />;
+                    return (
+                      <ContactFormWarehouse mode={"edit"} contact={con} resetForm={resetForm} />
+                    );
                   } else {
                     return (
                       <ContactListItem
@@ -94,7 +101,7 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
                 })}
               </>
             )}
-            {!contacts?.length && <Text>No contacts currently exist for this carrier.</Text>}
+            {!contacts?.length && <Text>No contacts currently exist for this warehouse.</Text>}
           </Box>
         </Box>
       </Box>

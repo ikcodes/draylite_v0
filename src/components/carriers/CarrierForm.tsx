@@ -136,8 +136,13 @@ export const CarrierForm = (props: CarrierFormProps) => {
                     </Box>
                   </Grid>
                 </Box>
-                <Box margin={{ vertical: "medium", horizontal: "small" }} width='medium'>
-                  <Button disabled={formLoading} label={"Save Carrier"} primary type='submit' />
+                <Box direction='row'>
+                  <Box margin={{ vertical: "medium", horizontal: "small" }} width='medium'>
+                    <Button disabled={formLoading} label={"Save Carrier"} primary type='submit' />
+                  </Box>
+                  <Box margin={{ vertical: "medium", horizontal: "small" }} width='medium'>
+                    <Button disabled={formLoading} label={"Cancel"} secondary onClick={resetForm} />
+                  </Box>
                 </Box>
               </>
             )}

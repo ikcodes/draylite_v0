@@ -9,6 +9,7 @@ import { CarriersTable } from "../components/carriers/CarriersTable";
 import { WarehousesTable } from "../components/warehouses/WarehousesTable";
 import { CarrierForm } from "../components/carriers/CarrierForm";
 import { Add, DocumentUpload } from "grommet-icons";
+import { WarehouseForm } from "../components/warehouses/WarehouseForm";
 
 export const Port = () => {
   // Local state
@@ -51,6 +52,7 @@ export const Port = () => {
 
   const resetForm = () => {
     setAddingCarrier(false);
+    setAddingWarehaus(false);
     getPortData();
   };
 
@@ -137,8 +139,8 @@ export const Port = () => {
             <PageContent style={pageContentStyles}>
               <Box pad={{ top: "medium", bottom: "large" }}>
                 {/* ADD / EDIT WAREHAUS  */}
-                {addingCarrier && portId && (
-                  <CarrierForm portId={portId} mode='add' resetForm={resetForm} />
+                {addingWarehaus && portId && (
+                  <WarehouseForm portId={portId} mode='add' resetForm={resetForm} />
                 )}
                 {/*===============*/}
                 {/* WAREHAUSES CARD */}
@@ -158,7 +160,7 @@ export const Port = () => {
                       icon={<Add />}
                       label='Add Warehouse'
                       onClick={() => {
-                        setAddingCarrier(true);
+                        setAddingWarehaus(true);
                       }}
                     />
                   </Box>

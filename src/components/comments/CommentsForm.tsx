@@ -8,6 +8,7 @@ import { useState } from "react";
 
 interface CommentsFormProps {
   carrierId?: number;
+  warehouseId?: number;
   fireOnRefresh: () => void;
 }
 
@@ -16,7 +17,7 @@ interface CommentsFormValues {
 }
 
 export const CommentsForm = (props: CommentsFormProps) => {
-  const { carrierId, fireOnRefresh } = props;
+  const { carrierId, warehouseId, fireOnRefresh } = props;
   const initialValues: CommentsFormValues = { comment: "" };
   const [commentSubmitting, setCommentSubmitting] = useState(false);
 
@@ -32,13 +33,29 @@ export const CommentsForm = (props: CommentsFormProps) => {
         toast.error("Invalid comment! Please leave something.");
         return;
       }
-      const postData = {
-        carrier_id: carrierId,
-        comment: values.comment,
-      };
+      let postData;
+      let apiUrl = "";
+      if (warehouseId) {
+        postData = {
+          warehouse_id: warehouseId,
+          comment: values.comment,
+        };
+        apiUrl = `${API_URL}/comments/warehouse`;
+      }
+      if (carrierId) {
+        postData = {
+          carrier_id: carrierId,
+          comment: values.comment,
+        };
+        apiUrl = `${API_URL}/comments`;
+      }
+      if (!postData?.carrier_id && !postData?.warehouse_id) {
+        toast.error("need at least a warehouse or carrier id!");
+        return;
+      }
       setCommentSubmitting(true);
       axios
-        .post(`${API_URL}/comments`, postData)
+        .post(apiUrl, postData)
         .then((response) => {
           if (response.status !== 200) {
             toast.error(`Problem adding comment - please refresh and try again`);

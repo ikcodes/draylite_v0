@@ -48,9 +48,23 @@ export interface ContactFormProps {
   resetForm: any;
 }
 
+export interface ContactFormWarehouseProps {
+  warehouseId?: number; // For new
+  contact?: Contact; // For existing
+  mode: string;
+  resetForm: any;
+}
+
 export interface CarrierDetailsProps {
   // carrier?: Carrier; // can still add without full data
   carrier: any;
+  contacts?: any;
+  refresh?: () => void;
+}
+
+export interface WarehouseDetailsProps {
+  // carrier?: Carrier; // can still add without full data
+  warehouse: any;
   contacts?: any;
   refresh?: () => void;
 }
@@ -85,7 +99,7 @@ export interface WarehouseDetailsModalProps {
 
 export interface WarehouseFormProps {
   warehouse?: Warehouse;
-  portId: number;
+  portId: number | string;
   mode: string;
   resetForm: any;
 }

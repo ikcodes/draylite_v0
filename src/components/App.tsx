@@ -10,6 +10,7 @@ import { Carrier } from "../pages/Carrier";
 import { customTheme } from "../styles/grommet-theme";
 import { useEffect } from "react";
 import { AppFooter } from "./shared/AppFooter";
+import { Warehouse } from "../pages/Warehouse";
 
 const App = () => {
   useEffect(() => {
@@ -23,6 +24,7 @@ const App = () => {
           <AppNavigation />
           <Routes>
             <Route path='/carrier/:carrierId' element={<Carrier />} />
+            <Route path='/warehouse/:warehouseId' element={<Warehouse />} />
             <Route path='/port/:portId/carriers' element={<Carriers />} />
             <Route path='/port/:portId/warehouses' element={<Warehouses />} />
             <Route path='/port/:portId' element={<Port />} />

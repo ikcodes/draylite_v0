@@ -48,16 +48,13 @@ router.put(`${BASE_URL}/warehouses/update/:id`, warehouse.updateWarehouse);
 
 // CONTACT ROUTING
 //=================
-router.get(`${BASE_URL}/carriers/:id/contacts`, contact.getContactsByCarrierId);
-// router.get(`${BASE_URL}/warehouses/:id/contacts`, contact.getContactsByWarehouseId);
-router.get(`${BASE_URL}/warehouses/:id/contacts`, (req, res) => {
-  res.json({
-    message: "Not yet implemented! Need to add to Contact controller.",
-  });
-});
-router.delete(`${BASE_URL}/contacts/:id`, contact.deleteContact);
 router.post(`${BASE_URL}/contacts/create`, contact.addNewContact);
 router.put(`${BASE_URL}/contacts/update/:id`, contact.updateContact);
+router.get(`${BASE_URL}/carriers/:id/contacts`, contact.getContactsByCarrierId);
+router.post(`${BASE_URL}/contacts/warehouse/create`, contact.addNewContactWarehouse);
+router.put(`${BASE_URL}/contacts/warehouse/update/:id`, contact.updateContactWarehouse);
+router.get(`${BASE_URL}/warehouses/:id/contacts`, contact.getContactsByWarehouseId);
+router.delete(`${BASE_URL}/contacts/:id`, contact.deleteContact);
 
 // DOCUMENT ROUTING
 //=================
@@ -68,7 +65,9 @@ router.get(`${BASE_URL}/carrier/:id/documents`, document.getDocumentsByCarrier);
 // COMMENT ROUTING
 //=================
 router.post(`${BASE_URL}/comments`, comment.addComment);
+router.post(`${BASE_URL}/comments/warehouse`, comment.addCommentWarehouse);
 router.get(`${BASE_URL}/comments/:id`, comment.getComment);
 router.get(`${BASE_URL}/carrier/:id/comments`, comment.getCommentsByCarrier);
+router.get(`${BASE_URL}/warehouse/:id/comments`, comment.getCommentsByWarehouse);
 
 module.exports = router;
