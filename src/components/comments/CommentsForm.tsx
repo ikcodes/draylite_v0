@@ -78,7 +78,7 @@ export const CommentsForm = (props: CommentsFormProps) => {
                 />
               </FormField>
             </Box>
-            <Box direction='row'>
+            <Box direction='row-responsive'>
               <Box width='medium' pad={{ vertical: "small", right: "medium" }}>
                 <Button
                   disabled={commentSubmitting}

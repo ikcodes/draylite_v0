@@ -113,7 +113,7 @@ export const Documents = (props: DocumentsProps) => {
             <strong>Note:</strong> Uploading two documents with the same name will overwrite the
             previous document.
           </p>
-          <Box direction='row' margin={{ top: "medium" }}>
+          <Box direction='row-responsive' margin={{ top: "medium" }}>
             <Box basis='1/2' margin={{ right: "xsmall" }}>
               <Button icon={<DocumentUpload />} label='Upload Document' type='submit' primary />
             </Box>
@@ -128,7 +128,7 @@ export const Documents = (props: DocumentsProps) => {
       </Box>
       <Box pad={{ top: "large" }}>
         {documentsLoading && (
-          <Box align='center' direction='row' gap='small' pad='small'>
+          <Box align='center' direction='row-responsive' gap='small' pad='small'>
             <Spinner size='medium' />
             <Text size='medium'>Loading Documents...</Text>
           </Box>
@@ -138,7 +138,7 @@ export const Documents = (props: DocumentsProps) => {
         )}
         {!!documents.length && !documentsLoading && (
           <>
-            <Box direction='row'>
+            <Box direction='row-responsive'>
               <Box style={{ marginLeft: 17 }}>
                 <DocumentDownload />
               </Box>

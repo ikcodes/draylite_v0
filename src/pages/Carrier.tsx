@@ -88,7 +88,7 @@ export const Carrier = () => {
   // the necessary positioning aspects.
   //==============================================
   const CarrierAttributes = () => (
-    <Box direction='row' style={{ minWidth: 350 }}>
+    <Box direction='row-responsive' style={{ minWidth: 350 }}>
       <Box direction='column' pad='small'>
         <Box
           align='center'
@@ -203,7 +203,7 @@ export const Carrier = () => {
         <Page background='light-1'>
           <PageContent style={pageContentStyles}>
             <Box align='center' style={{ minHeight: "80vh", marginTop: "40vh" }}>
-              <Box align='center' direction='row' gap='small' pad='small'>
+              <Box align='center' direction='row-responsive' gap='small' pad='small'>
                 <Spinner size='medium' />
                 <Text size='medium'>Loading Carrier...</Text>
               </Box>
@@ -217,12 +217,17 @@ export const Carrier = () => {
         <>
           <Page background='light-1'>
             <PageContent style={pageContentStyles}>
-              <Box direction='row' justify='between' pad={{ vertical: "medium" }} width='xlarge'>
+              <Box
+                direction='row-responsive'
+                justify='between'
+                pad={{ vertical: "medium" }}
+                width='xlarge'
+              >
                 <Link
                   to={`/port/${carrier?.port_id}`}
                   style={{ textDecoration: "none", color: "#666" }}
                 >
-                  <Box direction='row'>
+                  <Box direction='row-responsive'>
                     <Box>
                       <FormPreviousLink />
                     </Box>
@@ -240,7 +245,7 @@ export const Carrier = () => {
                       alert("Editin!");
                       setEditing(true);
                     }}
-                    direction='row'
+                    direction='row-responsive'
                   >
                     <Box>
                       <FormEdit size='medium' />

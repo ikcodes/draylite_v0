@@ -39,7 +39,7 @@ export const AppNavigation = () => {
   return (
     <Header background='dark-1' pad='small'>
       <Link to='/'>
-        <Box direction='row'>
+        <Box direction='row-responsive'>
           <Box>
             <Avatar
               size='medium'
@@ -56,7 +56,7 @@ export const AppNavigation = () => {
           </Box>
         </Box>
       </Link>
-      <Nav direction='row' gap='medium' justify='between'>
+      <Nav direction='row-responsive' gap='medium' justify='between'>
         <DropButton
           primary
           label='Select A Port'

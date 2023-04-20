@@ -157,7 +157,7 @@ export const Carriers = () => {
           <h3>Current List of Carriers</h3>
           {loading && (
             <Grid>
-              <Box align='center' direction='row' gap='small' pad='small'>
+              <Box align='center' direction='row-responsive' gap='small' pad='small'>
                 <Spinner size='medium' />
                 <Text size='medium'>Loading Carriers...</Text>
               </Box>

@@ -80,7 +80,7 @@ export const CarrierForm = (props: CarrierFormProps) => {
         <form onSubmit={handleSubmit}>
           <Card background='white' margin={{ bottom: "medium" }} pad='small'>
             {formLoading && (
-              <Box align='center' direction='row' gap='small'>
+              <Box align='center' direction='row-responsive' gap='small'>
                 <Spinner size='medium' />
                 <Text size='medium'>Saving Carrier...</Text>
               </Box>

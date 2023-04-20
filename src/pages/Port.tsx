@@ -66,7 +66,7 @@ export const Port = () => {
         <Page background='light-2'>
           <PageContent style={pageContentStyles}>
             <Box align='center' style={{ minHeight: "80vh", marginTop: "40vh" }}>
-              <Box align='center' direction='row' gap='small' pad='small'>
+              <Box align='center' direction='row-responsive' gap='small' pad='small'>
                 <Spinner size='medium' />
                 <Text size='medium'>Loading Port Data...</Text>
               </Box>
@@ -98,7 +98,12 @@ export const Port = () => {
                 {/*===============*/}
                 {/* CARRIERS CARD */}
                 {/*===============*/}
-                <Box align='center' direction='row' justify='between' pad={{ bottom: "small" }}>
+                <Box
+                  align='center'
+                  direction='row-responsive'
+                  justify='between'
+                  pad={{ bottom: "small" }}
+                >
                   <Box>
                     <h1>Carriers</h1>
                   </Box>
@@ -143,7 +148,12 @@ export const Port = () => {
                 {/*===============*/}
                 {/* WAREHAUSES CARD */}
                 {/*===============*/}
-                <Box align='center' direction='row' justify='between' pad={{ bottom: "small" }}>
+                <Box
+                  align='center'
+                  direction='row-responsive'
+                  justify='between'
+                  pad={{ bottom: "small" }}
+                >
                   <Box>
                     <h1>Warehouses</h1>
                   </Box>

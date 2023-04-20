@@ -21,7 +21,7 @@ export const DeleteModal = (props: DeleteModalProps) => {
             <Box
               as='footer'
               align='center'
-              direction='row'
+              direction='row-responsive'
               gap='small'
               justify='end'
               pad={{ top: "medium", bottom: "small" }}

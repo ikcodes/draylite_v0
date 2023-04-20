@@ -78,7 +78,7 @@ export const ContactForm = (props: ContactFormProps) => {
         <form onSubmit={handleSubmit} style={{ paddingTop: 0, paddingBottom: 30 }}>
           <Card background='light-1' pad={{ top: "xsmall", left: "medium" }}>
             {formLoading && (
-              <Box align='center' direction='row' gap='small' pad='small'>
+              <Box align='center' direction='row-responsive' gap='small' pad='small'>
                 <Spinner size='medium' />
                 <Text size='medium'>Saving Contact data...</Text>
               </Box>
@@ -120,7 +120,7 @@ export const ContactForm = (props: ContactFormProps) => {
                       value={values.contact_notes}
                     />
                   </FormField>
-                  <Box direction='row'>
+                  <Box direction='row-responsive'>
                     <Box width='small' pad={{ vertical: "medium", right: "medium" }}>
                       <Button label={"Save Contact"} primary type='submit' />
                     </Box>

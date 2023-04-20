@@ -23,7 +23,7 @@ export const CommentsList = (props: CommentsListProps) => (
       <>
         {props.comments.map((comment: Comment) => (
           <Box
-            direction='row'
+            direction='row-responsive'
             justify='between'
             key={`comment-${JSON.stringify(comment)}`}
             style={commentRowStyle}

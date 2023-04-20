@@ -39,7 +39,7 @@ export const ContactListItem = (props: ContactListItemProps) => (
         props.contact.contact_phone === " " &&
         props.contact.contact_email === " " && <Text>No info yet. Edit contact to add some!</Text>}
     </Box>
-    <Box direction='row' pad={{ top: "small" }}>
+    <Box direction='row-responsive' pad={{ top: "small" }}>
       <Box pad={{ right: "small" }}>
         <Button
           size='small'
