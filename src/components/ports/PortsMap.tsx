@@ -7,16 +7,16 @@ interface PortsMapProps {
 
 const placeProps = (name: string, color: string) => ({
   name,
-  color,
+  color: "#1BC5E7",
   ...{
     content: (
-      <Box pad={{ horizontal: "small", vertical: "xsmall" }}>
+      <Box pad={{ horizontal: "small", vertical: "xsmall" }} background='#1BC5E7'>
         <Text>{name}</Text>
       </Box>
     ),
     dropProps: {
       align: { left: "right" },
-      background: { color, opacity: "strong" },
+      background: { color: "#1BC5E7", opacity: "strong" },
       elevation: "medium",
       margin: { left: "small" },
       round: "xsmall",
