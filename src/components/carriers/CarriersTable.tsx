@@ -1,9 +1,6 @@
 import { Box, Button, DataTable, Grid, Text } from "grommet";
-import { useState } from "react";
 import { Carrier } from "../../utils/types";
-import { ActionBox } from "../shared/ActionBox";
 import { AttributeButton } from "../shared/AttributeButton";
-import { DeleteModal } from "../shared/DeleteModal";
 import { Deliver } from "grommet-icons";
 import { useNavigate } from "react-router-dom";
 
@@ -16,10 +13,8 @@ interface CarriersTableProps {
 
 export const CarriersTable = (props: CarriersTableProps) => {
   const navigate = useNavigate();
-  const [isDeleting, setIsDeleting] = useState(false);
 
   return (
-    // <Data data={props.carriers} toolbar>  //  Filtering ?
     <DataTable
       data={props.carriers}
       columns={[
@@ -27,13 +22,12 @@ export const CarriersTable = (props: CarriersTableProps) => {
           property: "",
           header: "Name",
           primary: true,
-          size: "1/3",
           render: (carrier: Carrier) => <Text weight={500}>{carrier.carrier_name}</Text>,
         },
         {
           property: "",
           header: "Attributes",
-          size: "1/3",
+          size: "1/4",
           render: (carrier: Carrier) => (
             <Grid
               columns={{
@@ -59,63 +53,25 @@ export const CarriersTable = (props: CarriersTableProps) => {
           ),
         },
         {
+          align: "center",
+          header: "Contacts",
+          property: "",
+          // size: "1/10",
+          render: (carrier: Carrier) => <Text textAlign='center'>{carrier.contacts?.length}</Text>,
+        },
+        {
+          align: "center",
           header: "Actions",
           property: "",
-          size: "1/3",
+          // size: "2/10",
           render: (carrier: Carrier) => (
-            <>
-              <Box direction='row-responsive' justify='between' align='left' gap='medium'>
-                <Box align='middle'>
-                  <Button
-                    // FOR WAREHAUS: Use <MapLocation /> or <Organization />
-                    icon={<Deliver />}
-                    label='View Carrier Page'
-                    onClick={() => navigate(`/carrier/${carrier.carrier_id}`)}
-                    primary
-                  />
-                </Box>
-              </Box>
-              {/*  
-            <Grid
-              columns={{
-                count: 3,
-                size: "small",
-              }}
-              gap='xxsmall'
-              width='xxsmall'
-              key={carrier.carrier_id}
-            >
-
-
-              <ActionBox
-                actionButtonClick={() => props.viewCarrierContacts(carrier.carrier_id)}
-                toolTipText='View Carrier Contats'
-                mode='view'
-              />
-              <ActionBox
-                actionButtonClick={() => props.editCarrier(carrier.carrier_id)}
-                toolTipText='Edit This Carrier'
-                mode='edit'
-              />
-              <ActionBox
-                actionButtonClick={() => setIsDeleting(true)}
-                toolTipText='Delete This Carrier'
-                mode='delete'
-              />
-              <DeleteModal
-                heading={`Delete ${carrier.carrier_name}?`}
-                message={`Are you sure you want to delete ${carrier.carrier_name}? This action cannot be undone.`}
-                visible={isDeleting}
-                closeFunction={() => setIsDeleting(false)}
-                proceedFunction={() => {
-                  props.deleteCarrier(carrier.carrier_id);
-                  setIsDeleting(false);
-                }}
-              />
-              
-              </Grid>
-            */}
-            </>
+            <Button
+              // FOR WAREHAUS: Use <MapLocation /> or <Organization />
+              icon={<Deliver />}
+              label='View Carrier Page'
+              onClick={() => navigate(`/carrier/${carrier.carrier_id}`)}
+              primary
+            />
           ),
         },
       ]}

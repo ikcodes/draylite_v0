@@ -1,5 +1,5 @@
 import { Box, Header, Nav, Text, Avatar, DropButton, Heading, Button } from "grommet";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { navDrayliteStyles } from "../../utils/styles";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -29,11 +29,16 @@ export const AppNavigation = () => {
   );
 
   const portLink = (port: Port) => (
-    <Link key={`nav-port-${port.port_id}`} to={`/port/${port.port_id}/`}>
-      <Box pad={{ vertical: "small" }}>
-        <Text color={"light-1"}>{port.port_name}</Text>
-      </Box>
-    </Link>
+    <Box
+      key={`nav-port-${port.port_id}`}
+      pad={{ vertical: "small" }}
+      onClick={(e) => {
+        e.preventDefault();
+        return redirect(`/port/${port.port_id}`);
+      }}
+    >
+      <Text color={"light-1"}>{port.port_name}</Text>
+    </Box>
   );
 
   return (
@@ -58,13 +63,14 @@ export const AppNavigation = () => {
       </Link>
       <Nav direction='row-responsive' gap='medium' justify='between'>
         <DropButton
-          primary
           label='Select A Port'
           open={menuOpen}
           onOpen={() => setMenuOpen(true)}
           onClose={() => setMenuOpen(false)}
           dropContent={<DropContent />}
           dropProps={{ align: { top: "bottom" } }}
+          style={{ borderColor: "#1BC5E7" }}
+          // background='dark-3'
         />
       </Nav>
     </Header>

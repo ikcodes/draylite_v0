@@ -1,6 +1,7 @@
 const drayliteRed = "#ca2e21";
 // const drayliteBlue = "#228BE6";
 const drayliteBlue = "#1BC5E7";
+// const drayliteBlue = "#16b2d2";
 
 export const customTheme = {
   global: {
@@ -75,7 +76,10 @@ export const customTheme = {
   },
   button: {
     primary: {
-      background: drayliteBlue,
+      background: {
+        dark: drayliteBlue,
+        light: drayliteBlue,
+      },
     },
   },
   worldMap: {

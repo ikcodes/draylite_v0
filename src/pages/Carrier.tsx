@@ -241,10 +241,7 @@ export const Carrier = () => {
                 <Box>
                   <Box
                     style={{ cursor: "pointer" as any, color: "purple" }}
-                    onClick={() => {
-                      alert("Editin!");
-                      setEditing(true);
-                    }}
+                    onClick={() => setEditing(true)}
                     direction='row-responsive'
                   >
                     <Box>
@@ -272,6 +269,10 @@ export const Carrier = () => {
                     title={carrier.carrier_name || ``}
                     style={{ paddingTop: 0, paddingBottom: 15 }}
                   />
+                  <Text style={{ paddingLeft: 4 }} size='small'>
+                    Now viewing all Contacts, Documents, and Comments associated with{" "}
+                    {carrier.carrier_name}.
+                  </Text>
                 </Box>
                 <Box>
                   <CarrierAttributes />

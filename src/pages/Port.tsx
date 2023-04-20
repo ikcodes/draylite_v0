@@ -86,7 +86,7 @@ export const Port = () => {
                 title={portName ? `Port of ${portName}` : " "}
                 style={{ fontWeight: "700 !important" }}
               />
-              <Text>
+              <Text style={{ paddingLeft: 4 }} size='small'>
                 Now viewing all Carriers, Warehouses, and Info associated with the Port of{" "}
                 {portName}.
               </Text>

@@ -1,21 +1,10 @@
 import axios from "axios";
-import {
-  Box,
-  Button,
-  FileInput,
-  Form,
-  FormExtendedEvent,
-  FormField,
-  Spinner,
-  Text,
-  TextInput,
-} from "grommet";
+import { Box, Button, FileInput, Form, FormExtendedEvent, Spinner, Text } from "grommet";
 import toast from "react-hot-toast";
 import { API_URL } from "../../utils/utils";
-import { DocumentDownload, DocumentUpload, DocumentVerified } from "grommet-icons";
+import { CloudUpload, DocumentDownload, DocumentUpload } from "grommet-icons";
 import { useEffect, useState } from "react";
 import FormData from "form-data";
-// import { createReadStream } from "fs";
 
 interface DocumentsProps {
   carrierId?: number;
@@ -25,6 +14,8 @@ export const Documents = (props: DocumentsProps) => {
   const { carrierId } = props;
   const [documents, setDocuments] = useState([]); // Separate calls to get carrier documents
   const [documentsLoading, setDocumentsLoading] = useState(true);
+  const [documentUploading, setDocumentUploading] = useState(false);
+  const [retries, setRetries] = useState(0);
 
   const getDocuments = () => {
     try {
@@ -46,8 +37,12 @@ export const Documents = (props: DocumentsProps) => {
           resetForm();
         });
     } catch (e) {
-      toast.error("Experienced an error getting files. Please refresh and try again.");
       console.log(e);
+      if (retries < 2) {
+        // console.log("RETRYING Document Fetch (Retry count: " + retries + ")");
+        // setRetries(retries + 1);
+        // setTimeout(() => getDocuments(), 2000);
+      }
     }
   };
 
@@ -56,8 +51,14 @@ export const Documents = (props: DocumentsProps) => {
   //======================
   const uploadDocuments = (event: FormExtendedEvent<{}, Element>) => {
     try {
+      setDocumentUploading(true);
       // Get file and assemble post data
       const formValues = event.value as any;
+      if (!formValues.file) {
+        toast.error("Please attach a file to upload.");
+        setDocumentUploading(false);
+        return;
+      }
       let formData = new FormData();
       formData.append("files", formValues.file[0]);
       formData.append("carrier_id", carrierId);
@@ -76,15 +77,17 @@ export const Documents = (props: DocumentsProps) => {
         })
         .finally(() => {
           getDocuments();
+          setDocumentUploading(false);
         });
     } catch (e) {
       console.log("yes error", e);
+      setDocumentUploading(false);
       alert(JSON.stringify(e));
     }
   };
 
   const formOnChange = (event: FormExtendedEvent<{}, Element>) => {
-    console.log("onChange... should we clear?");
+    console.log(event);
   };
 
   useEffect(() => getDocuments(), []);
@@ -115,13 +118,19 @@ export const Documents = (props: DocumentsProps) => {
           </p>
           <Box direction='row-responsive' margin={{ top: "medium" }}>
             <Box basis='1/2' margin={{ right: "xsmall" }}>
-              <Button icon={<DocumentUpload />} label='Upload Document' type='submit' primary />
+              <Button
+                disabled={documentUploading}
+                icon={documentUploading ? <CloudUpload /> : <DocumentUpload />}
+                label={documentUploading ? "Uploading..." : "Upload Document"}
+                type='submit'
+                primary
+              />
             </Box>
             <Box basis='1/4' margin={{ right: "xsmall" }}>
-              <Button type='reset' label='Reset' />
+              <Button disabled={documentUploading} type='reset' label='Reset' />
             </Box>
             <Box basis='1/4' margin={{ right: "xsmall" }}>
-              <Button label='Cancel' />
+              <Button disabled={documentUploading} label='Cancel' />
             </Box>
           </Box>
         </Form>
@@ -147,8 +156,12 @@ export const Documents = (props: DocumentsProps) => {
               </Box>
             </Box>
             <ul style={{ marginTop: "medium", marginBottom: "none" }}>
-              {documents.map((document: any) => (
-                <DocumentPreview downloadUrl={document.url} filename={document.filename} />
+              {documents.map((document: any, i) => (
+                <DocumentPreview
+                  key={`document-preview-${i}`}
+                  downloadUrl={document.url}
+                  filename={document.filename}
+                />
               ))}
             </ul>
           </>
@@ -161,9 +174,7 @@ export const Documents = (props: DocumentsProps) => {
 };
 
 const DocumentPreview = (props: any) => (
-  // <Box>
   <li style={{ marginBottom: 15 }}>
     {props.filename} <a href={props.downloadUrl}>Download Here</a>
   </li>
-  // </Box>
 );
