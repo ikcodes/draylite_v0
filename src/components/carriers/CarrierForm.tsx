@@ -78,9 +78,9 @@ export const CarrierForm = (props: CarrierFormProps) => {
     <Formik initialValues={carrier || blankCarrier} onSubmit={(values) => handleSubmission(values)}>
       {({ values, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <Card background='white' margin={{ bottom: "medium" }}>
+          <Card background='white' margin={{ bottom: "medium" }} pad='small'>
             {formLoading && (
-              <Box align='center' direction='row' gap='small' pad='small'>
+              <Box align='center' direction='row' gap='small'>
                 <Spinner size='medium' />
                 <Text size='medium'>Saving Carrier...</Text>
               </Box>
@@ -88,7 +88,9 @@ export const CarrierForm = (props: CarrierFormProps) => {
             {!formLoading && (
               <>
                 <Box pad='small'>
-                  <h2 style={{ marginBottom: 0 }}>Adding New Carrier</h2>
+                  <h2 style={{ marginBottom: 0 }}>
+                    {mode == "edit" ? "Editing Carrier " : "Adding New Carrier"}
+                  </h2>
                 </Box>
                 <Box pad='small'>
                   <TextInput

@@ -1,5 +1,6 @@
 const drayliteRed = "#ca2e21";
-const drayliteBlue = "#228BE6";
+// const drayliteBlue = "#228BE6";
+const drayliteBlue = "#1BC5E7";
 
 export const customTheme = {
   global: {

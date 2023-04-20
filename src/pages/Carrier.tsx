@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Box, Grid, Page, PageContent, PageHeader, Spinner, Text } from "grommet";
+import { Box, Page, PageContent, PageHeader, Spinner, Text } from "grommet";
 import toast from "react-hot-toast";
 import { API_URL } from "../utils/utils";
 import { pageContentStyles, pageStyles } from "../utils/styles";
@@ -9,8 +9,8 @@ import { CarrierContactsList } from "../components/carriers/CarrierContactsList"
 import { Documents } from "../components/shared/Documents";
 import { CommentsForm } from "../components/comments/CommentsForm";
 import { CommentsList } from "../components/comments/CommentsList";
-import { Test, Trophy, Optimize, Transaction } from "grommet-icons";
-import { Carrier as CarrierType } from "../utils/types";
+import { Test, Trophy, Optimize, Transaction, FormPreviousLink, FormEdit } from "grommet-icons";
+import { CarrierForm } from "../components/carriers/CarrierForm";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
@@ -26,6 +26,8 @@ export const Carrier = () => {
   const [contacts, setContacts] = useState() as any;
   const [comments, setComments] = useState() as any;
   const [carrierName, setCarrierName] = useState("");
+
+  const [editing, setEditing] = useState(false);
 
   //===================================================
   // GET CARRIER DATA:
@@ -86,14 +88,14 @@ export const Carrier = () => {
   // the necessary positioning aspects.
   //==============================================
   const CarrierAttributes = () => (
-    <Box direction='row'>
+    <Box direction='row' style={{ minWidth: 350 }}>
       <Box direction='column' pad='small'>
         <Box
           align='center'
           pad={{ top: "13px" }}
           style={{
             borderRadius: "100%",
-            backgroundColor: carrier.carrier_preferred ? "#228BE6" : "#ddd",
+            backgroundColor: carrier.carrier_preferred ? "#1BC5E7" : "#ddd",
             marginLeft: 8,
             marginBottom: 4,
           }}
@@ -103,7 +105,12 @@ export const Carrier = () => {
           <Trophy color='white' />
         </Box>
         <Box align='center'>
-          <Text color={carrier.carrier_preferred ? "#228BE6" : "#ddd"} size='small' weight={700}>
+          <Text
+            color={carrier.carrier_preferred ? "#1BC5E7" : "#ddd"}
+            size='small'
+            style={carrier.carrier_preferred ? {} : { textDecoration: "line-through" as any }}
+            weight={700}
+          >
             Preferred
           </Text>
         </Box>
@@ -114,7 +121,7 @@ export const Carrier = () => {
           pad={{ top: "13px" }}
           style={{
             borderRadius: "100%",
-            backgroundColor: carrier.carrier_overweight ? "#228BE6" : "#ddd",
+            backgroundColor: carrier.carrier_overweight ? "#1BC5E7" : "#ddd",
             marginLeft: 14,
             marginBottom: 4,
           }}
@@ -124,7 +131,12 @@ export const Carrier = () => {
           <Optimize color='white' />
         </Box>
         <Box align='center'>
-          <Text color={carrier.carrier_overweight ? "#228BE6" : "#ddd"} size='small' weight={700}>
+          <Text
+            color={carrier.carrier_overweight ? "#1BC5E7" : "#ddd"}
+            size='small'
+            style={carrier.carrier_overweight ? {} : { textDecoration: "line-through" as any }}
+            weight={700}
+          >
             Overweight
           </Text>
         </Box>
@@ -135,7 +147,7 @@ export const Carrier = () => {
           pad={{ top: "13px" }}
           style={{
             borderRadius: "100%",
-            backgroundColor: carrier.carrier_hazmat ? "#228BE6" : "#ddd",
+            backgroundColor: carrier.carrier_hazmat ? "#1BC5E7" : "#ddd",
             marginLeft: 1,
             marginBottom: 4,
           }}
@@ -145,7 +157,12 @@ export const Carrier = () => {
           <Test color='white' />
         </Box>
         <Box align='center'>
-          <Text color={carrier.carrier_hazmat ? "#228BE6" : "#ddd"} size='small' weight={700}>
+          <Text
+            color={carrier.carrier_hazmat ? "#1BC5E7" : "#ddd"}
+            size='small'
+            style={carrier.carrier_hazmat ? {} : { textDecoration: "line-through" as any }}
+            weight={700}
+          >
             Hazmat
           </Text>
         </Box>
@@ -156,7 +173,7 @@ export const Carrier = () => {
           pad={{ top: "13px" }}
           style={{
             borderRadius: "100%",
-            backgroundColor: carrier.carrier_transload ? "#228BE6" : "#ddd",
+            backgroundColor: carrier.carrier_transload ? "#1BC5E7" : "#ddd",
             marginLeft: 10,
             marginBottom: 4,
           }}
@@ -166,7 +183,12 @@ export const Carrier = () => {
           <Transaction color='white' />
         </Box>
         <Box align='center'>
-          <Text color={carrier.carrier_transload ? "#228BE6" : "#ddd"} size='small' weight={700}>
+          <Text
+            color={carrier.carrier_transload ? "#1BC5E7" : "#ddd"}
+            size='small'
+            style={carrier.carrier_transload ? {} : { textDecoration: "line-through" as any }}
+            weight={700}
+          >
             Transload
           </Text>
         </Box>
@@ -195,33 +217,81 @@ export const Carrier = () => {
         <>
           <Page background='light-1'>
             <PageContent style={pageContentStyles}>
-              {/* CARRIER NAME */}
-              <Box pad={{ vertical: "medium" }}>
-                <Link to={`/port/${carrier?.port_id}`} style={{ marginTop: 10 }}>
-                  &larr; Back to {carrier?.port_name ? `Port of ${carrier.port_name}` : "Port"}
-                </Link>
-
-                {/* CARRIER ATTRIBUTES */}
-                <Box
-                  align='end'
-                  pad={{ top: "small", bottom: "medium" }}
-                  direction='row-responsive'
-                  justify='between'
-                  width='xlarge'
+              <Box direction='row' justify='between' pad={{ vertical: "medium" }} width='xlarge'>
+                <Link
+                  to={`/port/${carrier?.port_id}`}
+                  style={{ textDecoration: "none", color: "#666" }}
                 >
-                  <Box>
-                    <PageHeader
-                      title={carrier.carrier_name || ``}
-                      style={{ paddingTop: 45, paddingBottom: 15 }}
-                    />
+                  <Box direction='row'>
+                    <Box>
+                      <FormPreviousLink />
+                    </Box>
+                    <Box>
+                      <Text size='small' color='drayliteBlue' style={{ paddingTop: 2 }}>
+                        Back to {carrier?.port_name ? `Port of ${carrier.port_name}` : "Port"}
+                      </Text>
+                    </Box>
                   </Box>
-                  <Box>
-                    <CarrierAttributes />
+                </Link>
+                <Box>
+                  <Box
+                    style={{ cursor: "pointer" as any, color: "purple" }}
+                    onClick={() => {
+                      alert("Editin!");
+                      setEditing(true);
+                    }}
+                    direction='row'
+                  >
+                    <Box>
+                      <FormEdit size='medium' />
+                    </Box>
+                    <Box>
+                      <Text size='small' color='#666' style={{ paddingTop: 2 }}>
+                        Edit This Carrier
+                      </Text>
+                    </Box>
                   </Box>
+                </Box>
+              </Box>
+
+              {/* CARRIER ATTRIBUTES */}
+              <Box
+                align='end'
+                pad={{ top: "small", bottom: "medium" }}
+                direction='row-responsive'
+                justify='between'
+                width='xlarge'
+              >
+                <Box>
+                  <PageHeader
+                    title={carrier.carrier_name || ``}
+                    style={{ paddingTop: 0, paddingBottom: 15 }}
+                  />
+                </Box>
+                <Box>
+                  <CarrierAttributes />
                 </Box>
               </Box>
             </PageContent>
           </Page>
+
+          {editing && (
+            <Page background='light-2'>
+              <PageContent style={pageContentStyles}>
+                <Box width='xlarge' pad={{ top: "medium" }}>
+                  <CarrierForm
+                    carrier={carrier}
+                    mode={"edit"}
+                    portId={1}
+                    resetForm={() => {
+                      setEditing(false);
+                      getCarrierData();
+                    }}
+                  />
+                </Box>
+              </PageContent>
+            </Page>
+          )}
 
           {/* CARRIER CONTACTS LIST  */}
           <Page background='light-2'>
