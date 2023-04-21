@@ -1,17 +1,31 @@
 import { Box, Grid, Text, WorldMap } from "grommet";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface PortsMapProps {
   ports: any[];
 }
 
-const placeProps = (name: string, color: string) => ({
+const placeProps = (name: string, link: string) => ({
   name,
   color: "#1BC5E7",
   ...{
     content: (
-      <Box pad={{ horizontal: "small", vertical: "xsmall" }} background='#1BC5E7'>
-        <Text>{name}</Text>
+      <Box
+        pad={{ horizontal: "small", vertical: "xsmall" }}
+        background='#1BC5E7'
+        style={{ cursor: "pointer" as any }}
+      >
+        <Link
+          to={link}
+          style={{
+            color: "white",
+            textTransform: "uppercase",
+            textDecoration: "none",
+            fontWeight: 500,
+          }}
+        >
+          <Text>{name}</Text>
+        </Link>
       </Box>
     ),
     dropProps: {
@@ -52,11 +66,13 @@ export const PortsMap = (props: PortsMapProps) => {
   // PORTS (Mapped dynamically from DB lat/lng)
   //===========================================
   const portsMapped = props?.ports?.map((port) => {
+    const portLink = `/port/${port?.port_id}`;
+
     return {
       // location: [34.05, -118.25],
       location: [port?.port_lat, port?.port_lng],
-      ...placeProps(port?.port_name, "graph-1"),
-      onClick: () => navigate(`/port/${port?.port_id}`),
+      ...placeProps(port?.port_name, portLink),
+      onClick: () => navigate(portLink),
     };
   });
 
