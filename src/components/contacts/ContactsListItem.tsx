@@ -1,5 +1,7 @@
+import { Layer } from "grommet-icons";
 import { ContactListItemProps } from "../../utils/types";
-import { Box, Button, Card, Text } from "grommet";
+import { Box, Button, Card, Text, Tip } from "grommet";
+import toast from "react-hot-toast";
 
 export const ContactListItem = (props: ContactListItemProps) => (
   // <Box height='large'>
@@ -19,12 +21,32 @@ export const ContactListItem = (props: ContactListItemProps) => (
         <Text margin={{ bottom: "xsmall" }}>
           <strong style={{ fontWeight: 600 }}>Email: </strong>
           <a href={`mailto:${props.contact.contact_email}`}>{props.contact.contact_email}</a>
+          <Tip content='Copy email address...' dropProps={{ align: { left: "right" } }}>
+            <Layer
+              size='small'
+              style={{ stroke: "#666", paddingLeft: 10, cursor: "pointer" as any }}
+              onClick={() => {
+                navigator.clipboard.writeText(props.contact.contact_email);
+                toast.success("Copied email address to clipboard.");
+              }}
+            />
+          </Tip>
         </Text>
       )}
       {props.contact.contact_phone !== " " && (
         <Text margin={{ bottom: "xsmall" }}>
           <strong style={{ fontWeight: 600 }}>Phone: </strong>
           <a href={`tel:${props.contact.contact_phone}`}>{props.contact.contact_phone}</a>
+          <Tip content='Copy phone number...' dropProps={{ align: { left: "right" } }}>
+            <Layer
+              size='small'
+              style={{ stroke: "#666", paddingLeft: 10, cursor: "pointer" as any }}
+              onClick={() => {
+                navigator.clipboard.writeText(props.contact.contact_phone);
+                toast.success("Copied phone number to clipboard.");
+              }}
+            />
+          </Tip>
         </Text>
       )}
       {props.contact.contact_notes !== " " && (
