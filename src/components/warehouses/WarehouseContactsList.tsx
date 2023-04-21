@@ -83,6 +83,7 @@ export const WarehouseContactsList = (props: WarehouseDetailsProps) => {
           )}
           <Box>
             {contacts && (
+              // For double-rows, use 'row' as direction prop
               <Box direction='column' gap='small'>
                 {contacts.map((con: Contact) => {
                   if (con.contact_id === editingContactId && mode === "edit") {

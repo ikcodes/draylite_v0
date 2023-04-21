@@ -30,10 +30,10 @@ const getCommentsByCarrier = async (req, res) => {
       `SELECT 
         comment_id, 
         comment, 
-        DATE_FORMAT(SUBTIME(created_at, '5:0:0.0'), '%a %b, %y  %l:%i:%s %p') 
+        DATE_FORMAT(SUBTIME(created_at, '5:0:0.0'), '%b %d, %Y  %l:%i %p') 
           as comment_time 
       FROM comments 
-      WHERE carrier_id=? 
+      WHERE carrier_id=?
       ORDER BY created_at DESC`,
       [req.params.id],
       res
@@ -50,10 +50,10 @@ const getCommentsByWarehouse = async (req, res) => {
       `SELECT 
         comment_id, 
         comment, 
-        DATE_FORMAT(SUBTIME(created_at, '5:0:0.0'), '%a %b, %y  %l:%i:%s %p') 
+        DATE_FORMAT(SUBTIME(created_at, '5:0:0.0'), '%b %d, %Y  %l:%i %p') 
           as comment_time 
       FROM comments_warehouse 
-      WHERE warehouse_id=? 
+      WHERE warehouse_id=?
       ORDER BY created_at DESC`,
       [req.params.id],
       res

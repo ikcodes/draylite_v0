@@ -44,13 +44,13 @@ const getWarehouseById = async (req, res) => {
 
     // Get comments
     const com_sql = `SELECT 
-                      comment_id, 
-                      comment, 
-                      DATE_FORMAT(created_at, '%a %b, %y  %l:%i:%s %p') 
-                        as comment_time 
-                    FROM comments_warehouse 
-                    WHERE warehouse_id=? 
-                    ORDER BY created_at DESC`;
+                        comment_id, 
+                        comment, 
+                        DATE_FORMAT(SUBTIME(created_at, '5:0:0.0'), '%b %d, %Y  %l:%i %p') 
+                          as comment_time 
+                      FROM comments_warehouse 
+                      WHERE warehouse_id=?
+                      ORDER BY created_at DESC`;
     const com_params = [req.params.id];
     const commentsData = await executeWithParams(com_sql, com_params);
 
@@ -59,7 +59,6 @@ const getWarehouseById = async (req, res) => {
       warehouse: warehouseData[0],
       contacts: contactsData,
       comments: commentsData,
-      ian: "ian",
     };
     respond(resData, res);
   } catch (e) {
