@@ -13,7 +13,7 @@ const port = require("../controllers/Port");
 //====================================
 const express = require("express");
 const router = express.Router();
-const BASE_URL = `/api/v0`;
+const BASE_URL = `/v0`;
 
 // HEALTH CHECK
 //==============

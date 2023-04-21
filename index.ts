@@ -75,4 +75,4 @@ storage.on("write", async (event) => {
   console.log(event, "new file written yo!");
 });
 
-serverlessApi.use("/", routes);
+serverlessApi.use("/api", routes);

@@ -104,7 +104,7 @@ export const Carriers = () => {
         <PageContent>
           <PageHeader title={`${portName ? `${portName} Carriers` : "Carriers"}`} />
           <Text>
-            Use the table below to view and edit carriers that run freight out of this port.
+            Use the table below to view and edit carriers that service {portName || "this port"}.
             <br />
             You may also add carriers using the "Add" button below, or remove any carriers as
             necessary.
@@ -123,34 +123,15 @@ export const Carriers = () => {
             />
           </Box>
 
-          {/* VIEW CONTACTS MODAL */}
-          {mode === "view-contacts" && (
-            <CarrierContactsList
-              carrier={carriers.find((c) => c.carrier_id == carrierId)}
-              refresh={getCarriers}
-              // setParentMode={setMode}
-            />
-          )}
-
           {/* ADD / EDIT FORM */}
-          {(mode === "edit" || mode === "add") && (
+          {mode === "add" && (
             <Box animation='fadeIn'>
-              <Card pad='medium' gap='medium' background='white' style={{ position: "relative" }}>
-                <Heading size='small' margin='none'>
-                  {mode === "edit" ? "Edit" : "Add"} Carrier
-                </Heading>
-                <FormClose
-                  onClick={() => resetForm()}
-                  cursor='pointer'
-                  style={{ position: "absolute", right: 10, top: 10 }}
-                />
-                <CarrierForm
-                  carrier={carriers.find((c) => c.carrier_id == carrierId)}
-                  portId={Number(portId)}
-                  mode={mode}
-                  resetForm={resetForm}
-                />
-              </Card>
+              <CarrierForm
+                carrier={carriers.find((c) => c.carrier_id == carrierId)}
+                portId={Number(portId)}
+                mode={mode}
+                resetForm={resetForm}
+              />
             </Box>
           )}
 
