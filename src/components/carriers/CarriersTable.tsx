@@ -56,16 +56,18 @@ export const CarriersTable = (props: CarriersTableProps) => {
           render: (carrier: Carrier) => <Text textAlign='center'>{carrier.contacts?.length}</Text>,
         },
         {
-          align: "center",
+          align: "end",
           header: "",
           property: "",
+          size: "1/5",
           render: (carrier: Carrier) => (
             <Button
               // FOR WAREHAUS: Use <MapLocation /> or <Organization />
               icon={<Deliver />}
               label='View Carrier Page'
               onClick={() => navigate(`/carrier/${carrier.carrier_id}`)}
-              primary
+              secondary
+              style={{ maxWidth: 300 }}
             />
           ),
         },

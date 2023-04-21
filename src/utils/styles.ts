@@ -31,8 +31,7 @@ export const navDrayliteStyles = {
   paddingLeft: 15,
   paddingTop: 13,
   fontSize: 20,
-  fontWeight: 300,
-  letterSpacing: -1,
+  fontWeight: 500,
   textTransform: "uppercase" as any,
   textDecoration: "none !important",
 };

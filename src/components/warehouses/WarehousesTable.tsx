@@ -58,16 +58,18 @@ export const WarehousesTable = (props: WarehousesTableProps) => {
           ),
         },
         {
-          align: "center",
+          align: "end",
           header: "",
           property: "",
+          size: "1/5",
           render: (warehouse: Warehouse) => (
             <Button
               // FOR WAREHAUS: Use <MapLocation /> or <Organization />
               icon={<MapLocation />}
               label='View Warehouse Page'
               onClick={() => navigate(`/warehouse/${warehouse.warehouse_id}`)}
-              primary
+              secondary
+              style={{ maxWidth: 300 }}
             />
           ),
         },
