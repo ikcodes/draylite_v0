@@ -29,7 +29,7 @@ export const CommentsList = (props: CommentsListProps) => (
             style={commentRowStyle}
           >
             <Box basis='3/5'>{comment.comment}</Box>
-            <Box basis='2/5' style={timeStyle}>
+            <Box basis='2/5' style={timeStyle} pad={{ right: "medium" }}>
               {comment.comment_time}
             </Box>
             {/* <span style={timeStyle}>{comment.created_at}</span> */}

@@ -84,19 +84,19 @@ export const CommentsForm = (props: CommentsFormProps) => {
         {({ values, handleChange, handleSubmit, resetForm }) => (
           <form onSubmit={handleSubmit}>
             {carrierId && <input type='hidden' name='carrier_id' value={carrierId} />}
-            <Box pad='none'>
-              <FormField>
-                <TextInput
-                  disabled={commentSubmitting}
-                  name='comment'
-                  onChange={handleChange}
-                  placeholder='Leave a comment... '
-                  value={values.comment}
-                />
-              </FormField>
-            </Box>
             <Box direction='row-responsive'>
-              <Box width='medium' pad={{ vertical: "small", right: "medium" }}>
+              <Box pad='none' width='large'>
+                <FormField>
+                  <TextInput
+                    disabled={commentSubmitting}
+                    name='comment'
+                    onChange={handleChange}
+                    placeholder='Leave a comment... '
+                    value={values.comment}
+                  />
+                </FormField>
+              </Box>
+              <Box width='medium' pad={{ vertical: "small", left: "medium" }}>
                 <Button
                   disabled={commentSubmitting}
                   icon={<ChatOption />}
@@ -105,15 +105,6 @@ export const CommentsForm = (props: CommentsFormProps) => {
                   type='submit'
                 />
               </Box>
-              {/* Care for a Cancel? */}
-              {/* <Box width='medium' pad={{ vertical: "medium" }}>
-                <Button
-                  disabled={commentSubmitting}
-                  label={"Cancel"}
-                  secondary
-                  onClick={() => resetForm()}
-                />
-              </Box> */}
             </Box>
           </form>
         )}

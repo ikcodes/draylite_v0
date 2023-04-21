@@ -331,7 +331,7 @@ export const Carrier = () => {
                   {/* <Box pad={{ vertical: "small" }}> */}
                   <CommentsForm carrierId={carrier.carrier_id} fireOnRefresh={getCarrierComments} />
                 </Box>
-                <Box pad={{ vertical: "medium", left: "medium" }}>
+                <Box pad={{ vertical: "medium", left: "small" }}>
                   <CommentsList comments={comments} />
                 </Box>
               </Box>
