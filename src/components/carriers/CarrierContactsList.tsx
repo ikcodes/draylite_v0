@@ -78,21 +78,24 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
           )}
           <Box>
             {contacts && (
-              <>
+              // For double-rows, use 'row' as direction prop
+              <Box direction='column' gap='small'>
                 {contacts.map((con: Contact) => {
                   if (con.contact_id === editingContactId && mode === "edit") {
                     return <ContactForm mode={"edit"} contact={con} resetForm={resetForm} />;
                   } else {
                     return (
-                      <ContactListItem
-                        contact={con}
-                        editContact={editContact}
-                        deleteContact={deleteContact}
-                      />
+                      <Box basis='1/2'>
+                        <ContactListItem
+                          contact={con}
+                          editContact={editContact}
+                          deleteContact={deleteContact}
+                        />
+                      </Box>
                     );
                   }
                 })}
-              </>
+              </Box>
             )}
             {!contacts?.length && <Text>No contacts currently exist for this carrier.</Text>}
           </Box>

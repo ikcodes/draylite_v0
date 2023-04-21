@@ -65,7 +65,7 @@ export const Port = () => {
       {/*  LOADING SPINNER  */}
       {/*===================*/}
       {loading && (
-        <Page background='light-2'>
+        <Page background='light-1'>
           <PageContent style={pageContentStyles}>
             <Box align='center' style={{ minHeight: "80vh", marginTop: "40vh" }}>
               <Box align='center' direction='row-responsive' gap='small' pad='small'>
@@ -82,7 +82,7 @@ export const Port = () => {
           {/*===============*/}
           {/*  PORT OF (x)  */}
           {/*===============*/}
-          <Page background='light-1' pad={{ bottom: "medium" }}>
+          <Page background='light-2' pad={{ bottom: "medium" }}>
             <PageContent style={pageContentStyles}>
               <PageHeader
                 title={portName ? `Port of ${portName}` : " "}
@@ -94,7 +94,7 @@ export const Port = () => {
               </Text>
             </PageContent>
           </Page>
-          <Page background='light-2'>
+          <Page background='light-1'>
             <PageContent style={pageContentStyles}>
               <Box pad={{ top: "medium", bottom: "large" }}>
                 {/*===============*/}
@@ -135,7 +135,7 @@ export const Port = () => {
           {/*=================*/}
           {/*    WAREHAUSES   */}
           {/*=================*/}
-          <Page background='light-1'>
+          <Page background='light-2'>
             <PageContent style={pageContentStyles}>
               <Box pad={{ top: "medium", bottom: "large" }}>
                 {/* ADD / EDIT WAREHAUS  */}
@@ -174,7 +174,7 @@ export const Port = () => {
           {/*==============*/}
           {/*  PORT INFO   */}
           {/*==============*/}
-          <Page background='light-2'>
+          <Page background='light-1'>
             <PageContent style={pageContentStyles}>
               <Box pad={{ top: "medium", bottom: "large" }}>
                 <h1 style={{ marginBottom: 30 }}>Port Info</h1>

@@ -2,14 +2,12 @@ import { ContactListItemProps } from "../../utils/types";
 import { Box, Button, Card, Text } from "grommet";
 
 export const ContactListItem = (props: ContactListItemProps) => (
+  // <Box height='large'>
   <Card
     key={`contact-list-item-${props.contact.contact_id}`}
-    style={{
-      marginTop: 10,
-      marginBottom: 20,
-      padding: 10,
-    }}
+    pad='small'
     background='light-1'
+    flex='grow'
   >
     <Box pad='small'>
       <Text size='large'>
@@ -60,4 +58,5 @@ export const ContactListItem = (props: ContactListItemProps) => (
       </Box>
     </Box>
   </Card>
+  // </Box>
 );

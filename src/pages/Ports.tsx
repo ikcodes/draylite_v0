@@ -1,9 +1,8 @@
 import axios from "axios";
-import { Page, PageContent, Text, PageHeader, Box, Grid } from "grommet";
+import { Page, PageContent, PageHeader, Box } from "grommet";
 import { useEffect, useState } from "react";
 import { API_URL } from "../utils/utils";
 import { PortsTable } from "../components/ports/PortsTable";
-import { pageStyles } from "../utils/styles";
 import { PortsMap } from "../components/ports/PortsMap";
 import toast from "react-hot-toast";
 
@@ -32,10 +31,12 @@ export const Ports = () => {
   return (
     <>
       <PortsMap ports={ports} />
-      <Page background='light-1' style={pageStyles}>
+      <Page background='light-3'>
         <PageContent style={{ marginTop: 0, paddingTop: 0 }}>
           <PageHeader title='All Ports' />
-          <PortsTable ports={ports} />
+          <Box pad={{ bottom: "xlarge" }}>
+            <PortsTable ports={ports} />
+          </Box>
         </PageContent>
       </Page>
     </>

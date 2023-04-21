@@ -83,7 +83,7 @@ export const WarehouseContactsList = (props: WarehouseDetailsProps) => {
           )}
           <Box>
             {contacts && (
-              <>
+              <Box direction='column' gap='small'>
                 {contacts.map((con: Contact) => {
                   if (con.contact_id === editingContactId && mode === "edit") {
                     return (
@@ -91,15 +91,17 @@ export const WarehouseContactsList = (props: WarehouseDetailsProps) => {
                     );
                   } else {
                     return (
-                      <ContactListItem
-                        contact={con}
-                        editContact={editContact}
-                        deleteContact={deleteContact}
-                      />
+                      <Box basis='1/2'>
+                        <ContactListItem
+                          contact={con}
+                          editContact={editContact}
+                          deleteContact={deleteContact}
+                        />
+                      </Box>
                     );
                   }
                 })}
-              </>
+              </Box>
             )}
             {!contacts?.length && <Text>No contacts currently exist for this warehouse.</Text>}
           </Box>

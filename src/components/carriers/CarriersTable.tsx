@@ -2,7 +2,7 @@ import { Button, DataTable, Grid, Text } from "grommet";
 import { Carrier } from "../../utils/types";
 import { AttributeButton } from "../shared/AttributeButton";
 import { Deliver } from "grommet-icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface CarriersTableProps {
   carriers: Carrier[];
@@ -19,7 +19,14 @@ export const CarriersTable = (props: CarriersTableProps) => {
           property: "",
           header: "Name",
           primary: true,
-          render: (carrier: Carrier) => <Text weight={500}>{carrier.carrier_name}</Text>,
+          render: (carrier: Carrier) => (
+            <Link
+              to={`/carrier/${carrier.carrier_id}`}
+              style={{ textDecoration: "none", color: "rgb(68, 68, 68)" }}
+            >
+              <Text weight={500}>{carrier.carrier_name}</Text>
+            </Link>
+          ),
         },
         {
           property: "",

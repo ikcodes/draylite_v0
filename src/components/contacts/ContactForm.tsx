@@ -73,7 +73,7 @@ export const ContactForm = (props: ContactFormProps) => {
   return (
     <Formik initialValues={contact || blankContact} onSubmit={(values) => handleSubmission(values)}>
       {({ values, handleChange, handleSubmit }) => (
-        <form onSubmit={handleSubmit} style={{ paddingTop: 0, paddingBottom: 30 }}>
+        <form onSubmit={handleSubmit}>
           <Card background='light-1' pad={{ top: "xsmall", horizontal: "medium" }}>
             {formLoading && (
               <Box align='center' direction='row-responsive' gap='small' pad='small'>

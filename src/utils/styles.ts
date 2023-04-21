@@ -27,7 +27,7 @@ export const attributeButtonStyles = {
 };
 
 export const navDrayliteStyles = {
-  color: "#aaa",
+  color: "#ca2e21",
   paddingLeft: 15,
   paddingTop: 13,
   fontSize: 20,

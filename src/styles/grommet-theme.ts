@@ -15,6 +15,12 @@ export const customTheme = {
     drop: {
       // extend: `box-shadow: 'none'`,
     },
+    text: {
+      small: {
+        size: "15px",
+        height: "18px",
+      },
+    },
     colors: {
       brand: drayliteBlue,
       active: "rgba(221, 221, 221, 0.5)",

@@ -1,7 +1,7 @@
 import { Button, DataTable, Grid, Text } from "grommet";
 import { Warehouse } from "../../utils/types";
 import { AttributeButton } from "../shared/AttributeButton";
-import { MapLocation } from "grommet-icons";
+import { MapLocation, Organization } from "grommet-icons";
 import { useNavigate } from "react-router-dom";
 
 interface WarehousesTableProps {
@@ -64,8 +64,7 @@ export const WarehousesTable = (props: WarehousesTableProps) => {
           size: "1/5",
           render: (warehouse: Warehouse) => (
             <Button
-              // FOR WAREHAUS: Use <MapLocation /> or <Organization />
-              icon={<MapLocation />}
+              icon={<Organization />}
               label='View Warehouse Page'
               onClick={() => navigate(`/warehouse/${warehouse.warehouse_id}`)}
               secondary

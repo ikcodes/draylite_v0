@@ -61,7 +61,7 @@ export const AppNavigation = () => {
           </Box>
         </Box>
       </Link>
-      <Nav direction='row-responsive' gap='medium' justify='between'>
+      {/* <Nav direction='row-responsive' gap='medium' justify='between'>
         <DropButton
           label='Select A Port'
           open={menuOpen}
@@ -71,7 +71,7 @@ export const AppNavigation = () => {
           dropProps={{ align: { top: "bottom" } }}
           style={{ borderColor: "#1BC5E7" }}
         />
-      </Nav>
+      </Nav> */}
     </Header>
   );
 };
