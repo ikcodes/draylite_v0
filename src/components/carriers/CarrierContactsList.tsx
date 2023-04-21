@@ -68,18 +68,20 @@ export const CarrierContactsList = (props: CarrierDetailsProps) => {
           />
         </Box>
       </Box>
-      <Box>
+      <Box pad={{ vertical: "medium" }}>
         <Box>
           {/* ==================== */}
           {/*   ADD CONTACT FORM   */}
           {/* ==================== */}
           {mode === "add" && (
-            <ContactForm mode={"add"} resetForm={resetForm} carrierId={carrier?.carrier_id} />
+            <Box pad={{ bottom: "medium" }}>
+              <ContactForm mode={"add"} resetForm={resetForm} carrierId={carrier?.carrier_id} />
+            </Box>
           )}
           <Box>
             {contacts && (
               // For double-rows, use 'row' as direction prop
-              <Box direction='column' gap='small'>
+              <Box direction='column' gap='medium'>
                 {contacts.map((con: Contact) => {
                   if (con.contact_id === editingContactId && mode === "edit") {
                     return <ContactForm mode={"edit"} contact={con} resetForm={resetForm} />;
