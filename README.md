@@ -1,35 +1,16 @@
-# Draylite V0
+# Draylite Version 0
+Draylite is an internal tool used by Gateway Logistics to manage user-supplied logistics intelligence. The application is currently centered around Drayage: the process of moving containers out of storage at international ports, to a location where they can be transferred to long-haul carriers.
 
-Version 0 of Draylite platform: an internal tool to manage shipment intelligence for Gateway Logistics.
+The platform's purpose is to streamline the process of matching shipments with Drayage providers, a key 
 
-## Current Hosting
+## Environment / Depoloyment
 
-This app is configured to run in Serverless Cloud. Development requires an internet connection. 
+This app is configured to run in Serverless Cloud. Development requires an internet connection, as well as an account with Serverless Cloud. (This section to be updated when Serverless Clous becomes publically available.
 Documentation for Serverless Cloud (soon to become Ampt as of 05.2023) available here: https://www.serverless.com/cloud/docs
 
-## Dev Scripts
+## Moving Forward
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This application is currently live and in use by the client (as of late April 2023). Future aspirations include:
+- Achieving separate configuration to run in a purely local environment
+– Streamlining performance of complex API queries
+– Converting the API to TypeScript, perhaps using a library like NestJS.
