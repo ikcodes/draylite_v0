@@ -8,6 +8,7 @@
  *
  |*******************************************************/
 import { api as serverlessApi, storage, http } from "@serverless/cloud";
+import { serveSinglePageApp } from "./src/utils/serve-application";
 
 // NETWORKING
 //=============
@@ -30,7 +31,7 @@ serverlessApi.use(cors(corsSettings));
 //======================================================
 
 // creates a POST and PUT route at `/upload`
-serverlessApi.post("/api/v0/upload", async (req, res) => {
+serverlessApi.post("/api/v0/upload", async (req: any, res: any) => {
   try {
     const { files } = req as any;
     if (!files || !files.length) {
@@ -71,23 +72,7 @@ serverlessApi.get("/api/v0/big-upload", async (req, res) => {
   });
 });
 
-// THIS ACTUALLY SERVES THE SPA
-//==============================
-http.on("404", async (req: any, res: any) => {
-  if (req.path.startsWith("/api")) {
-    // This is an api level 404, so some api route that was not found
-    res.sendStatus(404);
-  } else if (req.accepts("html")) {
-    // all other routes (i.e. your frontend) will hit this, and serve the SPA
-    // this is supposed to be in the types, but isn't. im sry.
-    // @ts-ignore
-    const stream = await http.assets.readFile("index.html");
-    if (stream) {
-      res.status(200).type("html");
-      stream.pipe(res);
-      return;
-    }
-  }
-});
+// See dedicated file, procedure to be updated after Serverless => Ampt
+http.on("404", serveSinglePageApp);
 
 serverlessApi.use("/api", routes);
