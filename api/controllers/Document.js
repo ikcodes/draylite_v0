@@ -1,29 +1,46 @@
-const {
-  // connection,
-  respond,
-  execute,
-  executeWithParams,
-  executeAndRespond,
-  executeAndRespondWithParams,
-} = require("../services/db");
-const { errorOut } = require("../utils/utils");
-
 // Serverless Cloud storage: https://www.serverless.com/cloud/docs/apps/blob-storage
 const { storage } = require("@serverless/cloud");
 
-const getDocument = async (req, res) => {
+const uploadDocument = async (req, res) => {
   try {
-    res.json({
-      message: `Getting document: ${req.params.id}`,
+    const { files } = req;
+    if (!files || !files.length) {
+      return res.status(400).send("No files uploaded");
+    }
+    if (!req.body.carrier_id) {
+      return res.status(400).send("No carrier_id provided");
+    }
+    const carrier_id = req.body.carrier_id;
+
+    // Using the filename and path, upload
+    const file = files[0];
+    const fileName = files[0].originalname;
+    const filePath = `/carrierData/carrier${carrier_id}/${fileName}`;
+    const writeRes = await storage.write(filePath, file.buffer, {
+      type: file.mimetype,
     });
-    /*
-    const sql = `SELECT * FROM ports WHERE port_lat IS NOT NULL AND port_lng IS NOT NULL`;
-    const ports = await executeAndRespond(sql, res);
-    respond(ports, res);
-    */
+    return res.send({
+      writeRes,
+      message: "File uploaded successfully",
+    });
   } catch (e) {
-    errorOut(e, res);
+    res.status(403).send(e);
   }
+};
+
+// Large documents respond with an Upload URL.
+const uploadLargeDocument = async (req, res) => {
+  const { filename } = req.query;
+
+  if (!filename) {
+    return res.status(400).send("No filename provided");
+  }
+
+  const uploadUrl = await storage.getUploadUrl(filename);
+
+  return res.send({
+    uploadUrl,
+  });
 };
 
 const getDocumentsByCarrier = async (req, res) => {
@@ -53,20 +70,12 @@ const getDocumentsByCarrier = async (req, res) => {
     }
     return res.status(200).send(carrierFiles);
   } catch (e) {
-    errorOut(e, res);
-  }
-};
-
-const uploadDocument = async (req, res) => {
-  try {
-    return res.status(400).send("Not implemented at this route");
-  } catch (e) {
-    res.status(500).send(e);
+    res.status(403).send(JSON.stringify(e));
   }
 };
 
 module.exports = {
-  getDocument,
   uploadDocument,
+  uploadLargeDocument,
   getDocumentsByCarrier,
 };

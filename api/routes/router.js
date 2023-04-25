@@ -8,9 +8,6 @@ const carrier = require("../controllers/Carrier");
 const contact = require("../controllers/Contact");
 const port = require("../controllers/Port");
 
-// SERVERLESS CLOUD UPLOAD SCRIPTS
-const serverless = require("@serverless/cloud");
-
 //====================================
 // Routing
 //====================================
@@ -61,52 +58,9 @@ router.delete(`${BASE_URL}/contacts/:id`, contact.deleteContact);
 
 // DOCUMENT ROUTING
 //=================
-
-router.post(`${BASE_URL}/documents`, document.uploadDocument);
-router.get(`${BASE_URL}/documents/:id`, document.getDocument);
+router.post(`${BASE_URL}/upload`, document.uploadDocument);
+router.post(`${BASE_URL}/big-upload`, document.uploadLargeDocument);
 router.get(`${BASE_URL}/carrier/:id/documents`, document.getDocumentsByCarrier);
-
-// creates a POST and PUT route at `/upload`
-router.post(`${BASE_URL}/upload`, async (req, res) => {
-  try {
-    const { files } = req;
-    if (!files || !files.length) {
-      return res.status(400).send("No files uploaded");
-    }
-    if (!req.body.carrier_id) {
-      return res.status(400).send("No carrier_id provided");
-    }
-    const carrier_id = req.body.carrier_id;
-
-    // Using the filename and path, upload
-    const file = files[0];
-    const fileName = files[0].originalname;
-    const filePath = `/carrierData/carrier${carrier_id}/${fileName}`;
-    const writeRes = await serverless.storage.write(filePath, file.buffer, {
-      type: file.mimetype,
-    });
-    return res.send({
-      writeRes,
-      message: "File uploaded successfully",
-    });
-  } catch (e) {
-    res.status(403).send(e);
-  }
-});
-
-router.post(`${BASE_URL}/big-upload`, async (req, res) => {
-  const { filename } = req.query;
-
-  if (!filename) {
-    return res.status(400).send("No filename provided");
-  }
-
-  const uploadUrl = await serverless.storage.getUploadUrl(filename);
-
-  return res.send({
-    uploadUrl,
-  });
-});
 
 // COMMENT ROUTING
 //=================
