@@ -1,7 +1,7 @@
 # Draylite Version 0
 Draylite is an internal tool used by Gateway Logistics to manage user-supplied logistics intelligence. The application is currently centered around Drayage: the process of moving containers out of storage at international ports, to a location where they can be transferred to long-haul carriers.
 
-The platform's purpose is to streamline the process of matching shipments with Drayage providers, a key 
+The platform's purpose is to streamline the process of matching shipments with Drayage providers, a current pain point of Gateway Logistics' business.
 
 ## Environment / Depoloyment
 
