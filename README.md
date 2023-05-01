@@ -12,5 +12,5 @@ Documentation for Serverless Cloud (soon to become Ampt as of 05.2023) available
 
 This application is currently live and in use by the client (as of late April 2023). Future aspirations include:
 - Achieving separate configuration to run in a purely local environment
-– Streamlining performance of complex API queries
-– Converting the API to TypeScript, perhaps using a library like NestJS.
+- Streamlining performance of complex API queries (chaining Promises)
+- Converting the API to TypeScript, perhaps using a library like NestJS
