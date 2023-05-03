@@ -42,7 +42,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cloud:dev": "react-scripts start",
-    "cloud:build": "BUILD_PATH='./static' react-scripts build"
+    "cloud:build": "BUILD_PATH='./static' react-scripts build",
+    "ampt:dev": "react-scripts start",
+    "ampt:build": "BUILD_PATH='./static' react-scripts build"
   },
   "browserslist": {
     "production": [

@@ -1,6 +1,4 @@
-export const API_URL = "https://lightning-build-fpr99.cloud.serverless.com/api/v0"; // SANDBOX
-// export const API_URL = "https://heroic-hack-m8m0h.cloud.serverless.com/api/v0";    // DEV
-// export const API_URL = "https://bright-build-hatcx.cloud.serverless.com/api/v0";   // PROD
+export const API_URL = "/api/v0";
 
 export const capitalizeFirstLetter = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
 
