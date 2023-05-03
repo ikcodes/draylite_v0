@@ -3,6 +3,17 @@ Draylite is an internal tool used by Gateway Logistics to manage user-supplied l
 
 Containers move from Ports to Warehouses via Carriers. The application serves as a "living list" of current carriers, their status, and which ones to use.
 
+## Data structure
+- Port
+  - Carrier
+    - Contacts
+    - Documents
+    - Comments
+  - Warehouses
+    - Contacts
+    - Documents
+    - Comments
+
 ## Environment / Depoloyment
 
 This app is configured to run in Serverless Cloud. Development requires an internet connection, as well as an account with Serverless Cloud. (This section to be updated when Serverless Clous becomes publically available.
