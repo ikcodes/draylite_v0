@@ -12,9 +12,6 @@ import { pageStyles } from "../utils/styles";
 
 export const Warehouses = () => {
   let { portId } = useParams();
-  if (!portId) {
-    alert("No port id you fuck. this is broken.");
-  }
   //====================
   // LOCAL STATE
   //====================

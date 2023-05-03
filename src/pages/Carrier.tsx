@@ -14,9 +14,6 @@ import { CarrierForm } from "../components/carriers/CarrierForm";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
-  if (!carrierId) {
-    alert("No carrier id you fuck. this is broken.");
-  }
   //====================
   // LOCAL STATE
   //====================

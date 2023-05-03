@@ -14,9 +14,6 @@ import { WarehouseForm } from "../components/warehouses/WarehouseForm";
 
 export const Warehouse = () => {
   const { warehouseId } = useParams();
-  if (!warehouseId) {
-    alert("No warehouse id you fuck. this is broken.");
-  }
   //====================
   // LOCAL STATE
   //====================

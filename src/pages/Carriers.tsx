@@ -24,9 +24,6 @@ import { CarrierContactsList } from "../components/carriers/CarrierContactsList"
 
 export const Carriers = () => {
   let { portId } = useParams();
-  if (!portId) {
-    alert("No port id you fuck. this is broken.");
-  }
   //====================
   // LOCAL STATE
   //====================
