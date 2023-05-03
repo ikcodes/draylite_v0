@@ -12,6 +12,9 @@ dist/
 build/
 static/
 
+# AMPT DIRECTORY => Might want individual pieces of this eventually
+.ampt/
+
 # Compiled Java class files
 *.class
 
