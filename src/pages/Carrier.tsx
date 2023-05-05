@@ -12,76 +12,24 @@ import { CommentsList } from "../components/comments/CommentsList";
 import { FormPreviousLink, FormEdit } from "grommet-icons";
 import { CarrierForm } from "../components/carriers/CarrierForm";
 import { EntityAttributes } from "../components/shared/EntityAttributes";
+import { useCarrier } from "../hooks/useCarrier";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
-  //====================
-  // LOCAL STATE
-  //====================
-  const [loading, setLoading] = useState(true);
-  const [carrier, setCarrier] = useState() as any;
-  const [contacts, setContacts] = useState() as any;
-  const [comments, setComments] = useState() as any;
-
-  const [editing, setEditing] = useState(false);
-
-  //===================================================
-  // GET CARRIER DATA:
-  // All attributes that affect this SPECIFIC carrier.
-  //====================================================
-  const getCarrierData = () => {
-    setLoading(true);
-    const url = `${API_URL}/carriers/${carrierId}`;
-    axios.get(url).then((res) => {
-      if (!res.data.data || !res.data.data.carrier) {
-        setLoading(false);
-        console.log(res.data.data);
-        toast.error("Unable to get carrier! Please refresh the page to try again.");
-        return;
-      }
-      const data = res.data.data;
-
-      // Set base carrier info (shouldn't change unless edited)
-      let carrier = data.carrier;
-      carrier["carrier_preferred"] = carrier["carrier_preferred"] === 1;
-      carrier["carrier_overweight"] = carrier["carrier_overweight"] === 1;
-      carrier["carrier_transload"] = carrier["carrier_transload"] === 1;
-      carrier["carrier_hazmat"] = carrier["carrier_hazmat"] === 1;
-      setCarrier(carrier);
-
-      // Set additional data (separated so we can refresh it without refreshing the whole page)
-      if (data.contacts) {
-        setContacts(data.contacts);
-      }
-      if (data.comments) {
-        setComments(data.comments);
-      }
-      setLoading(false);
-    });
-  };
-
-  const getCarrierComments = () => {
-    axios.get(`${API_URL}/carrier/${carrierId}/comments`).then((res) => {
-      if (!res.data) {
-        toast.error("Unable to load comments...");
-        console.log(res.data);
-        return;
-      }
-      if (res.data.data) {
-        setComments(res.data.data);
-      }
-    });
-  };
-
-  useEffect(() => {
-    getCarrierData();
-  }, []);
-
-  // CARRIER ATTRIBUTES
-  // It's very tempting to make these dynamic,
-  // but the sizing of each word conflicts with
-  // the necessary positioning aspects.
-  //==============================================
+  const {
+    loading,
+    setLoading,
+    carrier,
+    setCarrier,
+    contacts,
+    setContacts,
+    comments,
+    setComments,
+    editing,
+    setEditing,
+    getCarrierData,
+    getCarrierComments,
+  } = useCarrier(carrierId);
 
   return (
     <div style={pageStyles}>
