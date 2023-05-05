@@ -1,148 +1,31 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Box, Page, PageContent, PageHeader, Spinner, Text } from "grommet";
-import toast from "react-hot-toast";
-import { API_URL } from "../utils/utils";
 import { pageContentStyles, pageStyles } from "../utils/styles";
 import { WarehouseContactsList } from "../components/warehouses/WarehouseContactsList";
-import { Documents } from "../components/shared/Documents";
 import { CommentsForm } from "../components/comments/CommentsForm";
 import { CommentsList } from "../components/comments/CommentsList";
-import { Test, Trophy, Optimize, Transaction, FormPreviousLink, FormEdit } from "grommet-icons";
+import { FormPreviousLink, FormEdit } from "grommet-icons";
 import { WarehouseForm } from "../components/warehouses/WarehouseForm";
 import { useWarehouse } from "../hooks/useWarehouse";
+import { WarehouseAttributes } from "../components/warehouses/WarehouseAttributes";
 
 export const Warehouse = () => {
   const { warehouseId } = useParams();
   const {
     loading,
-    setLoading,
+    // setLoading,
     editing,
     setEditing,
     contacts,
-    setContacts,
     comments,
-    setComments,
     warehouse,
-    setWarehouse,
+    // Keep these for now - use for dynaic part-page refreshes
+    // setContacts,
+    // setComments,
+    // setWarehouse,
     getWarehouseComments,
     getWarehouseData,
   } = useWarehouse(warehouseId);
-
-  // CARRIER ATTRIBUTES
-  // It's very tempting to make these dynamic,
-  // but the sizing of each word conflicts with
-  // the necessary positioning aspects.
-  //==============================================
-  const WarehouseAttributes = () => (
-    <Box direction='row-responsive' style={{ minWidth: 350 }}>
-      <Box direction='column' pad='small'>
-        <Box
-          align='center'
-          pad={{ top: "13px" }}
-          style={{
-            borderRadius: "100%",
-            backgroundColor: warehouse.warehouse_preferred ? "#1BC5E7" : "#ddd",
-            marginLeft: 8,
-            marginBottom: 4,
-          }}
-          height='50px'
-          width='50px'
-        >
-          <Trophy color='white' />
-        </Box>
-        <Box align='center'>
-          <Text
-            color={warehouse.warehouse_preferred ? "#1BC5E7" : "#ddd"}
-            size='small'
-            style={warehouse.warehouse_preferred ? {} : { textDecoration: "line-through" as any }}
-            weight={700}
-          >
-            Preferred
-          </Text>
-        </Box>
-      </Box>
-      <Box direction='column' pad='small'>
-        <Box
-          align='center'
-          pad={{ top: "13px" }}
-          style={{
-            borderRadius: "100%",
-            backgroundColor: warehouse.warehouse_overweight ? "#1BC5E7" : "#ddd",
-            marginLeft: 14,
-            marginBottom: 4,
-          }}
-          height='50px'
-          width='50px'
-        >
-          <Optimize color='white' />
-        </Box>
-        <Box align='center'>
-          <Text
-            color={warehouse.warehouse_overweight ? "#1BC5E7" : "#ddd"}
-            size='small'
-            style={warehouse.warehouse_overweight ? {} : { textDecoration: "line-through" as any }}
-            weight={700}
-          >
-            Overweight
-          </Text>
-        </Box>
-      </Box>
-      <Box direction='column' pad='small'>
-        <Box
-          align='center'
-          pad={{ top: "13px" }}
-          style={{
-            borderRadius: "100%",
-            backgroundColor: warehouse.warehouse_hazmat ? "#1BC5E7" : "#ddd",
-            marginLeft: 1,
-            marginBottom: 4,
-          }}
-          height='50px'
-          width='50px'
-        >
-          <Test color='white' />
-        </Box>
-        <Box align='center'>
-          <Text
-            color={warehouse.warehouse_hazmat ? "#1BC5E7" : "#ddd"}
-            size='small'
-            style={warehouse.warehouse_hazmat ? {} : { textDecoration: "line-through" as any }}
-            weight={700}
-          >
-            Hazmat
-          </Text>
-        </Box>
-      </Box>
-      <Box direction='column' pad='small'>
-        <Box
-          align='center'
-          pad={{ top: "13px" }}
-          style={{
-            borderRadius: "100%",
-            backgroundColor: warehouse.warehouse_transload ? "#1BC5E7" : "#ddd",
-            marginLeft: 10,
-            marginBottom: 4,
-          }}
-          height='50px'
-          width='50px'
-        >
-          <Transaction color='white' />
-        </Box>
-        <Box align='center'>
-          <Text
-            color={warehouse.warehouse_transload ? "#1BC5E7" : "#ddd"}
-            size='small'
-            style={warehouse.warehouse_transload ? {} : { textDecoration: "line-through" as any }}
-            weight={700}
-          >
-            Transload
-          </Text>
-        </Box>
-      </Box>
-    </Box>
-  );
 
   return (
     <div style={pageStyles}>
@@ -223,7 +106,7 @@ export const Warehouse = () => {
                   </Text>
                 </Box>
                 <Box>
-                  <WarehouseAttributes />
+                  <WarehouseAttributes warehouse={warehouse} />
                 </Box>
               </Box>
             </PageContent>
