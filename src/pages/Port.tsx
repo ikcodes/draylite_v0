@@ -1,60 +1,33 @@
-import axios from "axios";
 import { Page, PageContent, PageHeader, Card, Box, Button, Spinner, Text } from "grommet";
-import { useEffect, useState } from "react";
-import { API_URL } from "../utils/utils";
 import { pageContentStyles, pageStyles } from "../utils/styles";
 import { useParams } from "react-router-dom";
-import toast from "react-hot-toast";
 import { CarriersTable } from "../components/carriers/CarriersTable";
 import { WarehousesTable } from "../components/warehouses/WarehousesTable";
 import { CarrierForm } from "../components/carriers/CarrierForm";
-import { Add, DocumentUpload } from "grommet-icons";
+import { Add } from "grommet-icons";
 import { WarehouseForm } from "../components/warehouses/WarehouseForm";
+import { usePort } from "../hooks/usePort";
 
 export const Port = () => {
-  // Local state
-  const [loading, setLoading] = useState(true);
-  const [portName, setPortName] = useState("");
-  const [portData, setPortData] = useState() as any;
-  const [carriers, setCarriers] = useState() as any;
-  const [warehouses, setWarehouses] = useState() as any;
   const { portId } = useParams();
-
-  const [addingCarrier, setAddingCarrier] = useState(false);
-  const [addingWarehaus, setAddingWarehaus] = useState(false);
-
-  useEffect(() => {
-    getPortData();
-  }, []);
-
-  const getPortData = () => {
-    setLoading(true);
-    const apiUrl = `${API_URL}/port/${portId}`;
-    axios
-      .get(apiUrl)
-      .then((res) => {
-        if (!res.data.data || !res.data.data.port) {
-          toast.error("Failed to load ports! Please refresh the page and try again.");
-          return;
-        }
-        const data = res.data.data;
-        setPortData(data.port);
-        setPortName(data.port.port_name);
-        if (data.carriers) {
-          setCarriers(data.carriers);
-        }
-        if (data.warehouses) {
-          setWarehouses(data.warehouses);
-        }
-      })
-      .finally(() => setLoading(false));
-  };
-
-  const resetForm = () => {
-    setAddingCarrier(false);
-    setAddingWarehaus(false);
-    getPortData();
-  };
+  const {
+    loading,
+    setLoading,
+    portName,
+    setPortName,
+    portData,
+    setPortData,
+    carriers,
+    setCarriers,
+    warehouses,
+    setWarehouses,
+    addingCarrier,
+    setAddingCarrier,
+    addingWarehaus,
+    setAddingWarehaus,
+    getPortData,
+    resetForm,
+  } = usePort(portId);
 
   //======================
   // MARKUP
