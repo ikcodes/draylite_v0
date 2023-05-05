@@ -3,7 +3,7 @@ Draylite is an internal tool used by Gateway Logistics to manage user-supplied l
 
 Containers move from Ports to Warehouses via Carriers. The application serves as a "living list" of current carriers, their status, and which ones to use.
 
-## Data structure
+## App structure
 - Port
   - Carrier
     - Contacts
@@ -13,6 +13,10 @@ Containers move from Ports to Warehouses via Carriers. The application serves as
     - Contacts
     - Documents
     - Comments
+    
+## A Few Key Terms
+**Port**: the relative service area of a U.S. Sea Port or cluster of ports. For example, LA and Long Beach co-exist under the same label because they're adjacent.
+**Entity**: one of several data bodies with the same attributes tied to them. Primarily Carriers and Warehouses, as each has Contacts, Documents, and Comments.
 
 ## Environment / Depoloyment
 
