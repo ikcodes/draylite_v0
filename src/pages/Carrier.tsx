@@ -11,6 +11,7 @@ import { CommentsForm } from "../components/comments/CommentsForm";
 import { CommentsList } from "../components/comments/CommentsList";
 import { Test, Trophy, Optimize, Transaction, FormPreviousLink, FormEdit } from "grommet-icons";
 import { CarrierForm } from "../components/carriers/CarrierForm";
+import { CarrierAttributes } from "../components/carriers/CarrierAttributes";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
@@ -81,114 +82,6 @@ export const Carrier = () => {
   // but the sizing of each word conflicts with
   // the necessary positioning aspects.
   //==============================================
-  const CarrierAttributes = () => (
-    <Box direction='row-responsive' style={{ minWidth: 350 }}>
-      <Box direction='column' pad='small'>
-        <Box
-          align='center'
-          pad={{ top: "13px" }}
-          style={{
-            borderRadius: "100%",
-            backgroundColor: carrier.carrier_preferred ? "#1BC5E7" : "#ddd",
-            marginLeft: 8,
-            marginBottom: 4,
-          }}
-          height='50px'
-          width='50px'
-        >
-          <Trophy color='white' />
-        </Box>
-        <Box align='center'>
-          <Text
-            color={carrier.carrier_preferred ? "#1BC5E7" : "#ddd"}
-            size='small'
-            style={carrier.carrier_preferred ? {} : { textDecoration: "line-through" as any }}
-            weight={700}
-          >
-            Preferred
-          </Text>
-        </Box>
-      </Box>
-      <Box direction='column' pad='small'>
-        <Box
-          align='center'
-          pad={{ top: "13px" }}
-          style={{
-            borderRadius: "100%",
-            backgroundColor: carrier.carrier_overweight ? "#1BC5E7" : "#ddd",
-            marginLeft: 14,
-            marginBottom: 4,
-          }}
-          height='50px'
-          width='50px'
-        >
-          <Optimize color='white' />
-        </Box>
-        <Box align='center'>
-          <Text
-            color={carrier.carrier_overweight ? "#1BC5E7" : "#ddd"}
-            size='small'
-            style={carrier.carrier_overweight ? {} : { textDecoration: "line-through" as any }}
-            weight={700}
-          >
-            Overweight
-          </Text>
-        </Box>
-      </Box>
-      <Box direction='column' pad='small'>
-        <Box
-          align='center'
-          pad={{ top: "13px" }}
-          style={{
-            borderRadius: "100%",
-            backgroundColor: carrier.carrier_hazmat ? "#1BC5E7" : "#ddd",
-            marginLeft: 1,
-            marginBottom: 4,
-          }}
-          height='50px'
-          width='50px'
-        >
-          <Test color='white' />
-        </Box>
-        <Box align='center'>
-          <Text
-            color={carrier.carrier_hazmat ? "#1BC5E7" : "#ddd"}
-            size='small'
-            style={carrier.carrier_hazmat ? {} : { textDecoration: "line-through" as any }}
-            weight={700}
-          >
-            Hazmat
-          </Text>
-        </Box>
-      </Box>
-      <Box direction='column' pad='small'>
-        <Box
-          align='center'
-          pad={{ top: "13px" }}
-          style={{
-            borderRadius: "100%",
-            backgroundColor: carrier.carrier_transload ? "#1BC5E7" : "#ddd",
-            marginLeft: 10,
-            marginBottom: 4,
-          }}
-          height='50px'
-          width='50px'
-        >
-          <Transaction color='white' />
-        </Box>
-        <Box align='center'>
-          <Text
-            color={carrier.carrier_transload ? "#1BC5E7" : "#ddd"}
-            size='small'
-            style={carrier.carrier_transload ? {} : { textDecoration: "line-through" as any }}
-            weight={700}
-          >
-            Transload
-          </Text>
-        </Box>
-      </Box>
-    </Box>
-  );
 
   return (
     <div style={pageStyles}>
@@ -269,7 +162,7 @@ export const Carrier = () => {
                   </Text>
                 </Box>
                 <Box>
-                  <CarrierAttributes />
+                  <CarrierAttributes carrier={carrier} />
                 </Box>
               </Box>
             </PageContent>
