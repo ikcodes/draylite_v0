@@ -9,9 +9,9 @@ import { CarrierContactsList } from "../components/carriers/CarrierContactsList"
 import { Documents } from "../components/shared/Documents";
 import { CommentsForm } from "../components/comments/CommentsForm";
 import { CommentsList } from "../components/comments/CommentsList";
-import { Test, Trophy, Optimize, Transaction, FormPreviousLink, FormEdit } from "grommet-icons";
+import { FormPreviousLink, FormEdit } from "grommet-icons";
 import { CarrierForm } from "../components/carriers/CarrierForm";
-import { CarrierAttributes } from "../components/carriers/CarrierAttributes";
+import { EntityAttributes } from "../components/shared/EntityAttributes";
 
 export const Carrier = () => {
   const { carrierId } = useParams();
@@ -162,7 +162,12 @@ export const Carrier = () => {
                   </Text>
                 </Box>
                 <Box>
-                  <CarrierAttributes carrier={carrier} />
+                  <EntityAttributes
+                    preferred={carrier.preferred}
+                    overweight={carrier.overweight}
+                    hazmat={carrier.hazmat}
+                    transload={carrier.transload}
+                  />
                 </Box>
               </Box>
             </PageContent>

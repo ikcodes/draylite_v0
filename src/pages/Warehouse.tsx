@@ -7,7 +7,7 @@ import { CommentsList } from "../components/comments/CommentsList";
 import { FormPreviousLink, FormEdit } from "grommet-icons";
 import { WarehouseForm } from "../components/warehouses/WarehouseForm";
 import { useWarehouse } from "../hooks/useWarehouse";
-import { WarehouseAttributes } from "../components/warehouses/WarehouseAttributes";
+import { EntityAttributes } from "../components/shared/EntityAttributes";
 
 export const Warehouse = () => {
   const { warehouseId } = useParams();
@@ -106,7 +106,12 @@ export const Warehouse = () => {
                   </Text>
                 </Box>
                 <Box>
-                  <WarehouseAttributes warehouse={warehouse} />
+                  <EntityAttributes
+                    preferred={warehouse.preferred}
+                    overweight={warehouse.overweight}
+                    hazmat={warehouse.hazmat}
+                    transload={warehouse.transload}
+                  />
                 </Box>
               </Box>
             </PageContent>

@@ -1,12 +1,15 @@
-import { Box, Text } from "grommet";
+// Like Carrier and Warehouse attributes, but suitable for both!
 import { Trophy, Optimize, Test, Transaction } from "grommet-icons";
-import { Warehouse } from "../../utils/types";
+import { Box, Text } from "grommet";
 
-interface WarehouseAttributesProps {
-  warehouse: Warehouse;
+interface EntityAttributes {
+  preferred: boolean;
+  overweight: boolean;
+  hazmat: boolean;
+  transload: boolean;
 }
 
-export const WarehouseAttributes = (props: WarehouseAttributesProps) => (
+export const EntityAttributes = (props: EntityAttributes) => (
   <Box direction='row-responsive' style={{ minWidth: 350 }}>
     <Box direction='column' pad='small'>
       <Box
@@ -14,7 +17,7 @@ export const WarehouseAttributes = (props: WarehouseAttributesProps) => (
         pad={{ top: "13px" }}
         style={{
           borderRadius: "100%",
-          backgroundColor: props.warehouse.warehouse_preferred ? "#1BC5E7" : "#ddd",
+          backgroundColor: props.preferred ? "#1BC5E7" : "#ddd",
           marginLeft: 8,
           marginBottom: 4,
         }}
@@ -25,11 +28,9 @@ export const WarehouseAttributes = (props: WarehouseAttributesProps) => (
       </Box>
       <Box align='center'>
         <Text
-          color={props.warehouse.warehouse_preferred ? "#1BC5E7" : "#ddd"}
+          color={props.preferred ? "#1BC5E7" : "#ddd"}
           size='small'
-          style={
-            props.warehouse.warehouse_preferred ? {} : { textDecoration: "line-through" as any }
-          }
+          style={props.preferred ? {} : { textDecoration: "line-through" as any }}
           weight={700}
         >
           Preferred
@@ -42,7 +43,7 @@ export const WarehouseAttributes = (props: WarehouseAttributesProps) => (
         pad={{ top: "13px" }}
         style={{
           borderRadius: "100%",
-          backgroundColor: props.warehouse.warehouse_overweight ? "#1BC5E7" : "#ddd",
+          backgroundColor: props.overweight ? "#1BC5E7" : "#ddd",
           marginLeft: 14,
           marginBottom: 4,
         }}
@@ -53,11 +54,9 @@ export const WarehouseAttributes = (props: WarehouseAttributesProps) => (
       </Box>
       <Box align='center'>
         <Text
-          color={props.warehouse.warehouse_overweight ? "#1BC5E7" : "#ddd"}
+          color={props.overweight ? "#1BC5E7" : "#ddd"}
           size='small'
-          style={
-            props.warehouse.warehouse_overweight ? {} : { textDecoration: "line-through" as any }
-          }
+          style={props.overweight ? {} : { textDecoration: "line-through" as any }}
           weight={700}
         >
           Overweight
@@ -70,7 +69,7 @@ export const WarehouseAttributes = (props: WarehouseAttributesProps) => (
         pad={{ top: "13px" }}
         style={{
           borderRadius: "100%",
-          backgroundColor: props.warehouse.warehouse_hazmat ? "#1BC5E7" : "#ddd",
+          backgroundColor: props.hazmat ? "#1BC5E7" : "#ddd",
           marginLeft: 1,
           marginBottom: 4,
         }}
@@ -81,9 +80,9 @@ export const WarehouseAttributes = (props: WarehouseAttributesProps) => (
       </Box>
       <Box align='center'>
         <Text
-          color={props.warehouse.warehouse_hazmat ? "#1BC5E7" : "#ddd"}
+          color={props.hazmat ? "#1BC5E7" : "#ddd"}
           size='small'
-          style={props.warehouse.warehouse_hazmat ? {} : { textDecoration: "line-through" as any }}
+          style={props.hazmat ? {} : { textDecoration: "line-through" as any }}
           weight={700}
         >
           Hazmat
@@ -96,7 +95,7 @@ export const WarehouseAttributes = (props: WarehouseAttributesProps) => (
         pad={{ top: "13px" }}
         style={{
           borderRadius: "100%",
-          backgroundColor: props.warehouse.warehouse_transload ? "#1BC5E7" : "#ddd",
+          backgroundColor: props.transload ? "#1BC5E7" : "#ddd",
           marginLeft: 10,
           marginBottom: 4,
         }}
@@ -107,11 +106,9 @@ export const WarehouseAttributes = (props: WarehouseAttributesProps) => (
       </Box>
       <Box align='center'>
         <Text
-          color={props.warehouse.warehouse_transload ? "#1BC5E7" : "#ddd"}
+          color={props.transload ? "#1BC5E7" : "#ddd"}
           size='small'
-          style={
-            props.warehouse.warehouse_transload ? {} : { textDecoration: "line-through" as any }
-          }
+          style={props.transload ? {} : { textDecoration: "line-through" as any }}
           weight={700}
         >
           Transload
