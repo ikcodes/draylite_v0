@@ -11,70 +11,24 @@ import { CommentsForm } from "../components/comments/CommentsForm";
 import { CommentsList } from "../components/comments/CommentsList";
 import { Test, Trophy, Optimize, Transaction, FormPreviousLink, FormEdit } from "grommet-icons";
 import { WarehouseForm } from "../components/warehouses/WarehouseForm";
+import { useWarehouse } from "../hooks/useWarehouse";
 
 export const Warehouse = () => {
   const { warehouseId } = useParams();
-  //====================
-  // LOCAL STATE
-  //====================
-  const [loading, setLoading] = useState(true);
-  const [warehouse, setWarehouse] = useState() as any;
-  const [contacts, setContacts] = useState() as any;
-  const [comments, setComments] = useState() as any;
-
-  const [editing, setEditing] = useState(false);
-
-  //===================================================
-  // GET CARRIER DATA:
-  // All attributes that affect this SPECIFIC warehouse.
-  //====================================================
-  const getWarehouseData = () => {
-    setLoading(true);
-    const url = `${API_URL}/warehouses/${warehouseId}`;
-    axios.get(url).then((res) => {
-      if (!res.data.data || !res.data.data.warehouse) {
-        setLoading(false);
-        console.log(res.data.data);
-        toast.error("Unable to get warehouse! Please refresh the page to try again.");
-        return;
-      }
-      const data = res.data.data;
-
-      // Set base warehouse info (shouldn't change unless edited)
-      let warehouse = data.warehouse;
-      warehouse["warehouse_preferred"] = warehouse["warehouse_preferred"] === 1;
-      warehouse["warehouse_overweight"] = warehouse["warehouse_overweight"] === 1;
-      warehouse["warehouse_transload"] = warehouse["warehouse_transload"] === 1;
-      warehouse["warehouse_hazmat"] = warehouse["warehouse_hazmat"] === 1;
-      setWarehouse(warehouse);
-
-      // Set additional data (separated so we can refresh it without refreshing the whole page)
-      if (data.contacts) {
-        setContacts(data.contacts);
-      }
-      if (data.comments) {
-        setComments(data.comments);
-      }
-      setLoading(false);
-    });
-  };
-
-  const getWarehouseComments = () => {
-    axios.get(`${API_URL}/warehouse/${warehouseId}/comments`).then((res) => {
-      if (!res.data) {
-        toast.error("Unable to load comments...");
-        console.log(res.data);
-        return;
-      }
-      if (res.data.data) {
-        setComments(res.data.data);
-      }
-    });
-  };
-
-  useEffect(() => {
-    getWarehouseData();
-  }, []);
+  const {
+    loading,
+    setLoading,
+    editing,
+    setEditing,
+    contacts,
+    setContacts,
+    comments,
+    setComments,
+    warehouse,
+    setWarehouse,
+    getWarehouseComments,
+    getWarehouseData,
+  } = useWarehouse(warehouseId);
 
   // CARRIER ATTRIBUTES
   // It's very tempting to make these dynamic,
@@ -305,6 +259,8 @@ export const Warehouse = () => {
               </Box>
             </PageContent>
           </Page>
+
+          {/* TODO: WAREHAUS DOCUMENTS */}
 
           {/* DOCUMENTS LIST / UPLOAD */}
           {/* <Page background='light-1'>

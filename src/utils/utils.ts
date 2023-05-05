@@ -1,4 +1,5 @@
-export const API_URL = "/api/v0";
+// export const API_URL = "/api/v0";  //  ANTYING BUT LOCAL
+export const API_URL = "https://stylish-src-ickbj.ampt.app/api/v0"; // LOCAL (HITS SANDBOX)
 
 export const capitalizeFirstLetter = (word: string) => word.charAt(0).toUpperCase() + word.slice(1);
 
