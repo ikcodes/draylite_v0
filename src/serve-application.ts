@@ -1,3 +1,5 @@
+import { http } from "@serverless/cloud";
+
 /*===============================================
 ONLY FOR USE with current Serverless Cloud setup. 
 -------------------------------------------------------------------
