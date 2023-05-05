@@ -7,8 +7,8 @@
  * This app's package.json covers both sides of things.
  *
  |*******************************************************/
-import { api as serverlessApi, storage, http } from "@serverless/cloud";
-import { serveSinglePageApp } from "./src/utils/serve-application";
+import { api as serverlessApi, http } from "@serverless/cloud";
+import { serveSinglePageApp } from "./src/serve-application";
 
 // NETWORKING
 //=============

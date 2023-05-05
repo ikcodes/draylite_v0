@@ -1,9 +1,5 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Box, Page, PageContent, PageHeader, Spinner, Text } from "grommet";
-import toast from "react-hot-toast";
-import { API_URL } from "../utils/utils";
 import { pageContentStyles, pageStyles } from "../utils/styles";
 import { CarrierContactsList } from "../components/carriers/CarrierContactsList";
 import { Documents } from "../components/shared/Documents";
